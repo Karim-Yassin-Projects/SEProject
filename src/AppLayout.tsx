@@ -4,10 +4,11 @@ import {Outlet} from "react-router-dom";
 
 function AppLayout(){
     return (
-        <div>
-            <NavBar />
+        <div className="d-flex flex-column min-vh-100">
+            <div className="sticky-top"><NavBar /></div>
             <Outlet />
-            <Footer />
+            <div className="mt-auto"><Footer /></div>
+
         </div>
     )
 }

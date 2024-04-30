@@ -8,7 +8,8 @@ import AdminHome from './admin/Home.tsx'
 import DonorHome from './donor/Home.tsx'
 import RepresentativeHome from './representative/Home.tsx'
 import AppLayout from "./AppLayout.tsx";
-
+import 'bootstrap';
+import 'bootstrap-icons/font/bootstrap-icons';
 
 const routes = createBrowserRouter([
     {
