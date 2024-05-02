@@ -1,4 +1,3 @@
-
 function App() {
   return (
     <>
@@ -6,7 +5,7 @@ function App() {
       <div className="container">
         <p className="alert alert-info">Welcome to our site.</p>
       </div>
-    </>
+  </>
   )
 }
 

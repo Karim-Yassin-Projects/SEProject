@@ -10,6 +10,12 @@ import RepresentativeHome from './representative/Home.tsx'
 import AppLayout from "./AppLayout.tsx";
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons';
+import Dashboard from "./admin/Dashboard.tsx";
+import OrganizationSubmissions from "./admin/OrganizationSubmissions.tsx";
+import DonorSubmissions from "./admin/DonorSubmissions.tsx";
+import ChangePassword from "./admin/ChangePassword.tsx";
+
+
 
 const routes = createBrowserRouter([
     {
@@ -17,9 +23,14 @@ const routes = createBrowserRouter([
         element: <AppLayout/>,
         children:[
             {path: '/', element: <App/>},
-            {path: '/admin', element: <AdminHome/>},
+            {path: '/adminlogin', element: <AdminHome/>},
             {path: '/donor', element: <DonorHome/>},
             {path: '/representative', element: <RepresentativeHome/>},
+            {path: '/dashboard', element: <Dashboard/>},
+            {path: '/organizationsubmissions', element: <OrganizationSubmissions/>},
+            {path: '/donorsubmissions', element: <DonorSubmissions/>},
+            {path: '/changepassword',element: <ChangePassword/>},
+
         ]
     },
 
