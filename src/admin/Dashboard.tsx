@@ -15,6 +15,7 @@ const Dashboard: React.FC = () => {
     const redirectToOrganizationSubmissions = () => {
         navigate('/organizationsubmissions');
     };
+
     const redirectToDonorSubmissions = () => {
         navigate('/donorsubmissions');
     };
@@ -24,14 +25,14 @@ const Dashboard: React.FC = () => {
             <h1 className="text-center">Dashboard</h1>
 
             <div className="mt-4">
-                <h2>View Organizational List</h2>
+                <h2>View Registered Organizations</h2>
                 <button className="btn btn-primary" onClick={redirectToRegisteredOrganizations}>
                     View Registered Organizations
                 </button>
             </div>
 
             <div className="mt-4">
-                <h2>View Donors List</h2>
+                <h2>View Registered Donors</h2>
                 <button className="btn btn-primary" onClick={redirectToRegisteredDonors}>
                     View Registered Donors
                 </button>
