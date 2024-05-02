@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
-    const [showDonors, setShowDonors] = useState(false);
     const navigate = useNavigate();
 
     const redirectToRegisteredOrganizations = () => {
         navigate('/registeredorganizations');
     };
 
-    const redirectToDonorSubmissions = () => {
-        navigate('/donorsubmissions');
+    const redirectToRegisteredDonors = () => {
+        navigate('/registereddonors');
     };
 
     const redirectToOrganizationSubmissions = () => {
         navigate('/organizationsubmissions');
+    };
+    const redirectToDonorSubmissions = () => {
+        navigate('/donorsubmissions');
     };
 
     return (
@@ -30,14 +32,9 @@ const Dashboard: React.FC = () => {
 
             <div className="mt-4">
                 <h2>View Donors List</h2>
-                <button className="btn btn-primary" onClick={() => setShowDonors(!showDonors)}>
-                    {showDonors ? 'Hide Donors' : 'Show Donors'}
+                <button className="btn btn-primary" onClick={redirectToRegisteredDonors}>
+                    View Registered Donors
                 </button>
-                {showDonors && (
-                    <ul>
-                        {/* Donors list will be displayed here */}
-                    </ul>
-                )}
             </div>
 
             <div className="mt-4">

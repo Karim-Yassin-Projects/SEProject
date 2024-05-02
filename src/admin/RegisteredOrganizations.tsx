@@ -8,8 +8,8 @@ const RegisteredOrganizations: React.FC = () => {
             area: "Sidi Gaber",
             governorate: "Alexandria",
             type: "School",
-            address: "Address A",
-            contact: "Contact A",
+            address: "123 Street",
+            contact: "+2010000001",
             location: "Location A"
         },
         {
@@ -18,8 +18,8 @@ const RegisteredOrganizations: React.FC = () => {
             area: "Maadi",
             governorate: "Cairo",
             type: "Hospital",
-            address: "Address B",
-            contact: "Contact B",
+            address: "456 Street",
+            contact: "+2010000001",
             location: "Location B"
         },
         {
@@ -28,15 +28,15 @@ const RegisteredOrganizations: React.FC = () => {
             area: "Giza City",
             governorate: "Giza",
             type: "Non-profit",
-            address: "Address C",
-            contact: "Contact C",
+            address: "789 Street",
+            contact: "+2010000001",
             location: "Location C"
         }
     ]);
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filterArea, setFilterArea] = useState('');
-    const [filterGovernorate, setFilterGovernorate] = useState('');
+    const [filterGovernorate, setFilterGovernorate] = useState<keyof typeof areas | "">('');
     const [filterType, setFilterType] = useState('');
 
     const handleDeleteOrganization = (id: number) => {
@@ -90,7 +90,7 @@ const RegisteredOrganizations: React.FC = () => {
                             className="form-select"
                             value={filterGovernorate}
                             onChange={(e) => {
-                                setFilterGovernorate(e.target.value);
+                                setFilterGovernorate(e.target.value as keyof typeof areas | "");
                                 setFilterArea(''); // Reset filterArea when selecting a new governorate
                             }}
                         >
