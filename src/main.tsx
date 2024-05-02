@@ -15,6 +15,7 @@ import OrganizationSubmissions from "./admin/OrganizationSubmissions.tsx";
 import DonorSubmissions from "./admin/DonorSubmissions.tsx";
 import ChangePassword from "./admin/ChangePassword.tsx";
 import RegisteredOrganizations from "./admin/RegisteredOrganizations.tsx";
+import RegisteredDonors from "./admin/RegisteredDonors.tsx";
 
 
 
@@ -32,6 +33,9 @@ const routes = createBrowserRouter([
             {path: '/donorsubmissions', element: <DonorSubmissions/>},
             {path: '/changepassword',element: <ChangePassword/>},
             {path: '/registeredorganizations',element: <RegisteredOrganizations/>},
+            {path: '/registereddonors',element: <RegisteredDonors/>},
+
+
 
         ]
     },
