@@ -9,7 +9,7 @@ function Footer() {
                   <NavLink to="/" className="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
                       <img src={logo} alt="logo" width="30" height="24"/>
                   </NavLink>
-                  <span className="text-muted">© 2024 I Love Maadi Team</span>
+                  <span className="text-muted">© 2024 I Love Maadi</span>
               </div>
 
               <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
