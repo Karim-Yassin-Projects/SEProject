@@ -17,19 +17,23 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
     if (!label) {
         label = (reach(schema, id) as Schema).spec.label;
     }
+    const showError = touch && error;
+    const cls = `form-control ${touch && error ? 'is-invalid' :
+        touch && !error ? 'is-valid' : ''}`;
+    const type = id.indexOf('password') !== -1 ? 'password' : 'text';
     return (
         <div className = "form-group">
             <label htmlFor={id}>{label}</label>
             <input
-                type="text"
+                type={type}
                 id={id}
-                className={`form-control ${touch && error ? 'is-invalid' : ''}`}
+                className={cls}
                 value={formik.values[name]}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 placeholder={label}
             />
-            {touch && error && <div className="text-danger small">{error as string}</div>}
+            {showError && <div className="text-danger small">{error as string}</div>}
         </div>
 
     )
