@@ -20,11 +20,12 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
     const showError = touch && error;
     const cls = `form-control ${touch && error ? 'is-invalid' :
         touch && !error ? 'is-valid' : ''}`;
+    const type = id.indexOf('password') !== -1 ? 'password' : 'text';
     return (
         <div className = "form-group">
             <label htmlFor={id}>{label}</label>
             <input
-                type="text"
+                type={type}
                 id={id}
                 className={cls}
                 value={formik.values[name]}
