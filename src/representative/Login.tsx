@@ -3,7 +3,7 @@ import {useState} from "react";
 import {representatives} from "../representative/OrganizationRepresentative";
 
 
-function RepresentativeLogin(){
+function Login(){
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -54,4 +54,4 @@ function RepresentativeLogin(){
     );
 }
 
-export default RepresentativeLogin;
+export default Login;
