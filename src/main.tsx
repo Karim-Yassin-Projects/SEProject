@@ -15,7 +15,7 @@ import OrganizationSubmissions from "./admin/OrganizationSubmissions.tsx";
 import DonorSubmissions from "./admin/DonorSubmissions.tsx";
 import ChangePassword from "./admin/ChangePassword.tsx";
 import Login from "./representative/Login.tsx";
-import RepresentativeRegistration from "./representative/RepresentativeRegistration.tsx";
+import RepresentativeRegistration from "./representative/Register.tsx";
 import Location from "./representative/Location.tsx";
 
 
