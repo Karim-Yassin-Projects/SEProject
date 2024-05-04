@@ -29,10 +29,12 @@ export const Governorates = ["Cairo",
     "South Sinai",
     "Suez"
 ];
+
+export const Genders = ["Male", "Female"];
 export const registerSchema = object().shape({
     firstName: string().required().label("First Name").min(2).max(30),
     lastName: string().required().label("Last Name").min(2).max(30),
-    gender: string().required().label("Gender").oneOf(["Male", "Female"]),
+    gender: string().required().label("Gender").oneOf(Genders),
     email: string().required().email().label("Email").max(60),
     password: string().required().label("Password").min(8).max(20),
     confirmPassword: string().required().label("Confirm Password").min(8).max(20)
