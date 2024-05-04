@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const OrganizationSubmissions: React.FC = () => {
-    // Dummy data for organization requests
+
     const [organizationRequests, setOrganizationRequests] = useState([
         {
             firstName: "John",

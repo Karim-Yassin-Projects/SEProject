@@ -1,6 +1,6 @@
 import {InferType, object, ref, string} from "yup";
 
-export const OrganizationTypes = ["Government", "NGO"];
+export const OrganizationTypes = ["School", "Mosque", "Church", "Hospital", "Non-Profit"];
 export const Governorates = ["Cairo",
     "Alexandria",
     "Aswan",

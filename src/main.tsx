@@ -17,6 +17,11 @@ import ChangePassword from "./admin/ChangePassword.tsx";
 import Login from "./representative/Login.tsx";
 import RepresentativeRegistration from "./representative/Register.tsx";
 import Location from "./representative/Location.tsx";
+import Schedule from "./representative/Schedule.tsx";
+import DonationPost from "./representative/Post.tsx";
+import DonationPosts from "./representative/DonationPosts.tsx";
+import UpdatePost from "./representative/UpdatePost.tsx";
+import Notifications from "./representative/Notifications.tsx";
 
 
 const routes = createBrowserRouter([
@@ -27,7 +32,7 @@ const routes = createBrowserRouter([
             {path: '/', element: <App/>},
             {path: '/adminlogin', element: <AdminHome/>},
             {path: '/donor', element: <DonorHome/>},
-            {path: '/representative', element: <RepresentativeHome/>},
+            {path: '/representativehome', element: <RepresentativeHome/>},
             {path: '/dashboard', element: <Dashboard/>},
             {path: '/organizationsubmissions', element: <OrganizationSubmissions/>},
             {path: '/donorsubmissions', element: <DonorSubmissions/>},
@@ -35,6 +40,11 @@ const routes = createBrowserRouter([
             {path: '/representativeregister', element: <RepresentativeRegistration/>},
             {path: '/representativelogin', element: <Login/>},
             {path: '/location', element: <Location/>},
+            {path: 'scheduledropoff', element: <Schedule/>},
+            {path: '/donationpost', element: <DonationPost/>},
+            {path: 'donationposts', element: <DonationPosts/>},
+            {path: `/representative/update-post/:postId`, element: <UpdatePost/>},
+            {path: '/notifications', element: <Notifications/>},
         ]
     },
 
