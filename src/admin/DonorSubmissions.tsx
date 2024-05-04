@@ -44,7 +44,7 @@ const DonorsSubmission: React.FC = () => {
                     <th>Contact Number</th>
                     <th>Type</th>
                     <th>Documents for Verification</th>
-                    <th>Actions</th>
+                    <th>Submission / Request Approval</th>
                 </tr>
                 </thead>
                 <tbody>

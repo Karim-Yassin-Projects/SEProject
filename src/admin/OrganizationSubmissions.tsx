@@ -75,7 +75,8 @@ const OrganizationSubmissions: React.FC = () => {
                     <th>Organization Address</th>
                     <th>Area</th>
                     <th>Governorate</th>
-                    <th>Actions</th>
+                    <th>Documents for Verification</th>
+                    <th>Submission / Request Approval</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,6 +92,7 @@ const OrganizationSubmissions: React.FC = () => {
                         <td>{org.organizationAddress}</td>
                         <td>{org.area}</td>
                         <td>{org.governorate}</td>
+                        <td><a href="https://en.wikipedia.org/wiki/PDF">Document</a></td>
                         <td>
                             <button className="btn btn-success me-2" onClick={() => handleAccept(index)}>Accept</button>
                             <button className="btn btn-danger" onClick={() => handleReject(index)}>Reject</button>
@@ -104,4 +106,3 @@ const OrganizationSubmissions: React.FC = () => {
 };
 
 export default OrganizationSubmissions;
-

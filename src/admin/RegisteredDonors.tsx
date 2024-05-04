@@ -52,7 +52,7 @@ const RegisteredDonors: React.FC = () => {
                     <th>Area</th>
                     <th>Governorate</th>
                     <th>Type</th>
-                    <th>Actions</th> {/* Added column for actions */}
+                    <th>Account Management</th> {/* Added column for actions */}
                 </tr>
                 </thead>
                 <tbody>
