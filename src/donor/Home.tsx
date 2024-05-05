@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function RegistrationForm() {
@@ -46,81 +46,91 @@ function RegistrationForm() {
         setGovernorate('');
         setRole('');
         setDocument(null);
-        navigate('DonorSelection.tsx');
+        navigate('/donor-selection');
     };
 
     // Function to handle file input change
-    const handleFileChange = (event) => {
+    const handleFileChange = (event: { target: { files: never[]}; }) => {
         const file = event.target.files[0];
         setDocument(file); // Store the uploaded document in state
     };
 
     return (
-        <div>
-            <h2>Registration Form</h2>
+        <div className="container">
+            <h2 className="mb-3">Registration Form</h2>
             <form onSubmit={handleSubmit}>
-                <label>
-                    First Name:
-                    <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Last Name:
-                    <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Gender:
-                    <input type="text" value={gender} onChange={(e) => setGender(e.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Email:
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Contact Number:
-                    <input type="text" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Password:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Address:
-                    <input type="text" value={address} onChange={(e) => setAddress(e.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Area:
-                    <input type="text" value={area} onChange={(e) => setArea(e.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Governorate:
-                    <input type="text" value={governorate} onChange={(e) => setGovernorate(e.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Role:
-                    <select value={role} onChange={(e) => setRole(e.target.value)}>
+                <div className="mb-3">
+                    <label className="form-label">First Name:</label>
+                    <input type="text" className="form-control" value={firstName}
+                           onChange={(e) => setFirstName(e.target.value)}/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Last Name:</label>
+                    <input type="text" className="form-control" value={lastName}
+                           onChange={(e) => setLastName(e.target.value)}/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Gender:</label>
+                    <div className="form-check">
+                        <input className="form-check-input" type="radio" name="gender" id="male" value="male"
+                               checked={gender === 'male'} onChange={(e) => setGender(e.target.value)}/>
+                        <label className="form-check-label" htmlFor="male">
+                            Male
+                        </label>
+                    </div>
+                    <div className="form-check">
+                        <input className="form-check-input" type="radio" name="gender" id="female" value="female"
+                               checked={gender === 'female'} onChange={(e) => setGender(e.target.value)}/>
+                        <label className="form-check-label" htmlFor="female">
+                            Female
+                        </label>
+                    </div>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Email:</label>
+                    <input type="email" className="form-control" value={email}
+                           onChange={(e) => setEmail(e.target.value)}/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Contact Number:</label>
+                    <input type="text" className="form-control" value={contactNumber}
+                           onChange={(e) => setContactNumber(e.target.value)}/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Password:</label>
+                    <input type="password" className="form-control" value={password}
+                           onChange={(e) => setPassword(e.target.value)}/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Address:</label>
+                    <input type="text" className="form-control" value={address}
+                           onChange={(e) => setAddress(e.target.value)}/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Area:</label>
+                    <input type="text" className="form-control" value={area} onChange={(e) => setArea(e.target.value)}/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Governorate:</label>
+                    <input type="text" className="form-control" value={governorate}
+                           onChange={(e) => setGovernorate(e.target.value)}/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Role:</label>
+                    <select className="form-select" value={role} onChange={(e) => setRole(e.target.value)}>
                         <option value="">Choose Role</option>
                         {/* Default option */}
                         <option value="regular">Regular Donor</option>
                         <option value="teacher">Teacher</option>
                         <option value="doctor">Doctor</option>
                     </select>
-                </label>
-                <br/>
-                <label>
-                    Upload Document for Verification if you're a Doctor or a Teacher:
-                    <input type="file" onChange={handleFileChange} />
-                </label>
-                <br/>
-                <button type="submit">Register</button>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Upload Document for Verification if you're a Doctor or a
+                        Teacher:</label>
+                    <input type="file" className="form-control" onChange={handleFileChange}/>
+                </div>
+                <button type="submit" className="btn btn-primary">Register</button>
             </form>
         </div>
     );

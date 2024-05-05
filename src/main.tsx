@@ -17,6 +17,7 @@ import ChangePassword from "./admin/ChangePassword.tsx";
 import Login from "./representative/Login.tsx";
 import RepresentativeRegistration from "./representative/RepresentativeRegistration.tsx";
 import Location from "./representative/Location.tsx";
+import DonorSelection from "./donor/DonorSelection.tsx";
 
 
 const routes = createBrowserRouter([
@@ -35,6 +36,7 @@ const routes = createBrowserRouter([
             {path: '/representativeregister', element: <RepresentativeRegistration/>},
             {path: '/representativelogin', element: <Login/>},
             {path: '/location', element: <Location/>},
+            {path:'/donor-selection', element: <DonorSelection/>},
         ]
     },
 
