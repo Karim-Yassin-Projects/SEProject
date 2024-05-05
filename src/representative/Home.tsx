@@ -1,8 +1,22 @@
 import {useNavigate} from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {useEffect} from "react";
 
 
 function Home(){
     const navigate = useNavigate();
+    useEffect(() => {
+       const intervalId = setInterval(() => {
+           toast.success("You have just received a new donation.",  {
+               onClick: () => {
+                   navigate('/representative/notifications');
+               }
+           });
+       }, 15000);
+
+       return () => clearInterval(intervalId);
+    });
     const handleDropOff = () => {
         navigate('/representative/schedule-drop-off');
     }
@@ -27,7 +41,7 @@ function Home(){
             <p className="text-black">View Donation Posts</p>
             <button className="btn btn-primary" onClick={handleView}> View</button>
         </div>
-
+        <ToastContainer />
     </>
 }
 
