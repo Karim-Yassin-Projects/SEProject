@@ -1,54 +1,51 @@
-import React, { useState } from 'react';
+import {useState} from 'react';
+import {Formik} from "formik";
+import {CreatePostRequest, newPostSchema, PostCategories} from "./posts.ts";
+import FormField from "../common/FormField.tsx";
+import {NavLink} from "react-router-dom";
 
 function Post() {
-    const [category, setCategory] = useState("");
-    const [details, setDetails] = useState("");
+    const initialValues: CreatePostRequest = {category: '', details: ''};
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const categories = [
-        "Clothes",
-        "Toys",
-        "Food",
-        "Medical Supplies",
-        "School Supplies",
-        "Blood Donations",
-    ];
-
-    const handleCategoryChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-        setCategory(event.target.value);
-    };
-
-    const handleDetailsChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-        setDetails(event.target.value);
-    };
-
     const handleSubmit = () => {
-        setCategory("");
-        setDetails("");
+
         setIsSubmitted(true);
     }
 
     return (
-        <div className="container">
-            <h1>Create Donation Post</h1>
-            <div className="mb-3">
-                <label className="form-label">Select a category for the donation:</label>
-                <select value={category} onChange={handleCategoryChange} className="form-select">
-                    <option value="">Select a category...</option>
-                    {categories.map((category, index) => (
-                        <option key={index} value={category}>{category}</option>
-                    ))}
-                </select>
-                {category && (
-                    <div className="mt-3">
-                        <label className="form-label">Enter the details for the donation:</label>
-                        <textarea value={details} onChange={handleDetailsChange} className="form-control"></textarea>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={newPostSchema}>
+            {
+                (formik) => {
+                    return <div className="container">
+                        <h1>Create Donation Post</h1>
+                        {!isSubmitted &&
+                            <>
+                                <FormField formik={formik} name="category" schema={newPostSchema}
+                                           options={PostCategories}/>
+                                {formik.values.category &&
+                                    <FormField formik={formik} name="details" schema={newPostSchema}/>}
+                                {formik.values.category && <div className="form-group mt-2">
+                                    <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Create
+                                        Post
+                                    </button>
+                                </div>}
+                            </>
+                        }
+                        {isSubmitted &&
+                            <div className="alert alert-success my-3">Donation Post created
+                                Successfully for category "{formik.values.category}". </div>}
+
+                        <div className="mt-3">
+                            <NavLink className="btn btn-secondary" onClick={formik.submitForm} to="/representative">Back
+                                to home</NavLink>
+                        </div>
                     </div>
-                )}
-                <button type="submit" className="btn btn-primary mt-3" onClick={handleSubmit}> Create Post</button>
-            </div>
-            {isSubmitted && <div className="alert alert-success">Donation Post Created Successfully. {category}</div>}
-        </div>
+                }
+            }
+        </Formik>
+
+
     );
 }
 
