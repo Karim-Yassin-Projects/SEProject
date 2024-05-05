@@ -22,3 +22,13 @@ button.close {
 .border-dashed {
   border-style: dashed !important;
 }
+
+.success-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  i.bi {
+    font-size: 6em;
+  }
+}

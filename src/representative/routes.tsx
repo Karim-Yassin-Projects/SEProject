@@ -7,6 +7,7 @@ import DonationPost from "./Post.tsx";
 import Notifications from "./Notifications.tsx";
 import UpdatePost from "./UpdatePost.tsx";
 import Schedule from "./Schedule.tsx";
+import RegisterThanks from "./RegisterThanks.tsx";
 
 export const routes: RouteObject[] = [
     {path: '', element: <Home/>},
@@ -17,7 +18,7 @@ export const routes: RouteObject[] = [
     {path: 'notifications', element: <Notifications />},
     {path: `update-post/:postId`, element: <UpdatePost/>},
     {path: 'schedule-drop-off', element: <Schedule/>},
-
+    {path: 'register-thanks', element: <RegisterThanks/>},
 
     // Add more routes here
 ];

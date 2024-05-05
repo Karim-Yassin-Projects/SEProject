@@ -172,7 +172,7 @@ function OrganizationRegistration() {
     };
 
     const handleSubmit = useCallback(() => {
-        navigate('/representative');
+        navigate('/representative/register-thanks');
     }, [navigate]);
     const handleLogin = useCallback(() => navigate('/representative/login'), [navigate]);
 
