@@ -12,8 +12,8 @@ const OrganizationSubmissions: React.FC = () => {
             organizationName: "Organization A",
             organizationType: "School",
             organizationAddress: "123 Street",
-            area: "Area A",
-            governorate: "Governorate A"
+            area: "Sidi Gaber",
+            governorate: "Alexandria"
         },
         {
             firstName: "Jane",
@@ -24,8 +24,8 @@ const OrganizationSubmissions: React.FC = () => {
             organizationName: "Organization B",
             organizationType: "Hospital",
             organizationAddress: "456 Street",
-            area: "Area B",
-            governorate: "Governorate B"
+            area: "Maadi",
+            governorate: "Cairo"
         },
         {
             firstName: "Alice",
@@ -36,8 +36,8 @@ const OrganizationSubmissions: React.FC = () => {
             organizationName: "Organization C",
             organizationType: "Non-profit",
             organizationAddress: "789 Street",
-            area: "Area C",
-            governorate: "Governorate C"
+            area: "Zamalek",
+            governorate: "Cairo"
         }
     ]);
 
@@ -75,7 +75,8 @@ const OrganizationSubmissions: React.FC = () => {
                     <th>Organization Address</th>
                     <th>Area</th>
                     <th>Governorate</th>
-                    <th>Actions</th>
+                    <th>Documents for Verification</th>
+                    <th>Submission / Request Approval</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,6 +92,7 @@ const OrganizationSubmissions: React.FC = () => {
                         <td>{org.organizationAddress}</td>
                         <td>{org.area}</td>
                         <td>{org.governorate}</td>
+                        <td><a href="https://en.wikipedia.org/wiki/PDF">Document</a></td>
                         <td>
                             <button className="btn btn-success me-2" onClick={() => handleAccept(index)}>Accept</button>
                             <button className="btn btn-danger" onClick={() => handleReject(index)}>Reject</button>
@@ -104,4 +106,3 @@ const OrganizationSubmissions: React.FC = () => {
 };
 
 export default OrganizationSubmissions;
-

@@ -1,79 +1,56 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
-    const [showOrganizations, setShowOrganizations] = useState(false);
-    const [showDonors, setShowDonors] = useState(false);
-
     const navigate = useNavigate();
 
-    const redirectToOrganizationSubmissions = () => {
-        // Redirect to the Organization Submissions page
-        navigate('/organizationsubmissions');
-    };
-
-    const redirectToDonorSubmissions = () => {
-        // Redirect to the Donor Submissions page
-        navigate('/donorsubmissions');
-    };
-
-    // Dummy data for organizations and donors
-    const organizations = [
-        { name: "Organization A" },
-        { name: "Organization B" },
-        { name: "Organization C" }
-    ];
-
-    const donors = [
-        { name: "Donor X", type: "Doctor" },
-        { name: "Donor Y", type: "Teacher" },
-        { name: "Donor Z", type: "Doctor" }
-    ];
+    const handleClick = (path: string) => navigate(path);
 
     return (
-        <div className="container">
-            <h1 className="text-center">Dashboard</h1>
+        <div className="dashboard container d-flex flex-column p-4">
+            <h1 className="dashboard-heading text-center display-3 mb-4">Dashboard</h1>
 
-            <div className="mt-4">
-                <h2>View Organizations List</h2>
-                <button className="btn btn-primary" onClick={() => setShowOrganizations(!showOrganizations)}>
-                    {showOrganizations ? 'Hide Organizations' : 'Show Organizations'}
-                </button>
-                {showOrganizations && (
-                    <ul>
-                        {organizations.map((org, index) => (
-                            <li key={index}>
-                                {org.name}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+            <div className="row row-cols-1 row-cols-md-2 g-4">
+                <div className="col">
+                    <div className="card border-primary shadow-sm">
+                        <div className="card-body">
+                            <h5 className="card-title text-primary">Registered Organizations</h5>
+                            <p className="card-text">View and manage all registered organizations.</p>
+                            <button className="btn btn-primary float-end" onClick={() => handleClick('/registeredorganizations')}>
+                                View
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-            <div className="mt-4">
-                <h2>View Donors List</h2>
-                <button className="btn btn-primary" onClick={() => setShowDonors(!showDonors)}>
-                    {showDonors ? 'Hide Donors' : 'Show Donors'}
-                </button>
-                {showDonors && (
-                    <ul>
-                        {donors.map((donor, index) => (
-                            <li key={index}>
-                                {donor.name} - {donor.type}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+                <div className="col">
+                    <div className="card border-info shadow-sm">
+                        <div className="card-body">
+                            <h5 className="card-title text-info">Registered Donors</h5>
+                            <p className="card-text">View and manage all registered donors.</p>
+                            <button className="btn btn-info float-end" onClick={() => handleClick('/registereddonors')}>
+                                View
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-            <div className="mt-4">
-                <h2>Review Submissions</h2>
-                <button className="btn btn-primary me-2" onClick={redirectToOrganizationSubmissions}>
-                    Organization Submissions
-                </button>
-                <button className="btn btn-primary" onClick={redirectToDonorSubmissions}>
-                    Donor Submissions
-                </button>
+                <div className="col">
+                    <div className="card border-success shadow-sm">
+                        <div className="card-body">
+                            <h5 className="card-title text-success">Review Submissions</h5>
+                            <p className="card-text">Review submissions from both organizations and donors.</p>
+                            <div className="d-flex justify-content-between">
+                                <button className="btn btn-success" onClick={() => handleClick('/organizationsubmissions')}>
+                                    Organization Submissions
+                                </button>
+                                <button className="btn btn-success" onClick={() => handleClick('/donorsubmissions')}>
+                                    Donor Submissions
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
