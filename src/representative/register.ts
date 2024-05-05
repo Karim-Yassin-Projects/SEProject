@@ -1,4 +1,4 @@
-import {InferType, object, ref, string} from "yup";
+import {InferType, object, ref, string, number} from "yup";
 
 export const OrganizationTypes = ["School", "Mosque", "Church", "Hospital", "Non-Profit"];
 export const Governorates = ["Cairo",
@@ -31,6 +31,7 @@ export const Governorates = ["Cairo",
 ];
 
 export const Genders = ["Male", "Female"];
+export const AllowedExtensions = ["pdf", "xbm", "tif", "tiff", "ico", "bmp", "pjpeg", "avif", "apng", "svg", "svgz", "webp", "jpg", "jpeg", "png", "jpe", "gif"];
 export const registerSchema = object().shape({
     firstName: string().required().label("First Name").min(2).max(30),
     lastName: string().required().label("Last Name").min(2).max(30),
@@ -45,7 +46,10 @@ export const registerSchema = object().shape({
     organizationType: string().required().label("Organization Type").oneOf(OrganizationTypes),
     organizationAddress: string().required().label("Organization Address").min(2).max(60),
     area: string().required().label("Area").min(2).max(60),
-    governorate: string().required().label("Governorate").oneOf(Governorates)
+    governorate: string().required().label("Governorate").oneOf(Governorates),
+    document: string().required().label("Document"),
+    documentSize: number().min(1, 'Document cannot be empty.').max(4 * 1024*1024, 'Document size cannot exceeed 4MB').label("Document Size"),
+    documentType: string().oneOf(AllowedExtensions, 'Document type must be a PDF file or an image file').label("Document Type")
 });
 
 export type RegisterRequest = InferType<typeof registerSchema>;
