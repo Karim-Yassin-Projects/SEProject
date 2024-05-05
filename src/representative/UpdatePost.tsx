@@ -1,28 +1,16 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
-import {donors } from "./donor.ts";
+import {Donor, donors} from "./donor.ts";
 
-function UpdatePost() {
-    const {postId} = useParams();
+interface PostFormProps {
+    post: Donor
+}
 
-    if (!postId) {
-        return <div>Missing post Id</div>
-    }
-
-    const postIdNum = parseInt(postId);
-
-
-    const post = donors.find(p => p.postId === postIdNum);
-    if (!post) {
-        return <div>Post not found</div>
-    }
+function PostForm({post}: PostFormProps) {
     const [title, setTitle] = useState(post.postName);
     const [fulfilled, setFulfilled] = useState(post.postStatus === 'Fulfilled');
     const [details, setDetails] = useState(post.details ?? '');
     const [isUpdated, setIsUpdated] = useState(false);
-    if (!postIdNum) {
-        return <div>Missing post Id</div>
-    }
     const handleTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setTitle(event.target.value);
     };
@@ -49,10 +37,12 @@ function UpdatePost() {
                 <form>
                     <div className="mb-3">
                         <label className="form-label">Title</label>
-                        <input type="text" className="form-control" value={title} onChange={handleTitleChange} readOnly={true} />
+                        <input type="text" className="form-control" value={title} onChange={handleTitleChange}
+                               readOnly={true}/>
                     </div>
                     <div className="mb-3 form-check">
-                        <input type="checkbox" className="form-check-input" checked={fulfilled} onChange={handleFulfilledChange} />
+                        <input type="checkbox" className="form-check-input" checked={fulfilled}
+                               onChange={handleFulfilledChange}/>
                         <label className="form-check-label">Fulfilled</label>
                     </div>
                     <div className="mb-3">
@@ -62,12 +52,32 @@ function UpdatePost() {
                     <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Update</button>
                 </form>
             ) : (
-                <div className="alert alert-info">Post Updated Successfully.  {title}
+                <div className="alert alert-info">Post Updated Successfully. {title}
                     <Link to="/representative" className="link-blue">Back to Home</Link>
                 </div>
             )}
         </div>
     );
+}
+
+function UpdatePost() {
+    const {postId} = useParams();
+
+    if (!postId) {
+        return <div>Missing post Id</div>
+    }
+
+    const postIdNum = parseInt(postId);
+    if (!postIdNum) {
+        return <div>Invalid post Id</div>
+    }
+
+    const post = donors.find(p => p.postId === postIdNum);
+    if (!post) {
+        return <div>Post not found</div>
+    }
+
+    return <PostForm post={post}/>;
 }
 
 export default UpdatePost;
