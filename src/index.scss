@@ -4,3 +4,17 @@ $bootstrap-icons-font-dir: "../node_modules/bootstrap-icons/font/fonts";
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 //@import "node_modules/bootswatch/dist/slate/bootswatch.scss";
 @import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+
+.modal-header {
+  .close {
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+  }
+}
+
+button.close {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}

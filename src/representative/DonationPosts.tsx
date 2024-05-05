@@ -1,5 +1,6 @@
 import { MouseEventHandler, useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import DeleteButton from "../common/DeleteButton.tsx";
 
 function DonationPosts() {
     const navigate = useNavigate();
@@ -36,7 +37,8 @@ function DonationPosts() {
                         <td>{post.fulfilled ? 'Yes' : 'No'}</td>
                         <td>
                             <button className="btn btn-primary mr-2 mx-1" onClick={handleUpdate}>Update</button>
-                            <button className="btn btn-danger mx-1" onClick={() => deletePost(post.id)}>Delete</button>
+                            <DeleteButton onConfirm={() => deletePost(post.id) } />
+                            {/*<button className="btn btn-danger mx-1" onClick={() => deletePost(post.id)}>Delete</button>*/}
                             <button className="btn btn-secondary mx-1"> View Donors</button>
                         </td>
                     </tr>
