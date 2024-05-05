@@ -40,7 +40,7 @@ function Schedule() {
                 </div>
             ) : (
                 <div className="alert alert-info">Donation Drop-Off scheduled successfully. {selectedTime}
-                <Link to = "/representativehome" className = "link-blue">Back to Home</Link>
+                <Link to = "/representative" className = "link-blue">Back to Home</Link>
                 </div>
             )}
         </div>

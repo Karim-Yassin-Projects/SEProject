@@ -21,7 +21,7 @@ function NavBar() {
                           <NavLink className="nav-link" to="/donor">Donor</NavLink>
                       </li>
                       <li className="nav-item">
-                          <NavLink className="nav-link" to="/representativelogin">Representative</NavLink>
+                          <NavLink className="nav-link" to="/representative/login">Representative</NavLink>
                       </li>
                   </ul>
               </div>
