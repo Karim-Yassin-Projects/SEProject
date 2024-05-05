@@ -13,6 +13,8 @@ import Dashboard from "./admin/Dashboard.tsx";
 import OrganizationSubmissions from "./admin/OrganizationSubmissions.tsx";
 import DonorSubmissions from "./admin/DonorSubmissions.tsx";
 import ChangePassword from "./admin/ChangePassword.tsx";
+import Location from "./representative/Location.tsx";
+import DonorSelection from "./donor/DonorSelection.tsx";
 import {routes as representativeRoutes} from "./representative/routes.tsx";
 import RepresentativeLayout from "./representative/Layout.tsx";
 
@@ -21,19 +23,20 @@ const routes = createBrowserRouter([
     {
         path: '/',
         element: <AppLayout/>,
-        children: [
+        children:[
             {path: '/', element: <App/>},
             {path: '/adminlogin', element: <AdminHome/>},
             {path: '/donor', element: <DonorHome/>},
             {path: '/dashboard', element: <Dashboard/>},
             {path: '/organizationsubmissions', element: <OrganizationSubmissions/>},
             {path: '/donorsubmissions', element: <DonorSubmissions/>},
-            {path: '/changepassword', element: <ChangePassword/>},
+            {path: '/changepassword',element: <ChangePassword/>},
+            {path: '/location', element: <Location/>},
+            {path:'/donor-selection', element: <DonorSelection/>},
             {
                 path: '/representative', element: <RepresentativeLayout/>,
                 children: representativeRoutes
             },
-
         ]
     },
 
