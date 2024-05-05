@@ -33,7 +33,7 @@ function Post() {
                             </>
                         }
                         {isSubmitted &&
-                            <div className="alert alert-success my-3">Donation Post created
+                            <div className="alert alert-info my-3">Donation Post created
                                 Successfully for category "{formik.values.category}". </div>}
 
                         <div className="mt-3">

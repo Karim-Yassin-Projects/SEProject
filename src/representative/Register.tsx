@@ -4,8 +4,9 @@ import {Genders, Governorates, OrganizationTypes, RegisterRequest, registerSchem
 import {Formik, FormikProps} from "formik";
 import FormField from "../common/FormField.tsx";
 import {GoogleMap, MarkerF, useJsApiLoader} from "@react-google-maps/api";
+import DocumentUpload from "../common/DocumentUpload.tsx";
 // noinspection SpellCheckingInspection
-const API_KEY="AIzaSyBzhIL1AJxDc3-0KxRm8fzZEGV2hLUfzXo";
+const API_KEY = "AIzaSyBzhIL1AJxDc3-0KxRm8fzZEGV2hLUfzXo";
 
 type Position = {
     lat: number;
@@ -85,7 +86,7 @@ async function updateAddress(details: AddressDetails, formik: FormikProps<Regist
 }
 
 function OrganizationRegistration() {
-    const [position, setPosition] = useState<Position|null>(null);
+    const [position, setPosition] = useState<Position | null>(null);
     useEffect(() => {
         console.log("Getting location");
         if (navigator.geolocation) {
@@ -117,11 +118,11 @@ function OrganizationRegistration() {
         doUpdateForm().catch(console.error);
     }, [position, formikRef]);
 
-    const { isLoaded } = useJsApiLoader({
+    const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: API_KEY
     });
-    const handleMapClick = useCallback(async (e: google.maps.MapMouseEvent)=>{
+    const handleMapClick = useCallback(async (e: google.maps.MapMouseEvent) => {
         setPosition({lat: e.latLng!.lat(), lng: e.latLng!.lng()});
     }, [setPosition]);
 
@@ -129,7 +130,7 @@ function OrganizationRegistration() {
         width: '400px',
         height: '400px'
     };
-    const [map, setMap] = useState<google.maps.Map|null>(null)
+    const [map, setMap] = useState<google.maps.Map | null>(null)
 
     const onLoad = useCallback((m: google.maps.Map) => {
 
@@ -164,7 +165,10 @@ function OrganizationRegistration() {
         organizationType: '',
         organizationAddress: '',
         gender: '',
-        governorate: ''
+        governorate: '',
+        documentSize: 1,
+        document: '',
+        documentType: ''
     };
 
     const handleSubmit = useCallback(() => {
@@ -173,7 +177,8 @@ function OrganizationRegistration() {
     const handleLogin = useCallback(() => navigate('/representative/login'), [navigate]);
 
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema} innerRef={formikRef}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema}
+                innerRef={formikRef}>
             {
 
                 (formik) => {
@@ -192,22 +197,25 @@ function OrganizationRegistration() {
                                     <FormField formik={formik} name="confirmPassword" schema={registerSchema}/>
                                     <FormField formik={formik} name="phoneNumber" schema={registerSchema}/>
                                     <FormField formik={formik} name="organizationName" schema={registerSchema}/>
-                                    <FormField formik={formik} name="organizationType" schema={registerSchema} options={OrganizationTypes}/>
+                                    <FormField formik={formik} name="organizationType" schema={registerSchema}
+                                               options={OrganizationTypes}/>
                                     <FormField formik={formik} name="organizationAddress" schema={registerSchema}/>
                                     <FormField formik={formik} name="area" schema={registerSchema}/>
-                                    <FormField formik={formik} name="governorate" schema={registerSchema} options={Governorates}/>
+                                    <FormField formik={formik} name="governorate" schema={registerSchema}
+                                               options={Governorates}/>
+                                    <DocumentUpload formik={formik} schema={registerSchema} label="Upload a document to prove you are a representative for this organization." />
                                 </div>
                                 <div className="col-md-6">
                                     {(isLoaded ?
-                                    <GoogleMap
-                                        mapContainerStyle={containerStyle}
-                                        onLoad={onLoad}
-                                        onUnmount={onUnmount}
-                                        onClick={handleMapClick}
-                                    >
-                                        {position && <MarkerF position={position} /> }
-                                    </GoogleMap>
-                                    : <></>)}
+                                        <GoogleMap
+                                            mapContainerStyle={containerStyle}
+                                            onLoad={onLoad}
+                                            onUnmount={onUnmount}
+                                            onClick={handleMapClick}
+                                        >
+                                            {position && <MarkerF position={position}/>}
+                                        </GoogleMap>
+                                        : <></>)}
                                 </div>
                             </div>
                             <div className="form-group mt-2">
