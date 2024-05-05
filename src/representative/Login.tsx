@@ -15,10 +15,10 @@ function Login() {
             setBadLogin(true);
             return;
         }
-        navigate('/representativehome')
+        navigate('/representative')
     }, [setBadLogin, navigate]);
 
-    const handleRegistration = useCallback(() => navigate('/representativeregister'), [navigate]);
+    const handleRegistration = useCallback(() => navigate('/representative/register'), [navigate]);
 
     return (
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={loginSchema}>

@@ -168,9 +168,9 @@ function OrganizationRegistration() {
     };
 
     const handleSubmit = useCallback(() => {
-        navigate('/representativehome');
+        navigate('/representative');
     }, [navigate]);
-    const handleLogin = useCallback(() => navigate('/representativelogin'), [navigate]);
+    const handleLogin = useCallback(() => navigate('/representative/login'), [navigate]);
 
     return (
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema} innerRef={formikRef}>

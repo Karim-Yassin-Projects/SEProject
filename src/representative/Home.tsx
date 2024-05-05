@@ -4,14 +4,14 @@ import {useNavigate} from "react-router-dom";
 function Home(){
     const navigate = useNavigate();
     const handleDropOff = () => {
-        navigate('/scheduledropoff');
+        navigate('/representative/schedule-drop-off');
     }
     const handlePost = () => {
-        navigate('/donationpost');
+        navigate('/representative/donation-post');
     }
 
     const handleView = () => {
-        navigate('/donationposts');
+        navigate('/representative/donation-posts');
     }
     return <>
         <h1 className="text-center">Organization Representative home</h1>

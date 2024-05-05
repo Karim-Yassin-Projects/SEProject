@@ -10,9 +10,7 @@ function UpdatePost() {
     }
 
     const postIdNum = parseInt(postId);
-    if (!postIdNum) {
-        return <div>Missing post Id</div>
-    }
+
 
     const post = donors.find(p => p.postId === postIdNum);
     if (!post) {
@@ -22,7 +20,9 @@ function UpdatePost() {
     const [fulfilled, setFulfilled] = useState(post.postStatus === 'Fulfilled');
     const [details, setDetails] = useState(post.details ?? '');
     const [isUpdated, setIsUpdated] = useState(false);
-
+    if (!postIdNum) {
+        return <div>Missing post Id</div>
+    }
     const handleTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setTitle(event.target.value);
     };
@@ -63,7 +63,7 @@ function UpdatePost() {
                 </form>
             ) : (
                 <div className="alert alert-info">Post Updated Successfully.  {title}
-                    <Link to="/representativehome" className="link-blue">Back to Home</Link>
+                    <Link to="/representative" className="link-blue">Back to Home</Link>
                 </div>
             )}
         </div>
