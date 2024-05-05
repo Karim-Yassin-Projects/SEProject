@@ -1,11 +1,21 @@
-import {useCallback, useEffect, useState} from "react";
+import {RefObject, useCallback, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Genders, Governorates, OrganizationTypes, RegisterRequest, registerSchema} from "./register.ts";
 import {Formik, FormikProps} from "formik";
 import FormField from "../common/FormField.tsx";
-import {GoogleMap, Marker, useJsApiLoader} from "@react-google-maps/api";
+import {GoogleMap, MarkerF, useJsApiLoader} from "@react-google-maps/api";
 // noinspection SpellCheckingInspection
 const API_KEY="AIzaSyBzhIL1AJxDc3-0KxRm8fzZEGV2hLUfzXo";
+
+type Position = {
+    lat: number;
+    lng: number;
+}
+
+const defaultPosition: Position = {
+    lat: 30.0444,
+    lng: 31.2357
+}
 
 type AddressDetails = {
     address?: string;
@@ -13,12 +23,18 @@ type AddressDetails = {
     governorate?: string;
 }
 
+async function getGeocoderInfo(lat: number, lng: number): Promise<google.maps.GeocoderResponse> {
+    console.log(`getting address info ${lat}, ${lng}`);
+    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`);
+    return await response.json();
+}
+
 async function getAddressDetails(lat: number, lng: number): Promise<AddressDetails> {
     const details: AddressDetails = {}
-    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`);
-    const address: google.maps.GeocoderResponse = await response.json();
+    const address = await getGeocoderInfo(lat, lng);
 
     if (address.results && address.results.length > 0) {
+        address.results = address.results.sort((a, b) => b.address_components.length - a.address_components.length);
         const result = address.results[0];
         const components: string[] = [];
         const street_number = result.address_components.find(c => c.types.indexOf("street_number") >= 0)?.long_name;
@@ -69,34 +85,71 @@ async function updateAddress(details: AddressDetails, formik: FormikProps<Regist
 }
 
 function OrganizationRegistration() {
-    const [position, setPosition] = useState({lat: 30.0444, lng: 31.2357});
+    const [position, setPosition] = useState<Position|null>(null);
+    useEffect(() => {
+        console.log("Getting location");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((pos) => {
+                setPosition({
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude,
+                });
+
+            });
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }, []);
+    const formikRef = useRef<FormikProps<RegisterRequest>>(null) satisfies RefObject<FormikProps<RegisterRequest>>;
+    useEffect(() => {
+        const formik = formikRef.current;
+        if (!formik) {
+            return;
+        }
+        if (!position) {
+            return;
+        }
+        const doUpdateForm = async () => {
+            const details = await getAddressDetails(position.lat, position.lng);
+            await updateAddress(details, formik);
+        }
+
+        doUpdateForm().catch(console.error);
+    }, [position, formikRef]);
+
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: API_KEY
     });
-    const handleMapClick = useCallback(async (e: google.maps.MapMouseEvent, formik: FormikProps<RegisterRequest>)=>{
+    const handleMapClick = useCallback(async (e: google.maps.MapMouseEvent)=>{
         setPosition({lat: e.latLng!.lat(), lng: e.latLng!.lng()});
-        const details = await getAddressDetails(e.latLng!.lat(), e.latLng!.lng());
-        await updateAddress(details, formik);
     }, [setPosition]);
 
     const containerStyle = {
         width: '400px',
         height: '400px'
     };
-    const [_, setMap] = useState<google.maps.Map|null>(null)
-
-
+    const [map, setMap] = useState<google.maps.Map|null>(null)
 
     const onLoad = useCallback((m: google.maps.Map) => {
 
-        const bounds = new window.google.maps.LatLngBounds(position);
-        m.fitBounds(bounds);
-        setMap(m)
+        setMap(m);
+        m.setZoom(15);
     }, []);
-    const onUnmount = useCallback((_: google.maps.Map) => {
+    const onUnmount = useCallback(() => {
         setMap(null)
     }, []);
+    useEffect(() => {
+        if (!map) {
+            return;
+        }
+        map.panTo(position ?? defaultPosition);
+        map.setCenter(position ?? defaultPosition);
+        // const bounds = new window.google.maps.LatLngBounds(position ?? defaultPosition);
+        // map.fitBounds(bounds);
+        //map.setZoom(20);
+
+    }, [position, map]);
 
     const navigate = useNavigate();
     const initialValues: RegisterRequest = {
@@ -119,28 +172,13 @@ function OrganizationRegistration() {
     }, [navigate]);
     const handleLogin = useCallback(() => navigate('/representativelogin'), [navigate]);
 
-
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema} innerRef={formikRef}>
             {
 
                 (formik) => {
 
-                    useEffect(() => {
-                        if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(async (position) => {
-                                setPosition({
-                                    lat: position.coords.latitude,
-                                    lng: position.coords.longitude,
-                                });
 
-                                const details = await getAddressDetails(position.coords.latitude, position.coords.longitude);
-                                await updateAddress(details, formik);
-                            });
-                        } else {
-                            console.log("Geolocation is not supported by this browser.");
-                        }
-                    }, [setPosition]);
                     return (
                         <div className="container">
                             <h1>Register</h1>
@@ -163,13 +201,11 @@ function OrganizationRegistration() {
                                     {(isLoaded ?
                                     <GoogleMap
                                         mapContainerStyle={containerStyle}
-                                        center={position}
-                                        zoom={16}
                                         onLoad={onLoad}
                                         onUnmount={onUnmount}
-                                        onClick={(e) => handleMapClick(e, formik)}
+                                        onClick={handleMapClick}
                                     >
-                                        <Marker position={position} />
+                                        {position && <MarkerF position={position} /> }
                                     </GoogleMap>
                                     : <></>)}
                                 </div>
