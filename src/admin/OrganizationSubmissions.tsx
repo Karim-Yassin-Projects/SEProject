@@ -12,8 +12,8 @@ const OrganizationSubmissions: React.FC = () => {
             organizationName: "Organization A",
             organizationType: "School",
             organizationAddress: "123 Street",
-            area: "Area A",
-            governorate: "Governorate A"
+            area: "Sidi Gaber",
+            governorate: "Alexandria"
         },
         {
             firstName: "Jane",
@@ -24,8 +24,8 @@ const OrganizationSubmissions: React.FC = () => {
             organizationName: "Organization B",
             organizationType: "Hospital",
             organizationAddress: "456 Street",
-            area: "Area B",
-            governorate: "Governorate B"
+            area: "Maadi",
+            governorate: "Cairo"
         },
         {
             firstName: "Alice",
@@ -36,8 +36,8 @@ const OrganizationSubmissions: React.FC = () => {
             organizationName: "Organization C",
             organizationType: "Non-profit",
             organizationAddress: "789 Street",
-            area: "Area C",
-            governorate: "Governorate C"
+            area: "Zamalek",
+            governorate: "Cairo"
         }
     ]);
 
