@@ -5,10 +5,19 @@ const Dashboard: React.FC = () => {
     const navigate = useNavigate();
 
     const handleClick = (path: string) => navigate(path);
+    const handleChangePassword = () => navigate('/changePassword');
 
     return (
         <div className="dashboard container d-flex flex-column p-4">
-            <h1 className="dashboard-heading text-center display-3 mb-4">Dashboard</h1>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h1 className="dashboard-heading display-3">Dashboard</h1>
+                <div className="settings-panel">
+                    <button className="btn btn-link" onClick={handleChangePassword}>
+                        Change Password
+                    </button>
+                    {/* Add more settings options here if needed */}
+                </div>
+            </div>
 
             <div className="row row-cols-1 row-cols-md-2 g-4">
                 <div className="col">
