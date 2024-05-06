@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const DonorsSubmission: React.FC = () => {
     const [donors, setDonors] = useState([
@@ -31,6 +33,11 @@ const DonorsSubmission: React.FC = () => {
         alert(`Request Rejected For: ${donor.firstName} ${donor.lastName}`);
         setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index)); // Remove selected donor from the list
     };
+    const navigate = useNavigate();
+    const navigateToDocuments = () => {
+        navigate('/documents');
+    };
+
 
     return (
         <div className="container">
@@ -54,7 +61,7 @@ const DonorsSubmission: React.FC = () => {
                         <td>{donor.lastName}</td>
                         <td>{donor.contactNumber}</td>
                         <td>{donor.type}</td>
-                        <td><a href={donor.documentsLink} target="_blank" rel="noopener noreferrer">PDF</a></td>
+                        <td><a href="#" onClick={navigateToDocuments}>View</a></td>
                         <td>
                             <button className="btn btn-success me-2" onClick={() => handleAccept(index)}>Accept</button>
                             <button className="btn btn-danger" onClick={() => handleReject(index)}>Reject</button>

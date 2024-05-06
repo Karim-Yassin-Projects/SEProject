@@ -15,7 +15,6 @@ const Dashboard: React.FC = () => {
                     <button className="btn btn-link" onClick={handleChangePassword}>
                         Change Password
                     </button>
-                    {/* Add more settings options here if needed */}
                 </div>
             </div>
 
