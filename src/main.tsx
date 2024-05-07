@@ -18,6 +18,10 @@ import Login from "./representative/Login.tsx";
 import RepresentativeRegistration from "./representative/RepresentativeRegistration.tsx";
 import Location from "./representative/Location.tsx";
 import DonorSelection from "./donor/DonorSelection.tsx";
+import TeacherDetails from "./donor/TeacherDetails.tsx";
+import RequestedDonations from "./donor/RequestedDonations.tsx";
+import ClinicDetails from "./donor/ClinicDetails.tsx";
+import FilterClothes from "./donor/FilterClothes.tsx";
 
 
 const routes = createBrowserRouter([
@@ -37,6 +41,10 @@ const routes = createBrowserRouter([
             {path: '/representativelogin', element: <Login/>},
             {path: '/location', element: <Location/>},
             {path:'/donor-selection', element: <DonorSelection/>},
+            {path: '/clinic-details', element: <ClinicDetails/>},
+            {path: '/teacher-details', element: <TeacherDetails/>},
+            {path: '/requested-donations', element: <RequestedDonations/>},
+            {path: '/filter-clothes', element:<FilterClothes/>},
         ]
     },
 
