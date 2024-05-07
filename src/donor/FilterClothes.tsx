@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 
 // Sample data of clothing items
 const clothingItems  = [
@@ -81,6 +82,11 @@ const App = () => {
         console.log("Donating", selectedItem.type, "Quantity:", selectedItem.quantity);
         setSelectedItem(null);
     };
+    /*const handleBack=()=>{
+
+        const navigate = useNavigate();
+        navigate('/requested-donations')
+    }*/
 
     // Apply filters to clothing items
     React.useEffect(() => {
@@ -95,7 +101,7 @@ const App = () => {
     }, [filters]);
 
     return (
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+        <div style={{maxWidth: '600px', margin: '0 auto', padding: '20px'}}>
             <h1>Filter Clothes Donation Requests</h1>
             <div>
                 <label>
@@ -126,8 +132,10 @@ const App = () => {
                 </label>
             </div>
             <h2>Filtered Clothing Items</h2>
-            <ClothingList items={filteredItems} onItemClick={handleItemClick} />
-            {selectedItem && <ClothingDetails item={selectedItem} onClose={handleCloseDetails} onDonate={handleDonate} />}
+            <ClothingList items={filteredItems} onItemClick={handleItemClick}/>
+            {selectedItem &&
+                <ClothingDetails item={selectedItem} onClose={handleCloseDetails} onDonate={handleDonate}/>}
+            {/*} <button onClick={handleBack} style={{marginBottom: '10px'}}>Back</button>*/}
         </div>
     );
 };
