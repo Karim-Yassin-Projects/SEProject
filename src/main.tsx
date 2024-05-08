@@ -34,7 +34,7 @@ const routes = createBrowserRouter([
             {path: '/adminlogin', element: <AdminHome/>},
             {path: '/donor', element: <DonorHome/>},
             {path: '/representative', element: <RepresentativeHome/>},
-            {path: '/dashboard', element: <Dashboard2/>},
+            {path: '/dashboard', element: <Dashboard/>},
             {path: '/organizationsubmissions', element: <OrganizationSubmissions/>},
             {path: '/donorsubmissions', element: <DonorSubmissions/>},
             {path: '/changepassword',element: <ChangePassword/>},

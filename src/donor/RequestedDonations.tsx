@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SideBar from './SideBar';
 import { useNavigate } from "react-router-dom";
 
 function SearchDonationItemsByCategory({ onSearch }) {
@@ -36,10 +35,6 @@ function SearchDonationItemsByCategory({ onSearch }) {
         onSearch(selectedCategory, data);
     };
 
-    const handleFilterClothes = () => {
-        navigate('/filter-clothes');
-    };
-
     const handleSearchButtonClick = () => {
         // Call handleSearch function when the button is clicked
         handleSearch();
@@ -48,15 +43,7 @@ function SearchDonationItemsByCategory({ onSearch }) {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-md-3">
-                    {/* Include the Sidebar component here */}
-                    <SideBar
-                        handleSearch={handleSearch}
-                        handleFilterClothes={handleFilterClothes}
-                        selectedCategory={selectedCategory}
-                    />
-                </div>
-                <div className="col-md-9">
+                <div className="col-md-12">
                     <h2>Search Donation Items by Category</h2>
                     <div className="mb-3">
                         <div className="dropdown">
