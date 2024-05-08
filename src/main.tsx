@@ -35,9 +35,9 @@ const routes = createBrowserRouter([
             {path: '/donorsubmissions', element: <DonorSubmissions/>},
             {path: '/changepassword',element: <ChangePassword/>},
             {path:'/donor-selection', element: <DonorSelection/>},
-            {path: '/clinic-details', element: <ClinicDetails/>},
-            {path: '/teacher-details', element: <TeacherDetails/>},
-            {path: '/requested-donations', element: <RequestedDonations/>},
+            {path: '/clinic-details', element: <ClinicDetails onSubmit={null}/>},
+            {path: '/teacher-details', element: <TeacherDetails onSubmit={null}/>},
+            {path: '/requested-donations', element: <RequestedDonations onSearch={null}/>},
             {path: '/filter-clothes', element:<FilterClothes/>},
             {
                 path: '/representative', element: <RepresentativeLayout/>,
