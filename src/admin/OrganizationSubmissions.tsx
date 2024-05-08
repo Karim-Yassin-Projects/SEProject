@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const OrganizationSubmissions: React.FC = () => {
 
@@ -58,6 +60,11 @@ const OrganizationSubmissions: React.FC = () => {
         // Display a pop-up message
         alert("Organization request rejected!");
     };
+    const navigateToDocuments = () => {
+        navigate('/documents');
+    };
+    const navigate = useNavigate();
+
 
     return (
         <div className="container">
@@ -92,7 +99,7 @@ const OrganizationSubmissions: React.FC = () => {
                         <td>{org.organizationAddress}</td>
                         <td>{org.area}</td>
                         <td>{org.governorate}</td>
-                        <td><a href="https://en.wikipedia.org/wiki/PDF">Document</a></td>
+                        <td><a href="#" onClick={navigateToDocuments}>View</a></td>
                         <td>
                             <button className="btn btn-success me-2" onClick={() => handleAccept(index)}>Accept</button>
                             <button className="btn btn-danger" onClick={() => handleReject(index)}>Reject</button>

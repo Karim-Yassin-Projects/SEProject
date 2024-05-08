@@ -4,15 +4,20 @@ import { useNavigate } from 'react-router-dom';
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        navigate('/dashboard');
-    };
-
-    const handleChangePassword = () => {
-        navigate('/changePassword');
+        // Convert both input and stored username to lowercase for case-insensitive comparison
+        const lowercaseUsername = username.toLowerCase();
+        if (lowercaseUsername === 'yassin' && password === '123') {
+            // Dummy authentication success, navigate to dashboard
+            navigate('/dashboard');
+        } else {
+            // Dummy authentication failed, display error message
+            setErrorMessage('Invalid username or password');
+        }
     };
 
     return (
@@ -39,10 +44,8 @@ const Login: React.FC = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <div className="d-flex justify-content-between align-items-center">
-                    <button type="submit" className="btn btn-primary">Login</button>
-                    <button type="button" className="btn btn-link btn-sm" onClick={handleChangePassword}>Change Password</button>
-                </div>
+                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                <button type="submit" className="btn btn-primary">Login</button>
             </form>
         </div>
     );
