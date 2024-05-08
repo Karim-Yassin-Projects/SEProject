@@ -1,63 +1,72 @@
-import React, {useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
-import {Donor, donors} from "./donor.ts";
+import {useState} from 'react';
+import { NavLink, useParams} from 'react-router-dom';
+import BreadCrumb from "../common/BreadCrumb.tsx";
+import {allPosts, newPostSchema, Post, PostCategories, UpdatePostRequest} from "./posts.ts";
+import FormField from "../common/FormField.tsx";
+import {Formik} from "formik";
 
 interface PostFormProps {
-    post: Donor
+    post: Post
 }
 
 function PostForm({post}: PostFormProps) {
-    const [title, setTitle] = useState(post.postName);
-    const [fulfilled, setFulfilled] = useState(post.postStatus === 'Fulfilled');
-    const [details, setDetails] = useState(post.details ?? '');
-    const [isUpdated, setIsUpdated] = useState(false);
-    const handleTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-        setTitle(event.target.value);
+    const initialValues: UpdatePostRequest = {
+        category: post.category,
+        details: post.details,
+        fulfilled: post.fulfilled
     };
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleFulfilledChange = (event: { target: { checked: React.SetStateAction<boolean>; }; }) => {
-        setFulfilled(event.target.checked);
-    };
-
-    const handleDetailsChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-        setDetails(event.target.value);
-    };
 
     const handleSubmit = () => {
-        setTitle("");
-        setFulfilled(false);
-        setDetails("");
-        setIsUpdated(true);
+        setIsSubmitted(true);
     };
 
+    const links = [
+        {to: '/', label: 'Home'},
+        {to: '/representative', label: 'Representative Dashboard'},
+        {to: '/representative/donation-posts', label: 'Donation Posts'},
+        {to: `/representative/update-post/${post.id}`, label: 'Update Donation Post'}
+    ]
+
     return (
-        <div className="container">
-            <h1>Update Post</h1>
-            {!isUpdated ? (
-                <form>
-                    <div className="mb-3">
-                        <label className="form-label">Title</label>
-                        <input type="text" className="form-control" value={title} onChange={handleTitleChange}
-                               readOnly={true}/>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={newPostSchema}>
+            {
+                (formik) => {
+                    return <div className="container">
+                        <BreadCrumb links={links}/>
+                        <h1>Update Donation Post</h1>
+                        {!isSubmitted &&
+                            <>
+                                <FormField formik={formik} name="category" schema={newPostSchema}
+                                           options={PostCategories}/>
+                                <div className="mb-3 form-check">
+                                    <input type="checkbox" className="form-check-input" checked={formik.values.fulfilled}
+                                           onChange={() => formik.setFieldValue('fulfilled', !formik.values.fulfilled)}/>
+                                    <label className="form-check-label">Fulfilled</label>
+                                </div>
+                                <FormField formik={formik} name="details" schema={newPostSchema}/>
+                                <div className="form-group mt-2">
+                                    <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Update
+                                        Post
+                                    </button>
+                                </div>
+                            </>
+                        }
+                        {isSubmitted &&
+                            <div className="alert alert-info my-3">
+                                Your update has been submitted for approval.
+                            </div>}
+                        <div className="mt-3">
+                            <NavLink className="btn btn-secondary" to="/representative">Back
+                                to Dashboard</NavLink>
+                        </div>
                     </div>
-                    <div className="mb-3 form-check">
-                        <input type="checkbox" className="form-check-input" checked={fulfilled}
-                               onChange={handleFulfilledChange}/>
-                        <label className="form-check-label">Fulfilled</label>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Details</label>
-                        <textarea className="form-control" value={details} onChange={handleDetailsChange}></textarea>
-                    </div>
-                    <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Update</button>
-                </form>
-            ) : (
-                <div className="alert alert-info">Post Updated Successfully. {title}
-                    <Link to="/representative" className="link-blue">Back to Home</Link>
-                </div>
-            )}
-        </div>
-    );
+                }
+            }
+        </Formik>
+    )
+        ;
 }
 
 function UpdatePost() {
@@ -72,7 +81,7 @@ function UpdatePost() {
         return <div>Invalid post Id</div>
     }
 
-    const post = donors.find(p => p.postId === postIdNum);
+    const post = allPosts.find(p => p.id === postIdNum);
     if (!post) {
         return <div>Post not found</div>
     }

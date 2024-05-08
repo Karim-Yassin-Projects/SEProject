@@ -1,30 +1,36 @@
-import { MouseEventHandler, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import { useState} from 'react';
+import {NavLink} from "react-router-dom";
 import DeleteButton from "../common/DeleteButton.tsx";
+import BreadCrumb from "../common/BreadCrumb.tsx";
+import {allPosts} from "./posts.ts";
 
 function DonationPosts() {
-    const navigate = useNavigate();
-    const [posts, setPosts] = useState([
-        {id: 1, title: 'Post 1', fulfilled: true},
-        {id: 2, title: 'Post 2', fulfilled: false},
-    ]);
+    const [posts, setPosts] = useState(allPosts);
 
     const deletePost = (id: number) => {
         setPosts(posts.filter((post) => post.id !== id));
     };
 
-    const handleUpdate: MouseEventHandler<HTMLButtonElement> | undefined = () => {
-        navigate('/updatepost');
-    }
+    const links = [
+        {to: '/', label: 'Home'},
+        {to: '/representative', label: 'Representative Dashboard'},
+        {to: '/representative/donation-posts', label: 'Donation Posts'}
+    ];
 
     return (
         <div className="container">
+            <BreadCrumb links={links}/>
             <h1>Donation Posts</h1>
+            <div className="text-end">
+                <NavLink to="/representative/donation-post" className="btn btn-primary mb-2 ">Add new donation
+                    post</NavLink>
+            </div>
             <table className="table table-striped">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Details</th>
                     <th>Fulfilled</th>
                     <th>Actions</th>
                 </tr>
@@ -33,13 +39,15 @@ function DonationPosts() {
                 {posts.map((post) => (
                     <tr key={post.id}>
                         <td>{post.id}</td>
-                        <td>{post.title}</td>
+                        <td>{post.category}</td>
+                        <td>{post.details}</td>
                         <td>{post.fulfilled ? 'Yes' : 'No'}</td>
                         <td>
-                            <button className="btn btn-primary mr-2 mx-1" onClick={handleUpdate}>Update</button>
-                            <DeleteButton onConfirm={() => deletePost(post.id) } />
-                            {/*<button className="btn btn-danger mx-1" onClick={() => deletePost(post.id)}>Delete</button>*/}
+                            <NavLink className="btn btn-primary mr-2 mx-1"
+                                     to={`/representative/update-post/${post.id}`}>Update</NavLink>
                             <button className="btn btn-secondary mx-1"> View Donors</button>
+                            {post.fulfilled && <DeleteButton onConfirm={() => deletePost(post.id)}/>}
+
                         </td>
                     </tr>
                 ))}

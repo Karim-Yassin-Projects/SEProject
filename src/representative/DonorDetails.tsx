@@ -20,7 +20,7 @@ function DonorDetails() {
 
     const links = [
         {to: '/', label: 'Home'},
-        {to: '/representative', label: 'Organization Representative'},
+        {to: '/representative', label: 'Representative Dashboard'},
         {to: '/representative/fulfilled-donors', label: 'Fulfilled Donors'},
         {to: `/representative/contact-details/${postId}`, label: `${donor.donorName}'s Contact details`}
     ];
@@ -37,8 +37,14 @@ function DonorDetails() {
                 <dt className="col-sm-2 text-end">Last name:</dt>
                 <dd className="col-sm-10">{donor.lastName}</dd>
 
-                <dt className="col-sm-2 text-end">Email:</dt>
-                <dd className="col-sm-10"><a href={`mailto:${donor.email}`}>{donor.email}</a></dd>
+                <dt className="col-sm-2 text-end">Address:</dt>
+                <dd className="col-sm-10">{donor.address}</dd>
+
+                <dt className="col-sm-2 text-end">Area:</dt>
+                <dd className="col-sm-10">{donor.area}</dd>
+
+                <dt className="col-sm-2 text-end">Governorate:</dt>
+                <dd className="col-sm-10">{donor.governorate}</dd>
             </dl>
             <h4>Donation Details</h4>
             <dl className="row">
@@ -49,23 +55,17 @@ function DonorDetails() {
                 <dd className="col-sm-10">Fulfilled</dd>
             </dl>
             <h4>Contact Details</h4>
-                <dl className="row">
-                    <dt className="col-sm-2 text-end">Address:</dt>
-                    <dd className="col-sm-10">{donor.address}</dd>
+            <dl className="row">
+                <dt className="col-sm-2 text-end">Email:</dt>
+                <dd className="col-sm-10"><a href={`mailto:${donor.email}`}>{donor.email}</a></dd>
 
-                    <dt className="col-sm-2 text-end">Area:</dt>
-                    <dd className="col-sm-10">{donor.area}</dd>
-
-                    <dt className="col-sm-2 text-end">Governorate:</dt>
-                    <dd className="col-sm-10">{donor.governorate}</dd>
-
-                    <dt className="col-sm-2 text-end">Phone number:</dt>
-                    <dd className="col-sm-10">{donor.phone}</dd>
+                <dt className="col-sm-2 text-end">Phone number:</dt>
+                <dd className="col-sm-10">{donor.phone}</dd>
 
 
-                </dl>
+            </dl>
         </div>
-);
+    );
 }
 
 export default DonorDetails;
