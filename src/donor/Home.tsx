@@ -46,7 +46,17 @@ function RegistrationForm() {
         setGovernorate('');
         setRole('');
         setDocument(null);
-        navigate('/donor-selection');
+        if (role === 'doctor') {
+            // If the role is doctor, navigate to the ClinicLocationForm
+            navigate('/clinic-details');
+        }
+        else if (role =='teacher'){
+            navigate('/teacher-details');
+        }
+        else{
+            // If the role is not doctor, navigate to the default donor selection page
+            navigate('/requested-donations');
+        }
     };
 
     // Function to handle file input change
