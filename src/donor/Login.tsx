@@ -55,7 +55,7 @@ function RegistrationForm() {
         }
         else{
             // If the role is not doctor, navigate to the default donor selection page
-            navigate('/requested-donations');
+            navigate('/dashboard2');
         }
     };
 

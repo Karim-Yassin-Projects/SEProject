@@ -31,7 +31,7 @@ function ClinicLocationForm({ onSubmit }) {
         setProBonoCases('');
 
         // Navigate to the requested-donations page
-        navigate('/requested-donations');
+        navigate('/dashboard2');
     };
 
     return (

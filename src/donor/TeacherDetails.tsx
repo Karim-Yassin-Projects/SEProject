@@ -26,7 +26,7 @@ function TeacherDetailsForm({ onSubmit }) {
         setProBonoStudents('');
 
         // Navigate to the donation items page
-        navigate('/requested-donations');
+        navigate('/dashboard2');
     };
 
     return (

@@ -23,6 +23,7 @@ import RequestedDonations from "./donor/RequestedDonations.tsx";
 import ClinicDetails from "./donor/ClinicDetails.tsx";
 import FilterClothes from "./donor/FilterClothes.tsx";
 import Home from "./donor/Login.tsx";
+import Dashboard2 from "./donor/Dashboard2.tsx"
 
 const routes = createBrowserRouter([
     {
@@ -33,7 +34,7 @@ const routes = createBrowserRouter([
             {path: '/adminlogin', element: <AdminHome/>},
             {path: '/donor', element: <DonorHome/>},
             {path: '/representative', element: <RepresentativeHome/>},
-            {path: '/dashboard', element: <Dashboard/>},
+            {path: '/dashboard', element: <Dashboard2/>},
             {path: '/organizationsubmissions', element: <OrganizationSubmissions/>},
             {path: '/donorsubmissions', element: <DonorSubmissions/>},
             {path: '/changepassword',element: <ChangePassword/>},
@@ -46,6 +47,7 @@ const routes = createBrowserRouter([
             {path: '/requested-donations', element: <RequestedDonations/>},
             {path: '/filter-clothes', element:<FilterClothes/>},
             {path: '/donor-registration', element:<Home/>},
+            {path:'/dashboard2', element: <Dashboard2/>},
         ]
     },
 

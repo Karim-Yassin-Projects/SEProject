@@ -15,7 +15,7 @@ function Login() {
             setBadLogin(true);
             return;
         }
-        navigate('/requested-donations')
+        navigate('/dashboard2')
     }
 
     function handleRegistration() {
