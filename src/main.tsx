@@ -22,7 +22,7 @@ import TeacherDetails from "./donor/TeacherDetails.tsx";
 import RequestedDonations from "./donor/RequestedDonations.tsx";
 import ClinicDetails from "./donor/ClinicDetails.tsx";
 import FilterClothes from "./donor/FilterClothes.tsx";
-
+import Home from "./donor/Login.tsx";
 
 const routes = createBrowserRouter([
     {
@@ -45,6 +45,7 @@ const routes = createBrowserRouter([
             {path: '/teacher-details', element: <TeacherDetails/>},
             {path: '/requested-donations', element: <RequestedDonations/>},
             {path: '/filter-clothes', element:<FilterClothes/>},
+            {path: '/donor-registration', element:<Home/>},
         ]
     },
 

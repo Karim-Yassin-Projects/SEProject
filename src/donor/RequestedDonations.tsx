@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import SideBar from './SideBar';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SearchDonationItemsByCategory({ onSearch }) {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [dummyData, setDummyData] = useState([]);
-
     const navigate = useNavigate();
+
     const handleSearch = () => {
         let data = [];
         if (selectedCategory === 'all categories') {
@@ -36,8 +36,13 @@ function SearchDonationItemsByCategory({ onSearch }) {
         onSearch(selectedCategory, data);
     };
 
-   const handleFilterClothes = () => {
-        navigate('/filter-clothes')
+    const handleFilterClothes = () => {
+        navigate('/filter-clothes');
+    };
+
+    const handleSearchButtonClick = () => {
+        // Call handleSearch function when the button is clicked
+        handleSearch();
     };
 
     return (
@@ -54,27 +59,27 @@ function SearchDonationItemsByCategory({ onSearch }) {
                 <div className="col-md-9">
                     <h2>Search Donation Items by Category</h2>
                     <div className="mb-3">
-                        <select
-                            className="form-select"
-                            value={selectedCategory}
-                            onChange={(e) => setSelectedCategory(e.target.value)}
-                        >
-                            <option value="">Select category...</option>
-                            <option value="all categories">All Categories</option>
-                            <option value="food">Food</option>
-                            <option value="toys">Toys</option>
-                            <option value="clothes">Clothes</option>
-                            <option value="medical supplies">Medical Supplies</option>
-                            <option value="school supplies">School Supplies</option>
-                            <option value="blood donations">Blood Donations</option>
-                        </select>
+                        <div className="dropdown">
+                            <select
+                                className="form-select"
+                                value={selectedCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                            >
+                                <option value="">Select category...</option>
+                                <option value="all categories">All Categories</option>
+                                <option value="food">Food</option>
+                                <option value="toys">Toys</option>
+                                <option value="clothes">Clothes</option>
+                                <option value="medical supplies">Medical Supplies</option>
+                                <option value="school supplies">School Supplies</option>
+                                <option value="blood donations">Blood Donations</option>
+                            </select>
+                            <button type="button" className="btn btn-primary ms-3" onClick={handleSearchButtonClick} disabled={!selectedCategory}>
+                                Search
+                            </button>
+                        </div>
                     </div>
-                    {/*<button type="button" className="btn btn-primary" onClick={handleSearch} disabled={!selectedCategory}>
-                        Search
-                    </button>
-                    <button type="button" className="btn btn-primary ms-3" onClick={handleFilterClothes} disabled={selectedCategory !== 'clothes'}>
-                        Filter Clothes
-                    </button>*/}
+                    {/* Render the requested donation items */}
                     {dummyData.length > 0 && (
                         <div>
                             <h3>Requested Donation Items</h3>
