@@ -20,7 +20,16 @@ import TeacherDetails from "./donor/TeacherDetails.tsx";
 import RequestedDonations from "./donor/RequestedDonations.tsx";
 import ClinicDetails from "./donor/ClinicDetails.tsx";
 import FilterClothes from "./donor/FilterClothes.tsx";
+import MedicalCases  from "./donor/MedicalCases.tsx";
+import Delivery from "./donor/Delivery.tsx";
+import RegisteredOrganizations2 from './donor/RegisteredOrganizations.tsx'
 
+const organizations = [
+    {
+        id: 1,
+        name: 'Organization A',
+    },
+];
 
 const routes = createBrowserRouter([
     {
@@ -43,6 +52,9 @@ const routes = createBrowserRouter([
                 path: '/representative', element: <RepresentativeLayout/>,
                 children: representativeRoutes
             },
+            {path: '/medical-cases', element: <MedicalCases/>},
+            {path: '/delivery', element: <Delivery/>},
+            {path: '/registered-organizations', element: <RegisteredOrganizations2/>},
         ]
     },
 
