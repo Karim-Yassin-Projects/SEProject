@@ -1,16 +1,16 @@
 export type User = {
-    username: string;
+    email: string;
     password: string;
 }
 
 export const representatives: User[] = [
 
-    {username: 'kareem', password: '123456'},
-    {username: 'yassin', password: '123457'},
-    {username: 'ahmed', password: '123458'},
-    {username: 'youssef', password: '123459'},
-    {username: 'raghad', password: '123460'},
-    {username: 'haneen', password: '123461'},
+    {email: 'kareem.elmeteny@student.guc.edu.eg', password: '123456'},
+    {email: 'yassin.ahmed@student.guc.edu.eg', password: '123457'},
+    {email: 'ahmed.hossam@student.guc.edu.eg', password: '123458'},
+    {email: 'youssef.khamis@student.guc.edu.eg', password: '123459'},
+    {email: 'raghad.mohamed@student.guc.edu.eg', password: '123460'},
+    {email: 'haneen.ahmed@student.guc.edu.eg', password: '123461'},
 ];
 
 

@@ -2,14 +2,14 @@ import {InferType, object, ref, string} from "yup";
 import {representatives} from "./users.ts";
 
 export const loginSchema  = object().shape({
-    username: string().required().label("Username"),
+    email: string().required().label("Email"),
     password: string().required().label("Password")
 });
 
 export type LoginRequest = InferType<typeof loginSchema>;
 
-export function login(username: string, password: string): boolean {
-    return representatives.find(user => user.username === username && user.password === password) !== undefined;
+export function login(email: string, password: string): boolean {
+    return representatives.find(user => user.email === email && user.password === password) !== undefined;
 }
 
 export const changePasswordSchema = object().shape({

@@ -6,10 +6,10 @@ import {useCallback, useState} from "react";
 
 function Login() {
     const navigate = useNavigate();
-    const initialValues: LoginRequest = {username: '', password: ''};
+    const initialValues: LoginRequest = {email: '', password: ''};
     const [badLogin, setBadLogin] = useState(false);
     const handleSubmit = useCallback(async (values: LoginRequest, helpers: FormikHelpers<LoginRequest>) => {
-        if (!login(values.username, values.password)) {
+        if (!login(values.email, values.password)) {
             await helpers.setFieldValue('password', '');
             await helpers.setFieldTouched('password', false);
             setBadLogin(true);
@@ -28,7 +28,7 @@ function Login() {
                         <div className="container">
                             <h1>Login</h1>
                             <div className="col-md-6">
-                                <FormField formik={formik} name="username" schema={loginSchema}/>
+                                <FormField formik={formik} name="email" schema={loginSchema}/>
                                 <FormField formik={formik} name="password" schema={loginSchema}/>
                                 {badLogin && <div className="text-danger small">Invalid username or password</div>}
                                 <div className="form-group form-check">

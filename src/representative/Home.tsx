@@ -118,8 +118,7 @@ function Home() {
                                           deleteText="Delete Organization"
                                           deleteButtonClass="btn btn-danger my-1"
                                           message="Are you sure you want to delete organization 'Maadi Orphanage'? Doing so will delete all donation posts, organization information from database and cannot be undone."
-                                          onConfirm={() => {
-                                          }}/>
+                                          onConfirm={() => navigate('/')}/>
                         </div>
                     </div>
                 </div>
