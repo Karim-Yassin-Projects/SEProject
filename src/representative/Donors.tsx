@@ -46,7 +46,7 @@ function Donors() {
     let title: string;
 
     if (postIdOrStatus !== undefined && postIdOrStatus !== 'recent' && postIdOrStatus !== 'weekly' && postIdOrStatus !== 'monthly') {
-        links.push( {to: '/representative/donation-posts', label: 'Donation Posts'}),
+        links.push( {to: '/representative/donation-posts', label: 'Donation Posts'});
         links.push({
             to: `/representative/donation-posts/${postIdOrStatus}`,
             label: post?.title ?? Titles[postIdOrStatus]
@@ -81,8 +81,8 @@ function Donors() {
                             <NavLink to={`/representative/donation-posts/${donor.post.id}/donors/${donor.donorId}`}
                                      className="btn btn-secondary me-2">Show Details</NavLink>
                             {donor.post.fulfilled && <DeleteButton onConfirm={() => {
-                                donorList.splice(index, 1);
-                                setDonorList(donorList);
+                                //donorList.splice(index, 1);
+                                setDonorList(donorList.toSpliced(index, 1));
                             }}/>}
                         </td>
                     </tr>

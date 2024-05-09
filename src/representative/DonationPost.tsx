@@ -53,7 +53,7 @@ function DonationPost() {
                            className="btn btn-secondary me-2">Update</a>
                         <a href={`/representative/donation-posts/${post.id}/donors`} className="btn btn-secondary me-2">View
                             Donors</a>
-                        {post.fulfilled && <span className="me-2"><DeleteButton onConfirm={() => navigate('/representative/donor-posts')} /></span> }
+                        {post.fulfilled && <span className="me-2"><DeleteButton onConfirm={() => navigate('/representative/donation-posts')} /></span> }
                     </div>
                 </div>
             </div>

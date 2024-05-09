@@ -63,15 +63,17 @@ function Home() {
 
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts" className="btn btn-primary">View
+                            <NavLink to="/representative/donation-posts" className="btn btn-primary btn-sm">View
                                 Donation
                                 Posts</NavLink>
                             <NavLink to="/representative/donation-posts/donors"
-                                     className="btn btn-primary ms-2 my-1">View
+                                     className="btn btn-primary btn-sm ms-2 my-1">View
                                 All Donations</NavLink>
                             <NavLink to="/representative/donation-posts/recent/donors"
-                                     className="btn btn-primary ms-2 my-1">View
+                                     className="btn btn-primary btn-sm ms-2 my-1">View
                                 Recent Donations</NavLink>
+                            <NavLink to="/representative/donation-posts/new"
+                                     className="btn btn-primary btn-sm ms-2 my-1">New Donation Post</NavLink>
                         </div>
                     </div>
                 </div>
@@ -83,7 +85,7 @@ function Home() {
 
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts/unfulfilled" className="btn btn-primary my-1">View
+                            <NavLink to="/representative/donation-posts/unfulfilled" className="btn btn-primary btn-sm my-1">View
                                 Unfulfilled Posts</NavLink>
                         </div>
                     </div>
@@ -95,7 +97,7 @@ function Home() {
                             <p className="card-text display-4 text-success">345</p>
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts/fulfilled" className="btn btn-primary my-1">View
+                            <NavLink to="/representative/donation-posts/fulfilled" className="btn btn-primary btn-sm my-1">View
                                 Fulfilled Posts</NavLink>
                         </div>
                     </div>
@@ -112,11 +114,11 @@ function Home() {
 
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/update-organization" className="btn btn-primary me-2 my-1">Update
+                            <NavLink to="/representative/update-organization" className="btn btn-primary btn-sm me-2 my-1">Update
                                 Organization</NavLink>
                             <DeleteButton title="Confirm delete Organization"
                                           deleteText="Delete Organization"
-                                          deleteButtonClass="btn btn-danger my-1"
+                                          deleteButtonClass="btn btn-danger btn-sm my-1"
                                           message="Are you sure you want to delete organization 'Maadi Orphanage'? Doing so will delete all donation posts, organization information from database and cannot be undone."
                                           onConfirm={() => navigate('/')}/>
                         </div>
@@ -130,7 +132,7 @@ function Home() {
 
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/change-password" className="btn btn-primary my-1">Change Password</NavLink>
+                            <NavLink to="/representative/change-password" className="btn btn-primary btn-sm my-1">Change Password</NavLink>
                         </div>
                     </div>
                 </div>
@@ -141,7 +143,7 @@ function Home() {
                             <p className="card-text display-4">384</p>
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts/monthly/donors" className="btn btn-primary my-1">View
+                            <NavLink to="/representative/donation-posts/monthly/donors" className="btn btn-primary btn-sm my-1">View
                                 this month's donations</NavLink>
                         </div>
                     </div>
@@ -154,7 +156,7 @@ function Home() {
 
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts/weekly/donors" className="btn btn-primary my-1">View
+                            <NavLink to="/representative/donation-posts/weekly/donors" className="btn btn-primary btn-sm my-1">View
                                 this week's donations</NavLink>
                         </div>
                     </div>
