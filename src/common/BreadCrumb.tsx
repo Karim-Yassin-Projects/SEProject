@@ -15,7 +15,7 @@ function BreadCrumb(props: BreadCrumbProps) {
             <ol className="breadcrumb">
                 {props.links.map((link, index) => {
                     return (
-                        <li className="breadcrumb-item active" aria-current="page">
+                        <li className="breadcrumb-item active" aria-current="page" key={index}>
                             {index === props.links.length - 1 ?
                             link.label
                             : <NavLink to={link.to}>{link.label}</NavLink>}

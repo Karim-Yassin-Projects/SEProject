@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useEffect} from "react";
@@ -21,13 +21,6 @@ function Home() {
     const handleDropOff = () => {
         navigate('/representative/schedule-drop-off');
     }
-    const handlePost = () => {
-        navigate('/representative/donation-post');
-    }
-
-    const handleView = () => {
-        navigate('/representative/donation-posts');
-    }
 
     const links = [
         {to: '/', label: 'Home'},
@@ -43,11 +36,11 @@ function Home() {
         </div>
         <div className="container">
             <p className="text-black">Create a donation post</p>
-            <button className="btn btn-primary" onClick={handlePost}> Create Donation Post</button>
+            <NavLink className="btn btn-primary" to="/representative/donation-posts/new"> Create Donation Post</NavLink>
         </div>
         <div className="container">
             <p className="text-black">View Donation Posts</p>
-            <button className="btn btn-primary" onClick={handleView}> View</button>
+            <NavLink className="btn btn-primary" to="/representative/donation-posts">View</NavLink>
         </div>
         <ToastContainer/>
     </>

@@ -69,6 +69,7 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
                 {textArea &&
                     <textarea
                         id={id}
+                        rows={10}
                         className={cls}
                         value={formik.values[name]}
                         onChange={formik.handleChange}

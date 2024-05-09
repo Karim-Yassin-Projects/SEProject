@@ -5,8 +5,8 @@ import FormField from "../common/FormField.tsx";
 import {NavLink} from "react-router-dom";
 import BreadCrumb from "../common/BreadCrumb.tsx";
 
-function Post() {
-    const initialValues: CreatePostRequest = {category: '', details: ''};
+function NewDonationPost() {
+    const initialValues: CreatePostRequest = {category: '', details: '', title: ''};
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleSubmit = () => {
@@ -31,17 +31,20 @@ function Post() {
                             <>
                                 <FormField formik={formik} name="category" schema={newPostSchema}
                                            options={PostCategories}/>
-                                {formik.values.category &&
-                                    <FormField formik={formik} name="details" schema={newPostSchema}/>}
-                                {formik.values.category && <div className="form-group mt-2">
+                                <FormField formik={formik} name="title" schema={newPostSchema}/>
+                                <FormField formik={formik} name="details" schema={newPostSchema}/>
+                                <div className="form-group mt-2">
                                     <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Create
                                         Post
                                     </button>
-                                </div>}
+                                </div>
                             </>
                         }
                         {isSubmitted &&
-                            <div className="alert alert-info my-3">Donation post with category "{formik.values.category}" has been successfully submitted
+                            <div className="alert alert-success my-3 success-box">
+                                <i className="bi bi-check"></i>
+                                Donation post with category "{formik.values.category}"
+                                has been successfully submitted
                                 for approval.
                             </div>}
 
@@ -58,4 +61,4 @@ function Post() {
     );
 }
 
-export default Post;
+export default NewDonationPost;

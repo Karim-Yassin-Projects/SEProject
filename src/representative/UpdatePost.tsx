@@ -13,7 +13,8 @@ function PostForm({post}: PostFormProps) {
     const initialValues: UpdatePostRequest = {
         category: post.category,
         details: post.details,
-        fulfilled: post.fulfilled
+        fulfilled: post.fulfilled,
+        title: post.title
     };
     const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -26,7 +27,8 @@ function PostForm({post}: PostFormProps) {
         {to: '/', label: 'Home'},
         {to: '/representative', label: 'Representative Dashboard'},
         {to: '/representative/donation-posts', label: 'Donation Posts'},
-        {to: `/representative/update-post/${post.id}`, label: 'Update Donation Post'}
+        {to: `/representative/donation-posts/${post.id}`, label: `${post.id}` },
+        {to: `/representative/donation-posts/${post.id}/update`, label: 'Update'}
     ]
 
     return (
@@ -40,6 +42,7 @@ function PostForm({post}: PostFormProps) {
                             <>
                                 <FormField formik={formik} name="category" schema={newPostSchema}
                                            options={PostCategories}/>
+                                <FormField formik={formik} name="title" schema={newPostSchema}/>
                                 <div className="mb-3 form-check">
                                     <input type="checkbox" className="form-check-input" checked={formik.values.fulfilled}
                                            onChange={() => formik.setFieldValue('fulfilled', !formik.values.fulfilled)}/>
@@ -54,7 +57,8 @@ function PostForm({post}: PostFormProps) {
                             </>
                         }
                         {isSubmitted &&
-                            <div className="alert alert-info my-3">
+                            <div className="alert alert-success my-3 success-box">
+                                <i className="bi bi-check"></i>
                                 Your update has been submitted for approval.
                             </div>}
                         <div className="mt-3">
