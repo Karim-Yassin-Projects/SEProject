@@ -9,6 +9,7 @@ import DonorHome from './donor/Home.tsx'
 import AppLayout from "./AppLayout.tsx";
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons';
+import 'dayjs/locale/en-gb.js';
 import Dashboard from "./admin/Dashboard.tsx";
 import OrganizationSubmissions from "./admin/OrganizationSubmissions.tsx";
 import DonorSubmissions from "./admin/DonorSubmissions.tsx";

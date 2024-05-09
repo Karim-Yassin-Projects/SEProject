@@ -2,7 +2,6 @@ import {useState} from 'react';
 import {Formik} from "formik";
 import {CreatePostRequest, newPostSchema, PostCategories} from "./posts.ts";
 import FormField from "../common/FormField.tsx";
-import {NavLink} from "react-router-dom";
 import BreadCrumb from "../common/BreadCrumb.tsx";
 
 function NewDonationPost() {
@@ -48,10 +47,7 @@ function NewDonationPost() {
                                 for approval.
                             </div>}
 
-                        <div className="mt-3">
-                            <NavLink className="btn btn-secondary" to="/representative">Back
-                                to Dashboard</NavLink>
-                        </div>
+
                     </div>
                 }
             }

@@ -3,6 +3,9 @@ import BreadCrumb from "../common/BreadCrumb.tsx";
 import {allPosts, Donor, Post} from "./posts.ts";
 import {useState} from "react";
 import DeleteButton from "../common/DeleteButton.tsx";
+import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {Dayjs} from "dayjs";
 
 function Details({post, donor}: { post: Post, donor: Donor }) {
     const [message, setMessage] = useState(
@@ -15,6 +18,11 @@ The Maadi Orphanage Team`
     );
     const [showModal, setShowModal] = useState(false);
     const [messageSent, setMessageSent] = useState(false);
+    const [dropOffDate, setDropOffDate] = useState(donor.dropDate);
+    const [selectedDropOffDate, setSelectedDropOffDate] = useState<Dayjs| null>(null);
+    const [isDropped, setIsDropped] = useState(donor.isDropped);
+
+
     const navigate = useNavigate();
 
     const sendMessage = () => {
@@ -51,7 +59,33 @@ The Maadi Orphanage Team`
                     <h6 className="card-subtitle mb-2">Donation Post:</h6>
                     <p className="card-text"><NavLink
                         to={`/representative/donation-posts/${post.id}`}> {post.title}</NavLink></p>
-                    <h6 className="card-subtitle mb-2">Post Status:</h6>
+                    {isDropped && dropOffDate &&
+                        <div className="text-success-emphasis">This donation has been dropped off
+                            at {dropOffDate.toLocaleDateString(['en-GB'])}
+                            &nbsp;at {dropOffDate.toLocaleTimeString(['en-GB'], {hour: '2-digit', minute: '2-digit'})}
+                        </div>}
+                    {!isDropped && dropOffDate &&
+                        <div className="text-success-emphasis">This donation has scheduled drop-off
+                            at {dropOffDate.toLocaleDateString(['en-GB'])}
+                            &nbsp;at {dropOffDate.toLocaleTimeString(['en-GB'], {hour: '2-digit', minute: '2-digit'})}
+                            <br />
+                            <button className="btn btn-primary ms-2" onClick={() => setIsDropped(true)}>Mark as Dropped</button>
+                        </div>
+                    }
+                    {!isDropped && !dropOffDate && <div>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en-gb'>
+                            <div>
+                                <small className="">No drop-off date scheduled for this donation yet.</small>
+                                <br />
+                                <label htmlFor="dropOffDate" className="mb-3">Drop Off Date</label>
+                                <br />
+                                <DateTimePicker label="Choose date" value={selectedDropOffDate} onChange={(e) => setSelectedDropOffDate(e)}/>
+                                <button className="btn btn-primary ms-2 mt-2" onClick={() => { setDropOffDate(selectedDropOffDate?.toDate()) }} disabled={!selectedDropOffDate}>Schedule Drop-off</button>
+                                <br />
+                            </div>
+                        </LocalizationProvider>
+                    </div>}
+                    <h6 className="card-subtitle my-2">Post Status:</h6>
                     <p className="card-text"><strong
                         className={post.fulfilled ? 'text-success' : 'text-danger'}>{post.fulfilled ? 'Fulfilled' : 'Not fulfilled'}</strong>
                     </p>
@@ -79,8 +113,9 @@ The Maadi Orphanage Team`
                     <button className="btn btn-primary me-2" onClick={() => setShowModal(true)}
                             disabled={messageSent}>Send Thank You
                     </button>
-                    {post.fulfilled &&
+                    {post.fulfilled && !donor.isDropped &&
                         <DeleteButton onConfirm={() => navigate(`/representative/donation-posts/${post.id}/donors`)}/>}
+
                 </div>
             </div>
             {showModal &&
@@ -102,7 +137,7 @@ The Maadi Orphanage Team`
                                 }
                                 {!messageSent && <>
                                     <p className="text-primary">Sending a thank you email
-                                        to {donor.firstName} {donor.lastName}? You can edit the
+                                        to {donor.firstName} {donor.lastName}. You can edit the
                                         message
                                         before sending.</p>
 

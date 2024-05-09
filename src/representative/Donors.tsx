@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import BreadCrumb from "../common/BreadCrumb.tsx";
 import {NavLink, useParams} from "react-router-dom";
 import DeleteButton from "../common/DeleteButton.tsx";
-import {allPosts, DonorWithPost} from "./posts.ts";
+import {allPosts, DonorWithPost, Titles} from "./posts.ts";
 
 function Donors() {
 
@@ -29,7 +29,7 @@ function Donors() {
         }, [postIdOrStatus, postId]
     );
 
-    if (postId !== null && isNaN(postId) && postIdOrStatus !== 'fulfilled' && postIdOrStatus !== 'unfulfilled' && postIdOrStatus !== undefined) {
+    if (postId !== null && isNaN(postId)  && postIdOrStatus !== undefined && !Titles[postIdOrStatus]) {
         return <div>Invalid Post ID</div>;
     }
     const post = postId !== null && !isNaN(postId) ? allPosts.find((post) => post.id === postId) : null;
@@ -40,20 +40,22 @@ function Donors() {
     const links = [
         {to: '/', label: 'Home'},
         {to: '/representative', label: 'Representative Dashboard'},
-        {to: '/representative/donation-posts', label: 'Donation Posts'},
 
     ];
+
     let title: string;
-    if (postIdOrStatus !== undefined) {
+
+    if (postIdOrStatus !== undefined && postIdOrStatus !== 'recent' && postIdOrStatus !== 'weekly' && postIdOrStatus !== 'monthly') {
+        links.push( {to: '/representative/donation-posts', label: 'Donation Posts'}),
         links.push({
             to: `/representative/donation-posts/${postIdOrStatus}`,
-            label: post?.title ?? (postIdOrStatus === 'fulfilled' ? 'Fulfilled Posts' : 'Unfulfilled Posts')
+            label: post?.title ?? Titles[postIdOrStatus]
         });
         links.push({to: `/representative/donation-posts/${postIdOrStatus}/donors`, label: 'Donors'});
-        title = 'Donors: ' + (post?.title ?? (postIdOrStatus === 'fulfilled' ? 'Fulfilled Posts' : 'Unfulfilled Posts'));
+        title = 'Donors: ' + (post?.title ?? Titles[postIdOrStatus]);
     } else {
-        links.push({to: '/representative/donation-posts/donors', label: 'Donors'});
-        title = 'All Donors';
+        title = Titles[postIdOrStatus ?? 'all'];
+        links.push({to: postIdOrStatus ? `/representative/donation-posts/${postIdOrStatus}/donors` : '/representative/donation-posts/donors', label: title});
     }
     return (
         <div className="container">

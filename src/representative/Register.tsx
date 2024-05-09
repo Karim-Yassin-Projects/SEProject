@@ -1,10 +1,11 @@
 import {RefObject, useCallback, useEffect, useRef, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {Genders, Governorates, OrganizationTypes, RegisterRequest, registerSchema} from "./register.ts";
 import {Formik, FormikProps} from "formik";
 import FormField from "../common/FormField.tsx";
 import {GoogleMap, MarkerF, useJsApiLoader} from "@react-google-maps/api";
 import DocumentUpload from "../common/DocumentUpload.tsx";
+import BreadCrumb from "../common/BreadCrumb.tsx";
 // noinspection SpellCheckingInspection
 const API_KEY = "AIzaSyBzhIL1AJxDc3-0KxRm8fzZEGV2hLUfzXo";
 
@@ -85,9 +86,49 @@ async function updateAddress(details: AddressDetails, formik: FormikProps<Regist
     }
 }
 
-function OrganizationRegistration() {
-    const [position, setPosition] = useState<Position | null>(null);
+interface RegisterProps {
+    update?: boolean
+}
+
+function OrganizationRegistration({update}: RegisterProps) {
+    const initialValues: RegisterRequest = update ? {
+        firstName: 'Kareem',
+        lastName: 'Elmeteny',
+        password: '12345678',
+        confirmPassword: '12345678',
+        email: 'kareem.elmeteny@gmail.com',
+        phoneNumber: '01225550000',
+        area: 'Maadi',
+        organizationName: 'Maadi Orphanage',
+        organizationType: 'Non-Profit',
+        organizationAddress: '45 Rd 9, Maadi',
+        gender: 'Male',
+        governorate: 'Cairo',
+        documentSize: 1000,
+        document: 'x.pdf',
+        documentType: 'pdf'
+    } : {
+        firstName: '',
+        lastName: '',
+        password: '',
+        confirmPassword: '',
+        email: '',
+        phoneNumber: '',
+        area: '',
+        organizationName: '',
+        organizationType: '',
+        organizationAddress: '',
+        gender: '',
+        governorate: '',
+        documentSize: 1,
+        document: '',
+        documentType: ''
+    };
+    const [position, setPosition] = useState<Position | null>(update ? {lat: 29.953742, lng: 31.263333} : null);
     useEffect(() => {
+        if (update) {
+            return;
+        }
         console.log("Getting location");
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((pos) => {
@@ -100,7 +141,7 @@ function OrganizationRegistration() {
         } else {
             console.log("Geolocation is not supported by this browser.");
         }
-    }, []);
+    }, [update]);
     const formikRef = useRef<FormikProps<RegisterRequest>>(null) satisfies RefObject<FormikProps<RegisterRequest>>;
     useEffect(() => {
         const formik = formikRef.current;
@@ -153,28 +194,18 @@ function OrganizationRegistration() {
     }, [position, map]);
 
     const navigate = useNavigate();
-    const initialValues: RegisterRequest = {
-        firstName: '',
-        lastName: '',
-        password: '',
-        confirmPassword: '',
-        email: '',
-        phoneNumber: '',
-        area: '',
-        organizationName: '',
-        organizationType: '',
-        organizationAddress: '',
-        gender: '',
-        governorate: '',
-        documentSize: 1,
-        document: '',
-        documentType: ''
-    };
+
 
     const handleSubmit = useCallback(() => {
-        navigate('/representative/register-thanks');
+        navigate(update ? '/representative' : '/representative/register-thanks');
     }, [navigate]);
     const handleLogin = useCallback(() => navigate('/representative/login'), [navigate]);
+
+    const links = [
+        {to: '/', label: 'Home'},
+        {to: '/representative', label: 'Representative Dashboard'},
+        {to: '/representative/update-organization', label: 'Update Organization'},
+    ];
 
     return (
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema}
@@ -186,15 +217,20 @@ function OrganizationRegistration() {
 
                     return (
                         <div className="container">
-                            <h1>Register</h1>
+                            {update && <BreadCrumb links={links}/>}
+                            <h1>{update ? 'Update Organization' : 'Register'}</h1>
                             <div className="row">
                                 <div className="col-md-6">
                                     <FormField formik={formik} name="firstName" schema={registerSchema}/>
                                     <FormField formik={formik} name="lastName" schema={registerSchema}/>
                                     <FormField formik={formik} name="gender" schema={registerSchema} options={Genders}/>
                                     <FormField formik={formik} name="email" schema={registerSchema}/>
-                                    <FormField formik={formik} name="password" schema={registerSchema}/>
-                                    <FormField formik={formik} name="confirmPassword" schema={registerSchema}/>
+                                    {!update &&
+                                        <>
+                                            <FormField formik={formik} name="password" schema={registerSchema}/>
+                                            <FormField formik={formik} name="confirmPassword" schema={registerSchema}/>
+                                        </>}
+
                                     <FormField formik={formik} name="phoneNumber" schema={registerSchema}/>
                                     <FormField formik={formik} name="organizationName" schema={registerSchema}/>
                                     <FormField formik={formik} name="organizationType" schema={registerSchema}
@@ -203,7 +239,9 @@ function OrganizationRegistration() {
                                     <FormField formik={formik} name="area" schema={registerSchema}/>
                                     <FormField formik={formik} name="governorate" schema={registerSchema}
                                                options={Governorates}/>
-                                    <DocumentUpload formik={formik} schema={registerSchema} label="Upload a document to prove you are a representative for this organization." />
+                                    {!update && <DocumentUpload formik={formik} schema={registerSchema}
+                                                                label="Upload a document to prove you are a representative for this organization."/>
+                                    }
                                 </div>
                                 <div className="col-md-6">
                                     {(isLoaded ?
@@ -218,13 +256,24 @@ function OrganizationRegistration() {
                                         : <></>)}
                                 </div>
                             </div>
-                            <div className="form-group mt-2">
-                                <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Register
-                                </button>
-                                <button type="button" className="btn btn-secondary mx-2"
-                                        onClick={handleLogin}>Already have an account? Login
-                                </button>
-                            </div>
+                            {!update &&
+                                <div className="form-group mt-2">
+                                    <button type="submit" className="btn btn-primary"
+                                            onClick={formik.submitForm}>Register
+                                    </button>
+                                    <button type="button" className="btn btn-secondary mx-2"
+                                            onClick={handleLogin}>Already have an account? Login
+                                    </button>
+                                </div>}
+                            {update &&
+                                <div className="form-group mt-2">
+                                    <button type="submit" className="btn btn-primary"
+                                            onClick={formik.submitForm}>Update
+                                    </button>
+                                    <NavLink type="button" className="btn btn-secondary mx-2"
+                                             to="/representative">Cancel
+                                    </NavLink>
+                                </div>}
                         </div>
                     )
                 }

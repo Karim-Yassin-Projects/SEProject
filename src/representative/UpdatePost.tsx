@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { NavLink, useParams} from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import BreadCrumb from "../common/BreadCrumb.tsx";
 import {allPosts, newPostSchema, Post, PostCategories, UpdatePostRequest} from "./posts.ts";
 import FormField from "../common/FormField.tsx";
@@ -27,7 +27,7 @@ function PostForm({post}: PostFormProps) {
         {to: '/', label: 'Home'},
         {to: '/representative', label: 'Representative Dashboard'},
         {to: '/representative/donation-posts', label: 'Donation Posts'},
-        {to: `/representative/donation-posts/${post.id}`, label: `${post.id}` },
+        {to: `/representative/donation-posts/${post.id}`, label: `${post.title}` },
         {to: `/representative/donation-posts/${post.id}/update`, label: 'Update'}
     ]
 
@@ -61,10 +61,7 @@ function PostForm({post}: PostFormProps) {
                                 <i className="bi bi-check"></i>
                                 Your update has been submitted for approval.
                             </div>}
-                        <div className="mt-3">
-                            <NavLink className="btn btn-secondary" to="/representative">Back
-                                to Dashboard</NavLink>
-                        </div>
+
                     </div>
                 }
             }

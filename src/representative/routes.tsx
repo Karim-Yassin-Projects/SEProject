@@ -5,11 +5,12 @@ import Login from "./Login.tsx";
 import DonationPosts from "./DonationPosts.tsx";
 import NewDonationPost from "./NewDonationPost.tsx";
 import UpdatePost from "./UpdatePost.tsx";
-import Schedule from "./Schedule.tsx";
 import RegisterThanks from "./RegisterThanks.tsx";
 import Donors from "./Donors.tsx";
 import DonorDetails from "./DonorDetails.tsx";
 import DonationPost from "./DonationPost.tsx";
+import ChangePassword from "./ChangePassword.tsx";
+import Register from "./Register.tsx";
 
 export const routes: RouteObject[] = [
     {path: '', element: <Home/>},
@@ -25,7 +26,8 @@ export const routes: RouteObject[] = [
     {path: 'donation-posts/:postIdOrStatus/donors', element: <Donors/>},
     {path: 'donation-posts/:postId/donors/:donorId', element: <DonorDetails/>},
     {path: 'notifications', element: <Donors/>},
-    {path: 'schedule-drop-off', element: <Schedule/>},
     {path: 'register-thanks', element: <RegisterThanks/>},
+    {path: 'change-password', element: <ChangePassword />},
+    {path: 'update-organization', element: <Register update={true}/>},
     // Add more routes here
 ];

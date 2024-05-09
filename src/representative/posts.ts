@@ -51,6 +51,8 @@ export type Donor = {
     details: string;
     email: string;
     phone: string;
+    isDropped: boolean;
+    dropDate?: Date;
 }
 
 export type DonorWithPost = Donor & {
@@ -83,6 +85,8 @@ Your generous donations will go a long way in ensuring that our children are war
                 details: "Donated 12 items of clothing",
                 email: "kareem.elmeteny@student.guc.edu.eg",
                 phone: "+20 012 555 11111",
+                isDropped: true,
+                dropDate: new Date(2024, 4, 9, 13)
             },
             {
                 donorId: 2,
@@ -94,6 +98,7 @@ Your generous donations will go a long way in ensuring that our children are war
                 details: "Donated 10 items of clothing",
                 email: "yassin.ahmed@student.guc.edu.eg",
                 phone: "+20 012 555 11111",
+                isDropped: false
             }
         ],
 
@@ -124,6 +129,8 @@ Your generous donations will not only bring smiles to our children's faces but a
                 details: "Donated 12 toys",
                 email: "ahmed.hossam@student.guc.edu.eg",
                 phone: "+20 012 555 11111",
+                isDropped: true,
+                dropDate: new Date(2024, 4, 9, 13)
             },
             {
                 donorId: 4,
@@ -135,6 +142,8 @@ Your generous donations will not only bring smiles to our children's faces but a
                 details: "Donated 1000 EGP to buy toys",
                 email: "raghad.mohamed@student.guc.edu.eg",
                 phone: "+20 012 555 11111",
+                isDropped: false,
+                dropDate: new Date(2024, 4, 9, 13)
             }
         ],
     },
@@ -165,6 +174,7 @@ Your generous donations will go a long way in ensuring that we can continue to p
                 details: "Donated protective masks and gloves.",
                 email: "youssef.khamis@student.guc.edu.eg",
                 phone: "+20 012 555 11111",
+                isDropped: true
             },
             {
                 donorId: 6,
@@ -176,8 +186,17 @@ Your generous donations will go a long way in ensuring that we can continue to p
                 details: "Donated bandages and medicine",
                 email: "haneen.ahmed@student.guc.edu.eg",
                 phone: "+20 012 555 11111",
+                isDropped: false
             }
         ],
     }
 ]
 
+export const Titles: Record<string, string> = {
+    'fulfilled': 'Fulfilled posts',
+    'unfulfilled': 'Unfulfilled posts',
+    'recent': 'Recent donations',
+    'monthly': 'This month\'s donations',
+    'weekly': 'This week\'s donations',
+    'all': 'All donations'
+};
