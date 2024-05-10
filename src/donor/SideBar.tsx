@@ -1,6 +1,13 @@
-import React from 'react';
+import {useState} from "react";
 
-function Sidebar({ handleSearch, handleFilterClothes, selectedCategory }) {
+function Sidebar() {
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const handleSearch = () => {
+        alert(`Search by category: ${selectedCategory}`);
+    }
+    const handleFilterClothes = () => {
+        alert('Filter clothes');
+    }
     return (
         <div className="sidebar">
             <h3>Possible Actions</h3>

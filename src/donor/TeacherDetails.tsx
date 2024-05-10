@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function TeacherDetailsForm({ onSubmit }) {
+function TeacherDetailsForm({ }) {
     // State variables to store form data
     const [subjects, setSubjects] = useState('');
     const [proBonoClasses, setProBonoClasses] = useState('');
@@ -10,7 +10,7 @@ function TeacherDetailsForm({ onSubmit }) {
     const navigate = useNavigate();
 
     // Function to handle form submission
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
 
         console.log({

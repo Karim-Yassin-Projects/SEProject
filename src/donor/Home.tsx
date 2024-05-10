@@ -17,7 +17,6 @@ function RegistrationForm() {
 
     const navigate = useNavigate();
 
-    // Function to handle form submission
     const handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         // Here you can perform validation and submit data to backend, including the uploaded document

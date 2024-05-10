@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import {useNavigate} from "react-router-dom";
 
 // Sample data of clothing items
 const clothingItems  = [

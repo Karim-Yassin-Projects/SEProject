@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SideBar from './SideBar';
 import {useNavigate} from "react-router-dom";
 
-function SearchDonationItemsByCategory({ onSearch }) {
+
+const itemTypes: Record<string, string[]> = {
+    'food': ['Rice', 'Canned Beans', 'Cereal', 'Pasta'],
+    'toys': ['Teddy Bear', 'Doll', 'Toy Car', 'Building Blocks'],
+    'clothes': ['T-Shirt', 'Sweater', 'Jeans', 'Dress'],
+    'medical supplies': ['Bandages', 'Gauze', 'Antiseptic'],
+    'school supplies': ['Pencils', 'Notebooks', 'Glue', 'Scissors', 'Backpacks', 'Pens'],
+    'blood donations': ['Blood Bag', 'Plasma', 'Platelets']
+}
+
+const allItems = Object.getOwnPropertyNames(itemTypes)
+    .reduce((acc, key) => acc.concat(itemTypes[key]), [] as string[])
+
+function SearchDonationItemsByCategory({}) {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [dummyData, setDummyData] = useState([]);
 
     const navigate = useNavigate();
     const handleSearch = () => {
-        let data = [];
+        let data: ((prevState: never[]) => never[]) | string[] = [];
         if (selectedCategory === 'all categories') {
-            data = [
-                'Rice', 'Canned Beans', 'Cereal', 'Pasta', 'Teddy Bear', 'Doll', 'Toy Car', 'Building Blocks',
-                'T-Shirt', 'Sweater', 'Jeans', 'Dress', 'Bandages', 'Gauze', 'Antiseptic',
-                'Pencils', 'Notebooks', 'Glue', 'Scissors', 'Backpacks', 'Pens',
-                'Blood Bag', 'Plasma', 'Platelets'
-            ];
-        } else if (selectedCategory === 'food') {
-            data = ['Rice', 'Canned Beans', 'Cereal', 'Pasta'];
-        } else if (selectedCategory === 'toys') {
-            data = ['Teddy Bear', 'Doll', 'Toy Car', 'Building Blocks'];
-        } else if (selectedCategory === 'clothes') {
-            data = ['T-Shirt', 'Sweater', 'Jeans', 'Dress'];
-        } else if (selectedCategory === 'medical supplies') {
-            data = ['Bandages', 'Gauze', 'Antiseptic'];
-        } else if (selectedCategory === 'school supplies') {
-            data = ['Pencils', 'Notebooks', 'Glue', 'Scissors', 'Backpacks', 'Pens'];
-        } else if (selectedCategory === 'blood donations') {
-            data = ['Blood Bag', 'Plasma', 'Platelets'];
+            data =allItems;
+        }
+        if(selectedCategory === 'medical supplies'){
+            navigate('/medical-details');
+        }
+        else {
+            data = itemTypes[selectedCategory];
         }
         console.log('Selected Category:', selectedCategory);
         console.log('Dummy Data:', data);

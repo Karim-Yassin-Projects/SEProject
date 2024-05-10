@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.scss'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
-import AdminHome from './admin/Login.tsx'
+import AdminHome from './admin/Home.tsx'
 import DonorHome from './donor/Home.tsx'
 import AppLayout from "./AppLayout.tsx";
 import 'bootstrap';
@@ -29,6 +29,15 @@ import RequestedDonations from "./donor/RequestedDonations.tsx";
 import ClinicDetails from "./donor/ClinicDetails.tsx";
 import FilterClothes from "./donor/FilterClothes.tsx";
 
+const organizations = [
+    {
+        id: 1,
+        name: 'Organization A',
+        // other organization data...
+    },
+    // other organizations...
+];
+
 const routes = createBrowserRouter([
     {
         path: '/',
@@ -51,8 +60,6 @@ const routes = createBrowserRouter([
             { path: '/organizationdetails', element: <OrganizationDetails organization={organizations} /> },
             {path: '/organizationdocuments', element: <OrganizationDocuments /> },
             {path: '/donordocuments', element: <DonorDocuments /> },
-
-
             {
                 path: '/representative', element: <RepresentativeLayout/>,
                 children: representativeRoutes
