@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import './App.css';
 
 const OrganizationSubmissions: React.FC = () => {
+    const navigate = useNavigate();
 
     const [organizationRequests, setOrganizationRequests] = useState([
         {
-            firstName: "John",
-            lastName: "Doe",
+            firstName: "Karim",
+            lastName: "Elmeteny",
             gender: "Male",
-            email: "john@example.com",
+            email: "karim@gmail.com",
             contactNumber: "1234567890",
             organizationName: "Organization A",
             organizationType: "School",
@@ -18,10 +19,10 @@ const OrganizationSubmissions: React.FC = () => {
             governorate: "Alexandria"
         },
         {
-            firstName: "Jane",
-            lastName: "Smith",
-            gender: "Female",
-            email: "jane@example.com",
+            firstName: "Yassin",
+            lastName: "Ahmed",
+            gender: "Male",
+            email: "yassin@gmail.com",
             contactNumber: "9876543210",
             organizationName: "Organization B",
             organizationType: "Hospital",
@@ -30,10 +31,10 @@ const OrganizationSubmissions: React.FC = () => {
             governorate: "Cairo"
         },
         {
-            firstName: "Alice",
-            lastName: "Johnson",
+            firstName: "Haneen",
+            lastName: "Tarek",
             gender: "Female",
-            email: "alice@example.com",
+            email: "haneen@gmail.com",
             contactNumber: "4561237890",
             organizationName: "Organization C",
             organizationType: "Non-profit",
@@ -60,54 +61,65 @@ const OrganizationSubmissions: React.FC = () => {
         // Display a pop-up message
         alert("Organization request rejected!");
     };
-    const navigateToDocuments = () => {
+
+    const navigateToDocuments = (event: React.MouseEvent) => {
+        event.preventDefault();
         navigate('/documents');
     };
-    const navigate = useNavigate();
-
 
     return (
-        <div className="container">
-            <h1 className="text-center">Organization Submissions</h1>
-            <table className="table mt-4">
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Gender</th>
-                    <th>Email</th>
-                    <th>Contact Number</th>
-                    <th>Organization Name</th>
-                    <th>Organization Type</th>
-                    <th>Organization Address</th>
-                    <th>Area</th>
-                    <th>Governorate</th>
-                    <th>Documents for Verification</th>
-                    <th>Submission / Request Approval</th>
-                </tr>
-                </thead>
-                <tbody>
-                {organizationRequests.map((org, index) => (
-                    <tr key={index}>
-                        <td>{org.firstName}</td>
-                        <td>{org.lastName}</td>
-                        <td>{org.gender}</td>
-                        <td>{org.email}</td>
-                        <td>{org.contactNumber}</td>
-                        <td>{org.organizationName}</td>
-                        <td>{org.organizationType}</td>
-                        <td>{org.organizationAddress}</td>
-                        <td>{org.area}</td>
-                        <td>{org.governorate}</td>
-                        <td><a href="#" onClick={navigateToDocuments}>View</a></td>
-                        <td>
-                            <button className="btn btn-success me-2" onClick={() => handleAccept(index)}>Accept</button>
-                            <button className="btn btn-danger" onClick={() => handleReject(index)}>Reject</button>
-                        </td>
+        <div className="container my-5">
+            <h1 className="text-center mb-4">Organization Submissions</h1>
+            <div className="table-responsive">
+                <table className="table table-custom">
+                    <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
+                        <th>Organization Name</th>
+                        <th>Organization Type</th>
+                        <th>Organization Address</th>
+                        <th>Area</th>
+                        <th>Governorate</th>
+                        <th>Documents</th>
+                        <th>Actions</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {organizationRequests.map((org, index) => (
+                        <tr key={index}>
+                            <td>{org.firstName}</td>
+                            <td>{org.lastName}</td>
+                            <td>{org.gender}</td>
+                            <td>{org.email}</td>
+                            <td>{org.contactNumber}</td>
+                            <td>{org.organizationName}</td>
+                            <td>{org.organizationType}</td>
+                            <td>{org.organizationAddress}</td>
+                            <td>{org.area}</td>
+                            <td>{org.governorate}</td>
+                            <td>
+                                <button className="btn btn-outline-primary btn-sm" onClick={navigateToDocuments}>
+                                    View Documents
+                                </button>
+                            </td>
+                            <td>
+                                <button className="btn btn-custom btn-custom-primary me-2"
+                                        onClick={() => handleAccept(index)}>Accept
+                                </button>
+                                <button className="btn btn-custom btn-custom-danger"
+                                        onClick={() => handleReject(index)}>Reject
+                                </button>
+
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

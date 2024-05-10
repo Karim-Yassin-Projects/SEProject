@@ -1,0 +1,66 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+/* Custom Table Styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 12px 15px;
+    border-bottom: 2px solid #e9ecef;
+    text-transform: uppercase;
+    letter-spacing: 0.05em; /* Makes header text look more structured */
+}
+
+.table tbody td {
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    vertical-align: middle;
+    font-size: 0.95rem;
+    color: #333;  /* Dark text for readability */
+}
+
+.table tbody tr {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);  /* Lighter shadow for subtlety */
+    transition: all 0.3s ease-in-out;
+}
+
+.table tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom {
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #ccc; /* Adding a subtle border */
+    color: #fff; /* White text for visibility */
+}
+
+.btn-custom-primary {
+    background-color: #28a745;  /* Green for the accept button */
+}
+
+.btn-custom-primary:hover {
+    background-color: #218838;  /* A darker green on hover */
+}
+
+.btn-custom-danger {
+    background-color: #dc3545;  /* Red for the reject button */
+}
+
+.btn-custom-danger:hover {
+    background-color: #c82333;  /* A darker red on hover */
+}

@@ -1,75 +1,78 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import './App.css';  // Ensure your CSS styles are imported correctly
 
 const DonorsSubmission: React.FC = () => {
+    const navigate = useNavigate();
+
     const [donors, setDonors] = useState([
         {
-            firstName: 'John',
-            lastName: 'Doe',
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
             contactNumber: '1234567890',
             type: 'Donor',
-            documentsLink: 'https://en.wikipedia.org/wiki/PDF' // Link for documents verification
+            documentsLink: 'https://en.wikipedia.org/wiki/PDF'  // Example link
         },
         {
-            firstName: 'Jane',
-            lastName: 'Lucas',
+            firstName: 'Ahmed',
+            lastName: 'Hossam',
             contactNumber: '0987654321',
             type: 'Teacher',
-            documentsLink: 'https://en.wikipedia.org/wiki/PDF' // Link for documents verification
+            documentsLink: 'https://en.wikipedia.org/wiki/PDF'  // Example link
         }
     ]);
 
     const handleAccept = (index: number) => {
-        // Perform accept action here
         const donor = donors[index];
         alert(`Request Accepted For: ${donor.firstName} ${donor.lastName}`);
-        setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index)); // Remove selected donor from the list
+        setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index));
     };
 
     const handleReject = (index: number) => {
-        // Perform reject action here
         const donor = donors[index];
         alert(`Request Rejected For: ${donor.firstName} ${donor.lastName}`);
-        setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index)); // Remove selected donor from the list
+        setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index));
     };
-    const navigate = useNavigate();
-    const navigateToDocuments = () => {
+
+    const navigateToDocuments = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        event.preventDefault();
         navigate('/documents');
     };
 
-
     return (
-        <div className="container">
+        <div className="container my-5">
             <h1 className="text-center">Donor Submissions</h1>
-
-            <table className="table">
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Contact Number</th>
-                    <th>Type</th>
-                    <th>Documents for Verification</th>
-                    <th>Submission / Request Approval</th>
-                </tr>
-                </thead>
-                <tbody>
-                {donors.map((donor, index) => (
-                    <tr key={index}>
-                        <td>{donor.firstName}</td>
-                        <td>{donor.lastName}</td>
-                        <td>{donor.contactNumber}</td>
-                        <td>{donor.type}</td>
-                        <td><a href="#" onClick={navigateToDocuments}>View</a></td>
-                        <td>
-                            <button className="btn btn-success me-2" onClick={() => handleAccept(index)}>Accept</button>
-                            <button className="btn btn-danger" onClick={() => handleReject(index)}>Reject</button>
-                        </td>
+            <div className="table-responsive">
+                <table className="table table-custom">
+                    <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Contact Number</th>
+                        <th>Type</th>
+                        <th>Documents for Verification</th>
+                        <th>Submission / Request Approval</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {donors.map((donor, index) => (
+                        <tr key={index}>
+                            <td>{donor.firstName}</td>
+                            <td>{donor.lastName}</td>
+                            <td>{donor.contactNumber}</td>
+                            <td>{donor.type}</td>
+                            <td>
+                                <a href="#" onClick={navigateToDocuments}>View</a>
+                            </td>
+                            <td>
+                                <button className="btn btn-custom btn-custom-primary me-2" onClick={() => handleAccept(index)}>Accept</button>
+                                <button className="btn btn-custom btn-custom-danger" onClick={() => handleReject(index)}>Reject</button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

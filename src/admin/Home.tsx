@@ -11,7 +11,7 @@ const Login: React.FC = () => {
         e.preventDefault();
         // Convert both input and stored username to lowercase for case-insensitive comparison
         const lowercaseUsername = username.toLowerCase();
-        if (lowercaseUsername === 'yassin' && password === '123') {
+        if (lowercaseUsername === 'admin' && password === 'admin') {
             // Dummy authentication success, navigate to dashboard
             navigate('/dashboard');
         } else {

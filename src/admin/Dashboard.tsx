@@ -8,54 +8,54 @@ const Dashboard: React.FC = () => {
     const handleChangePassword = () => navigate('/changePassword');
 
     return (
-        <div className="dashboard container d-flex flex-column p-4">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <h1 className="dashboard-heading display-3">Dashboard</h1>
-                <div className="settings-panel">
-                    <button className="btn btn-link" onClick={handleChangePassword}>
-                        Change Password
-                    </button>
-                </div>
-            </div>
-
-            <div className="row row-cols-1 row-cols-md-2 g-4">
-                <div className="col">
-                    <div className="card border-primary shadow-sm">
+        <div className="container mt-5">
+            <h1 className="text-center mb-4">Dashboard</h1>
+            <div className="row">
+                <div className="col-md-6 col-lg-4 mb-4">
+                    <div className="card shadow-sm">
                         <div className="card-body">
-                            <h5 className="card-title text-primary">Registered Organizations</h5>
-                            <p className="card-text">View and manage all registered organizations.</p>
-                            <button className="btn btn-primary float-end" onClick={() => handleClick('/registeredorganizations')}>
-                                View
+                            <h5 className="card-title">Manage Organizations</h5>
+                            <p className="card-text">Overview and manage all registered organizations.</p>
+                            <button className="btn btn-primary" onClick={() => handleClick('/registeredorganizations')}>
+                                View Organizations
                             </button>
                         </div>
                     </div>
                 </div>
-
-                <div className="col">
-                    <div className="card border-info shadow-sm">
+                <div className="col-md-6 col-lg-4 mb-4">
+                    <div className="card shadow-sm">
                         <div className="card-body">
-                            <h5 className="card-title text-info">Registered Donors</h5>
-                            <p className="card-text">View and manage all registered donors.</p>
-                            <button className="btn btn-info float-end" onClick={() => handleClick('/registereddonors')}>
-                                View
+                            <h5 className="card-title">Manage Donors</h5>
+                            <p className="card-text">Access and modify donor information and contributions.</p>
+                            <button className="btn btn-secondary" onClick={() => handleClick('/registereddonors')}>
+                                View Donors
                             </button>
                         </div>
                     </div>
                 </div>
-
-                <div className="col">
-                    <div className="card border-success shadow-sm">
+                <div className="col-md-6 col-lg-4 mb-4">
+                    <div className="card shadow-sm">
                         <div className="card-body">
-                            <h5 className="card-title text-success">Review Submissions</h5>
-                            <p className="card-text">Review submissions from both organizations and donors.</p>
-                            <div className="d-flex justify-content-between">
+                            <h5 className="card-title">Review Submissions</h5>
+                            <p className="card-text">Review and approve submissions from organizations and donors.</p>
+                            <div className="btn-group" role="group" aria-label="Submission Buttons">
                                 <button className="btn btn-success" onClick={() => handleClick('/organizationsubmissions')}>
                                     Organization Submissions
                                 </button>
-                                <button className="btn btn-success" onClick={() => handleClick('/donorsubmissions')}>
+                                <button className="btn btn-info" onClick={() => handleClick('/donorsubmissions')}>
                                     Donor Submissions
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-6 col-lg-4 mb-4">
+                    <div className="card shadow-sm">
+                        <div className="card-body">
+                            <h5 className="card-title">Settings</h5>
+                            <button onClick={handleChangePassword} className="btn btn-warning">
+                                Change Password
+                            </button>
                         </div>
                     </div>
                 </div>
