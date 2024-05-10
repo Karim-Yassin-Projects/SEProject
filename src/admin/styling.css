@@ -1,0 +1,76 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Basic Reset */
+.organization-details body, .organization-details h1, .organization-details h2, .organization-details h3, .organization-details p, .organization-details div, .organization-details input, .organization-details button, .organization-details span {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+.organization-details .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.organization-details .card {
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.organization-details h1, .organization-details h2, .organization-details h3 {
+    color: #333;
+}
+
+.organization-details h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.organization-details h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.organization-details p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.organization-details .btn {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.organization-details .btn-outline-dark {
+    background: transparent;
+    color: #333;
+    border: 2px solid #333;
+}
+
+.organization-details .btn-outline-dark:hover {
+    background: #333;
+    color: white;
+}
+
+.organization-details a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.organization-details a:hover {
+    text-decoration: underline;
+}

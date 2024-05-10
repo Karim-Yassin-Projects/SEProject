@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.scss'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
-import AdminHome from './admin/Home.tsx'
+import AdminHome from './admin/Login.tsx'
 import DonorHome from './donor/Home.tsx'
 import AppLayout from "./AppLayout.tsx";
 import 'bootstrap';
@@ -14,6 +14,13 @@ import Dashboard from "./admin/Dashboard.tsx";
 import OrganizationSubmissions from "./admin/OrganizationSubmissions.tsx";
 import DonorSubmissions from "./admin/DonorSubmissions.tsx";
 import ChangePassword from "./admin/ChangePassword.tsx";
+import RegisteredOrganizations from './admin/RegisteredOrganizations.tsx';
+import RegisteredDonors from './admin/RegisteredDonors.tsx';
+import OrganizationDetails from './admin/OrganizationDetails.tsx';
+import DonorDocuments from './admin/DonorDocuments.tsx';
+
+import OrganizationDocuments from './admin/OrganizationDocuments.tsx';
+
 import DonorSelection from "./donor/DonorSelection.tsx";
 import {routes as representativeRoutes} from "./representative/routes.tsx";
 import RepresentativeLayout from "./representative/Layout.tsx";
@@ -39,6 +46,13 @@ const routes = createBrowserRouter([
             {path: '/teacher-details', element: <TeacherDetails onSubmit={null}/>},
             {path: '/requested-donations', element: <RequestedDonations onSearch={null}/>},
             {path: '/filter-clothes', element:<FilterClothes/>},
+            { path: '/registeredorganizations', element: <RegisteredOrganizations /> },
+            { path: '/registereddonors', element: <RegisteredDonors /> },
+            { path: '/organizationdetails', element: <OrganizationDetails organization={organizations} /> },
+            {path: '/organizationdocuments', element: <OrganizationDocuments /> },
+            {path: '/donordocuments', element: <DonorDocuments /> },
+
+
             {
                 path: '/representative', element: <RepresentativeLayout/>,
                 children: representativeRoutes

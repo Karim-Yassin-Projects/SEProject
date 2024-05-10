@@ -1,75 +1,59 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-const ChangePassword: React.FC = () => {
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+import {Formik} from "formik";
+import {ChangePasswordRequest, changePasswordSchema } from "./login.ts";
+import FormField from "../common/FormField.tsx";
+import {NavLink} from "react-router-dom";
+import {useState} from "react";
+import BreadCrumb from "../common/BreadCrumb.tsx";
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (newPassword !== confirmPassword) {
-            setError('Passwords do not match');
+function ChangePassword() {
+    const initialValues: ChangePasswordRequest = {oldPassword: '', newPassword: '', confirmPassword: ''};
+    const [badLogin, setBadLogin] = useState(false);
+    const [passwordChanged, setPasswordChanged] = useState(false);
+    const handleSubmit = async (values: ChangePasswordRequest) => {
+        if (values.oldPassword !== 'admin') {
+            setBadLogin(true);
             return;
         }
+        setPasswordChanged(true);
+    }
 
-        // Here you can implement the logic to change the password
-        // For this example, I'll just simulate a successful password change
-        // You can replace this with your actual logic
-        setTimeout(() => {
-            // Clear the form fields and error message
-            setCurrentPassword('');
-            setNewPassword('');
-            setConfirmPassword('');
-            setError('');
-            // Display popup message
-            window.alert('Password changed successfully!');
-            // Redirect back to admin login page
-            navigate('/adminlogin');
-        }, 1000); // Simulating a delay for password change process
-    };
-
+    const links = [
+        {to: '/', label: 'Home'},
+        {to: '/Dashboard', label: 'Dashboard'},
+        {to: '/ChangePassword', label: 'Change Password'},
+    ];
     return (
-        <div className="container">
-            <h1 className="text-center">Change Password</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="currentPassword">Current Password:</label>
-                    <input
-                        type="password"
-                        id="currentPassword"
-                        className="form-control"
-                        value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="newPassword">New Password:</label>
-                    <input
-                        type="password"
-                        id="newPassword"
-                        className="form-control"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirm New Password:</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        className="form-control"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                </div>
-                {error && <div className="text-danger">{error}</div>}
-                <button type="submit" className="btn btn-primary mt-3">Change Password</button>
-            </form>
-        </div>
-    );
-};
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={changePasswordSchema}>
+            {
+                (formik) => {
+                    return (
+                        <div className="container">
+                            <BreadCrumb links={links}/>
+                            <h1>Change Password</h1>
+                            {!passwordChanged && <div className="col-md-10">
+                                <FormField formik={formik} name="oldPassword" schema={changePasswordSchema}/>
+                                {badLogin && <div className="text-danger small">Old password is incorrect</div>}
+                                <FormField formik={formik} name="newPassword" schema={changePasswordSchema}/>
+                                <FormField formik={formik} name="confirmPassword" schema={changePasswordSchema}/>
+                                <div className="form-group mt-2">
+                                    <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Change
+                                        Password
+                                    </button>
+                                    <NavLink type="button" className="btn btn-secondary mx-2"
+                                             to="/representative">Cancel
+                                    </NavLink>
+                                </div>
+                            </div> }
+                            {passwordChanged && <div className="alert alert-success success-box my-3">
+                                <i className="bi bi-check"></i>
+                                Password changed successfully
+                            </div>}
+                        </div>
+                    )
+                }
+            }
+        </Formik>
+    )
+}
 
 export default ChangePassword;

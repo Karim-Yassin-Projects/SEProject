@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DeleteButton from "../common/DeleteButton";
+import BreadCrumb from "../common/BreadCrumb.tsx";
 
 const RegisteredOrganizations: React.FC = () => {
     const [organizations, setOrganizations] = useState([
@@ -91,9 +93,16 @@ const RegisteredOrganizations: React.FC = () => {
                 break;
         }
     };
+    const links = [
+        {to: '/', label: 'Home'},
+        {to: '/Home', label: 'Login'},
+        {to: '/Dashboard', label: 'Dashboard'},
+        {to: '/RegisteredOrganizations', label: 'Registered Organizations'},
+    ];
 
     return (
         <div className="container">
+            <BreadCrumb links={links}/>
             <h1 className="text-center">Registered Organizations</h1>
 
             <div className="row mb-3">
@@ -171,25 +180,24 @@ const RegisteredOrganizations: React.FC = () => {
                         <td>
                             <button
                                 className="btn btn-link"
-                                onClick={() => redirectToOrganizationDetails (org.id)}
+                                onClick={() => redirectToOrganizationDetails(org.id)}
                             >
-                                Details
+                                View
                             </button>
                         </td>
                         <td>
-                            <button
-                                className="btn btn-sm btn-danger"
-                                onClick={() => handleDeleteOrganization(org.id)}
-                            >
-                                Delete Organization
-                            </button>
+                            <DeleteButton
+                                onConfirm={() => handleDeleteOrganization(org.id)}
+                                title="Confirm Delete"
+                                message={`Are you sure you want to delete ${org.name}? This action cannot be undone.`}
+                                deleteText="Delete Organization"
+                            />
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
         </div>
-
     );
 };
 
