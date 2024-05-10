@@ -3,9 +3,17 @@ import {Formik} from "formik";
 import {CreatePostRequest, newPostSchema, PostCategories} from "./posts.ts";
 import FormField from "../common/FormField.tsx";
 import BreadCrumb from "../common/BreadCrumb.tsx";
+import ClothsForm from "../common/ClothsForm.tsx";
 
-function NewDonationPost() {
-    const initialValues: CreatePostRequest = {category: '', details: '', title: ''};
+function PostForm() {
+    const initialValues: CreatePostRequest = {
+        category: '',
+        details: '',
+        title: '',
+        cloths:{
+            quantity: '',
+        }
+    };
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleSubmit = () => {
@@ -15,7 +23,7 @@ function NewDonationPost() {
     const links = [
         {to: '/', label: 'Home'},
         {to: '/representative', label: 'Organization Representative'},
-        {to: '/representative/donation-posts', label: 'Donation Posts'},
+        {to: '/representative/posts', label: 'Donation Posts'},
         {to: '/representative/donation-post', label: 'Create Donation Post'}
     ]
 
@@ -28,10 +36,12 @@ function NewDonationPost() {
                         <h1>Create Donation Post</h1>
                         {!isSubmitted &&
                             <>
+                                <p className="small">The marker <span className="text-danger">*</span> denotes a required field.</p>
                                 <FormField formik={formik} name="category" schema={newPostSchema}
                                            options={PostCategories}/>
                                 <FormField formik={formik} name="title" schema={newPostSchema}/>
                                 <FormField formik={formik} name="details" schema={newPostSchema}/>
+                                <ClothsForm initialValues={formik.values.cloths} name="cloth"/>
                                 <div className="form-group mt-2">
                                     <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Create
                                         Post
@@ -57,4 +67,4 @@ function NewDonationPost() {
     );
 }
 
-export default NewDonationPost;
+export default PostForm;

@@ -1,36 +1,7 @@
 import {InferType, object, ref, string, number} from "yup";
+import {Genders, Governorates, OrganizationTypes} from "../common/organizations.ts";
 
-export const OrganizationTypes = ["School", "Mosque", "Church", "Hospital", "Non-Profit"];
-export const Governorates = ["Cairo",
-    "Alexandria",
-    "Aswan",
-    "Assiut",
-    "Beheira",
-    "Beni Suef",
-    "Dakahlia",
-    "Damietta",
-    "Faiyum",
-    "Gharbia",
-    "Giza",
-    "Ismailia",
-    "Kafr El-Sheikh",
-    "Luxor",
-    "Marsa Matrouh",
-    "Minya",
-    "Menofia",
-    "New Valley",
-    "North Sinai",
-    "Port Said",
-    "Qalyubia",
-    "Qena",
-    "Red Sea",
-    "Sharqia",
-    "Sohag",
-    "South Sinai",
-    "Suez"
-];
 
-export const Genders = ["Male", "Female"];
 export const AllowedExtensions = ["pdf", "xbm", "tif", "tiff", "ico", "bmp", "pjpeg", "avif", "apng", "svg", "svgz", "webp", "jpg", "jpeg", "png", "jpe", "gif"];
 export const registerSchema = object().shape({
     firstName: string().required().label("First Name").min(2).max(30),

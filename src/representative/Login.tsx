@@ -28,6 +28,8 @@ function Login() {
                         <div className="container">
                             <h1>Login</h1>
                             <div className="col-md-6">
+                                <p className="small">The marker <span className="text-danger">*</span> denotes a
+                                    required field.</p>
                                 <FormField formik={formik} name="email" schema={loginSchema}/>
                                 <FormField formik={formik} name="password" schema={loginSchema}/>
                                 {badLogin && <div className="text-danger small">Invalid username or password</div>}

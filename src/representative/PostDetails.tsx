@@ -1,9 +1,9 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {allPosts} from "./posts.ts";
 import BreadCrumb from "../common/BreadCrumb.tsx";
 import DeleteButton from "../common/DeleteButton.tsx";
+import {getPostsForDefaultOrganization} from "../common/posts.ts";
 
-function DonationPost() {
+function PostDetails() {
     const {postId} = useParams();
     const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ function DonationPost() {
         return <div>Invalid post Id</div>
     }
 
-    const post = allPosts.find(p => p.id === postIdNum);
+    const post = getPostsForDefaultOrganization().find(p => p.id === postIdNum);
     if (!post) {
         return <div>Post not found</div>
     }
@@ -24,8 +24,8 @@ function DonationPost() {
     const links = [
         {to: '/', label: 'Home'},
         {to: '/representative', label: 'Representative Dashboard'},
-        {to: '/representative/donation-posts', label: 'Donation Posts'},
-        {to: `/representative/donation-posts/${post.id}`, label: `${post.title}`}
+        {to: '/representative/posts', label: 'Donation Posts'},
+        {to: `/representative/posts/${post.id}`, label: `${post.title}`}
     ]
 
     return (
@@ -49,11 +49,11 @@ function DonationPost() {
                     </div>
 
                     <div className="mt-2">
-                        <a href={`/representative/donation-posts/${post.id}/update`}
+                        <a href={`/representative/posts/${post.id}/update`}
                            className="btn btn-secondary me-2">Update</a>
-                        <a href={`/representative/donation-posts/${post.id}/donors`} className="btn btn-secondary me-2">View
+                        <a href={`/representative/posts/${post.id}/donations`} className="btn btn-secondary me-2">View
                             Donors</a>
-                        {post.fulfilled && <span className="me-2"><DeleteButton onConfirm={() => navigate('/representative/donation-posts')} /></span> }
+                        {post.fulfilled && <span className="me-2"><DeleteButton onConfirm={() => navigate('/representative/posts')} /></span> }
                     </div>
                 </div>
             </div>
@@ -62,4 +62,4 @@ function DonationPost() {
 
 }
 
-export default DonationPost;
+export default PostDetails;

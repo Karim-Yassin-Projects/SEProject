@@ -1,9 +1,10 @@
 import {useState} from 'react';
 import { useParams} from 'react-router-dom';
 import BreadCrumb from "../common/BreadCrumb.tsx";
-import {allPosts, newPostSchema, Post, PostCategories, UpdatePostRequest} from "./posts.ts";
+import { newPostSchema, PostCategories, UpdatePostRequest, updatePostSchema} from "./posts.ts";
 import FormField from "../common/FormField.tsx";
 import {Formik} from "formik";
+import {getPostsForDefaultOrganization, Post} from "../common/posts.ts";
 
 interface PostFormProps {
     post: Post
@@ -14,7 +15,8 @@ function PostForm({post}: PostFormProps) {
         category: post.category,
         details: post.details,
         fulfilled: post.fulfilled,
-        title: post.title
+        title: post.title,
+
     };
     const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -26,9 +28,9 @@ function PostForm({post}: PostFormProps) {
     const links = [
         {to: '/', label: 'Home'},
         {to: '/representative', label: 'Representative Dashboard'},
-        {to: '/representative/donation-posts', label: 'Donation Posts'},
-        {to: `/representative/donation-posts/${post.id}`, label: `${post.title}` },
-        {to: `/representative/donation-posts/${post.id}/update`, label: 'Update'}
+        {to: '/representative/posts', label: 'Donation Posts'},
+        {to: `/representative/posts/${post.id}`, label: `${post.title}` },
+        {to: `/representative/posts/${post.id}/update`, label: 'Update'}
     ]
 
     return (
@@ -40,15 +42,18 @@ function PostForm({post}: PostFormProps) {
                         <h1>Update Donation Post</h1>
                         {!isSubmitted &&
                             <>
-                                <FormField formik={formik} name="category" schema={newPostSchema}
+                                <p className="small">The marker <span className="text-danger">*</span> denotes a
+                                    required field.</p>
+                                <FormField formik={formik} name="category" schema={updatePostSchema}
                                            options={PostCategories}/>
-                                <FormField formik={formik} name="title" schema={newPostSchema}/>
+                                <FormField formik={formik} name="title" schema={updatePostSchema}/>
                                 <div className="mb-3 form-check">
-                                    <input type="checkbox" className="form-check-input" checked={formik.values.fulfilled}
+                                    <input type="checkbox" className="form-check-input"
+                                           checked={formik.values.fulfilled}
                                            onChange={() => formik.setFieldValue('fulfilled', !formik.values.fulfilled)}/>
                                     <label className="form-check-label">Fulfilled</label>
                                 </div>
-                                <FormField formik={formik} name="details" schema={newPostSchema}/>
+                                <FormField formik={formik} name="details" schema={updatePostSchema}/>
                                 <div className="form-group mt-2">
                                     <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Update
                                         Post
@@ -82,7 +87,7 @@ function UpdatePost() {
         return <div>Invalid post Id</div>
     }
 
-    const post = allPosts.find(p => p.id === postIdNum);
+    const post = getPostsForDefaultOrganization().find(p => p.id === postIdNum);
     if (!post) {
         return <div>Post not found</div>
     }

@@ -22,7 +22,6 @@ import RequestedDonations from "./donor/RequestedDonations.tsx";
 import ClinicDetails from "./donor/ClinicDetails.tsx";
 import FilterClothes from "./donor/FilterClothes.tsx";
 
-
 const routes = createBrowserRouter([
     {
         path: '/',

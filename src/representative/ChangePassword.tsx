@@ -31,6 +31,7 @@ function ChangePassword() {
                             <BreadCrumb links={links}/>
                             <h1>Change Password</h1>
                             {!passwordChanged && <div className="col-md-10">
+                                <p className="small">The marker <span className="text-danger">*</span> denotes a required field.</p>
                                 <FormField formik={formik} name="oldPassword" schema={changePasswordSchema}/>
                                 {badLogin && <div className="text-danger small">Old password is incorrect</div>}
                                 <FormField formik={formik} name="newPassword" schema={changePasswordSchema}/>

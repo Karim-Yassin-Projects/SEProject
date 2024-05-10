@@ -3,8 +3,8 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useEffect, useState} from "react";
 import BreadCrumb from "../common/BreadCrumb.tsx";
-import {allPosts, DonorWithPost} from "./posts.ts";
 import DeleteButton from "../common/DeleteButton.tsx";
+import {AllDonations, Donation} from "../common/posts.ts";
 
 const times = [
     'just now',
@@ -15,17 +15,14 @@ const times = [
 
 function Home() {
     const navigate = useNavigate();
-    const allDonations = allPosts.reduce((prev, curr) => {
-        prev.push(...curr.donors.map((donor) => ({...donor, post: curr})));
-        return prev;
-    }, [] as DonorWithPost[]);
+    const allDonations = AllDonations;
 
     const [recentIndex, setRecentIndex] = useState(0);
     useEffect(() => {
         const intervalId = setInterval(() => {
             toast.success("You have just received a new donation.", {
                 onClick: () => {
-                    navigate(`/representative/donation-posts/${allDonations[0].post.id}/donors/${allDonations[0].donorId}`);
+                    navigate(`/representative/posts/${allDonations[0].post.id}/donations/${allDonations[0].id}`);
                 }
             });
             setRecentIndex((current) => (current + 1))
@@ -37,7 +34,7 @@ function Home() {
         {to: '/', label: 'Home'},
         {to: '/representative', label: 'Representative Dashboard'},
     ]
-    const recentDonations: DonorWithPost[] = [];
+    const recentDonations: Donation[] = [];
     for (let i = 0; i < 3; i++) {
         recentDonations.push(allDonations[(recentIndex + i) % allDonations.length]);
     }
@@ -54,25 +51,25 @@ function Home() {
                             <h5 className="card-title">Recent Donations</h5>
                             <ul className="list-unstyled mb-4">
                                 {recentDonations.map((donor, index) => <li
-                                    key={donor.donorId}>
+                                    key={donor.id}>
                                     <NavLink
-                                        to={`/representative/donation-posts/${donor.post.id}/donors/${donor.donorId}`}>{donor.firstName} {donor.lastName}</NavLink>: {donor.details}
+                                        to={`/representative/posts/${donor.post.id}/donations/${donor.id}`}>{donor.firstName} {donor.lastName}</NavLink>: {donor.details}
                                     &nbsp;
                                     <small className="text-secondary">({times[index % times.length]})</small></li>)}
                             </ul>
 
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts" className="btn btn-primary btn-sm">View
+                            <NavLink to="/representative/posts" className="btn btn-primary btn-sm">View
                                 Donation
                                 Posts</NavLink>
-                            <NavLink to="/representative/donation-posts/donors"
+                            <NavLink to="/representative/posts/donations"
                                      className="btn btn-primary btn-sm ms-2 my-1">View
                                 All Donations</NavLink>
-                            <NavLink to="/representative/donation-posts/recent/donors"
+                            <NavLink to="/representative/posts/recent/donations"
                                      className="btn btn-primary btn-sm ms-2 my-1">View
                                 Recent Donations</NavLink>
-                            <NavLink to="/representative/donation-posts/new"
+                            <NavLink to="/representative/posts/new"
                                      className="btn btn-primary btn-sm ms-2 my-1">New Donation Post</NavLink>
                         </div>
                     </div>
@@ -85,7 +82,7 @@ function Home() {
 
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts/unfulfilled" className="btn btn-primary btn-sm my-1">View
+                            <NavLink to="/representative/posts/unfulfilled" className="btn btn-primary btn-sm my-1">View
                                 Unfulfilled Posts</NavLink>
                         </div>
                     </div>
@@ -97,7 +94,7 @@ function Home() {
                             <p className="card-text display-4 text-success">345</p>
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts/fulfilled" className="btn btn-primary btn-sm my-1">View
+                            <NavLink to="/representative/posts/fulfilled" className="btn btn-primary btn-sm my-1">View
                                 Fulfilled Posts</NavLink>
                         </div>
                     </div>
@@ -143,7 +140,7 @@ function Home() {
                             <p className="card-text display-4">384</p>
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts/monthly/donors" className="btn btn-primary btn-sm my-1">View
+                            <NavLink to="/representative/posts/monthly/donations" className="btn btn-primary btn-sm my-1">View
                                 this month's donations</NavLink>
                         </div>
                     </div>
@@ -156,7 +153,7 @@ function Home() {
 
                         </div>
                         <div className="card-footer text-center">
-                            <NavLink to="/representative/donation-posts/weekly/donors" className="btn btn-primary btn-sm my-1">View
+                            <NavLink to="/representative/posts/weekly/donations" className="btn btn-primary btn-sm my-1">View
                                 this week's donations</NavLink>
                         </div>
                     </div>

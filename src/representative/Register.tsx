@@ -1,11 +1,12 @@
 import {RefObject, useCallback, useEffect, useRef, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
-import {Genders, Governorates, OrganizationTypes, RegisterRequest, registerSchema} from "./register.ts";
+import {RegisterRequest, registerSchema} from "./register.ts";
 import {Formik, FormikProps} from "formik";
 import FormField from "../common/FormField.tsx";
 import {GoogleMap, MarkerF, useJsApiLoader} from "@react-google-maps/api";
 import DocumentUpload from "../common/DocumentUpload.tsx";
 import BreadCrumb from "../common/BreadCrumb.tsx";
+import {Genders, Governorates, OrganizationTypes} from "../common/organizations.ts";
 // noinspection SpellCheckingInspection
 const API_KEY = "AIzaSyBzhIL1AJxDc3-0KxRm8fzZEGV2hLUfzXo";
 
@@ -93,7 +94,7 @@ interface RegisterProps {
 function OrganizationRegistration({update}: RegisterProps) {
     const initialValues: RegisterRequest = update ? {
         firstName: 'Kareem',
-        lastName: 'Elmeteny',
+        lastName: 'ElMeteny',
         password: '12345678',
         confirmPassword: '12345678',
         email: 'kareem.elmeteny@gmail.com',
@@ -198,7 +199,7 @@ function OrganizationRegistration({update}: RegisterProps) {
 
     const handleSubmit = useCallback(() => {
         navigate(update ? '/representative' : '/representative/register-thanks');
-    }, [navigate]);
+    }, [navigate, update]);
     const handleLogin = useCallback(() => navigate('/representative/login'), [navigate]);
 
     const links = [
@@ -213,12 +214,11 @@ function OrganizationRegistration({update}: RegisterProps) {
             {
 
                 (formik) => {
-
-
                     return (
                         <div className="container">
                             {update && <BreadCrumb links={links}/>}
                             <h1>{update ? 'Update Organization' : 'Register'}</h1>
+                            <p className="small">The marker <span className="text-danger">*</span> denotes a required field.</p>
                             <div className="row">
                                 <div className="col-md-6">
                                     <FormField formik={formik} name="firstName" schema={registerSchema}/>
@@ -258,7 +258,7 @@ function OrganizationRegistration({update}: RegisterProps) {
                             </div>
                             {!update &&
                                 <div className="form-group mt-2">
-                                    <button type="submit" className="btn btn-primary"
+                                <button type="submit" className="btn btn-primary"
                                             onClick={formik.submitForm}>Register
                                     </button>
                                     <button type="button" className="btn btn-secondary mx-2"

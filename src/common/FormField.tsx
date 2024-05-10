@@ -15,7 +15,7 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
     let {label} = props;
     const id = name as string;
     const error = errors[name];
-    const touch = touched[name];
+    let isTouched = !!touched[name];
     const spec = (reach(schema, id) as Schema).spec;
     if (!label) {
         label = spec.label as string;
@@ -27,14 +27,21 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
         placeholder = `Select ${label}`;
     }
     const textArea = spec.meta && spec.meta.textarea;
+    const optional = spec.optional;
+    const value = formik.values[name];
+    if (value === undefined || value === null || value === '' && optional) {
+        isTouched = false;
+    }
 
-    const showError = touch && error;
-    const cls = `form-control ${touch && error ? 'is-invalid' :
-        touch && !error ? 'is-valid' : ''}`;
+    const showError = isTouched && error;
+    const cls = `form-control ${isTouched && error ? 'is-invalid' :
+        isTouched && !error ? 'is-valid' : ''}`;
     const type = id.toLowerCase().indexOf('password') >= 0 ? 'password' : 'text';
     return (
         <div className="form-group row my-2">
-            <label htmlFor={id} className="col-md-2">{label}</label>
+            <label htmlFor={id} className="col-md-2">{label}
+                {!optional ? <span className="text-danger">*</span> : ""}
+            </label>
             <div className="col-md-10">
                 {props.options && props.options.length < 3 &&
                     props.options.map((option, index) => (

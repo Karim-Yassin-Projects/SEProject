@@ -1,15 +1,15 @@
 import {NavLink, useNavigate, useParams} from "react-router-dom";
 import BreadCrumb from "../common/BreadCrumb.tsx";
-import {allPosts, Donor, Post} from "./posts.ts";
 import {useState} from "react";
 import DeleteButton from "../common/DeleteButton.tsx";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {Dayjs} from "dayjs";
+import {AllPosts, Donation, Post} from "../common/posts.ts";
 
-function Details({post, donor}: { post: Post, donor: Donor }) {
+function Details({post, donation}: { post: Post, donation: Donation }) {
     const [message, setMessage] = useState(
-        `Dear ${donor.firstName} ${donor.lastName},
+        `Dear ${donation.firstName} ${donation.lastName},
         
 Thank you for your generous donation to our cause. Your contribution is greatly appreciated and will bring happiness to the children in our care.
 
@@ -18,9 +18,9 @@ The Maadi Orphanage Team`
     );
     const [showModal, setShowModal] = useState(false);
     const [messageSent, setMessageSent] = useState(false);
-    const [dropOffDate, setDropOffDate] = useState(donor.dropDate);
+    const [dropOffDate, setDropOffDate] = useState(donation.dropDate);
     const [selectedDropOffDate, setSelectedDropOffDate] = useState<Dayjs| null>(null);
-    const [isDropped, setIsDropped] = useState(donor.isDropped);
+    const [isDropped, setIsDropped] = useState(donation.isDropped);
 
 
     const navigate = useNavigate();
@@ -36,12 +36,12 @@ The Maadi Orphanage Team`
     const links = [
         {to: '/', label: 'Home'},
         {to: '/representative', label: 'Representative Dashboard'},
-        {to: '/representative/donation-posts', label: 'Donation Posts'},
-        {to: `/representative/donation-posts/${post.id}`, label: `${post.title}`},
-        {to: `/representative/donation-posts/${post.id}/donors`, label: 'Donors'},
+        {to: '/representative/posts', label: 'Donation Posts'},
+        {to: `/representative/posts/${post.id}`, label: `${post.title}`},
+        {to: `/representative/posts/${post.id}/donations`, label: 'Donors'},
         {
-            to: `/representative/donation-posts/${post.id}/donors/${donor.donorId}`,
-            label: `${donor.firstName} ${donor.lastName}`
+            to: `/representative/posts/${post.id}/donations/${donation.id}`,
+            label: `${donation.firstName} ${donation.lastName}`
         }
     ];
 
@@ -51,14 +51,14 @@ The Maadi Orphanage Team`
             <h1>Donation Info </h1>
             <div className="card mt-4">
                 <div className="card-header">
-                    <h5 className="card-title">Donor: {donor.firstName} {donor.lastName}</h5>
+                    <h5 className="card-title">Donor: {donation.firstName} {donation.lastName}</h5>
                 </div>
                 <div className="card-body">
                     <h6 className="card-subtitle mb-2">Donation Details:</h6>
-                    <p className="card-text">{donor.details}</p>
+                    <p className="card-text">{donation.details}</p>
                     <h6 className="card-subtitle mb-2">Donation Post:</h6>
                     <p className="card-text"><NavLink
-                        to={`/representative/donation-posts/${post.id}`}> {post.title}</NavLink></p>
+                        to={`/representative/posts/${post.id}`}> {post.title}</NavLink></p>
                     {isDropped && dropOffDate &&
                         <div className="text-success-emphasis">This donation has been dropped off
                             at {dropOffDate.toLocaleDateString(['en-GB'])}
@@ -91,30 +91,30 @@ The Maadi Orphanage Team`
                     </p>
                     <dl className="row">
                         <dt className="col-sm-2 text-end">Email:</dt>
-                        <dd className="col-sm-10"><a href={`mailto:${donor.email}`}>{donor.email}</a>
+                        <dd className="col-sm-10"><a href={`mailto:${donation.email}`}>{donation.email}</a>
 
                         </dd>
 
                         <dt className="col-sm-2 text-end">Phone number:</dt>
-                        <dd className="col-sm-10">{donor.phone}</dd>
+                        <dd className="col-sm-10">{donation.phone}</dd>
                     </dl>
                     <h6 className="card-title">Contact Address</h6>
                     <dl className="row">
                         <dt className="col-sm-2 text-end">Address:</dt>
-                        <dd className="col-sm-10">{donor.address}</dd>
+                        <dd className="col-sm-10">{donation.address}</dd>
 
                         <dt className="col-sm-2 text-end">Area:</dt>
-                        <dd className="col-sm-10">{donor.area}</dd>
+                        <dd className="col-sm-10">{donation.area}</dd>
 
                         <dt className="col-sm-2 text-end">Governorate:</dt>
-                        <dd className="col-sm-10">{donor.governorate}</dd>
+                        <dd className="col-sm-10">{donation.governorate}</dd>
                     </dl>
 
                     <button className="btn btn-primary me-2" onClick={() => setShowModal(true)}
                             disabled={messageSent}>Send Thank You
                     </button>
-                    {post.fulfilled && !donor.isDropped &&
-                        <DeleteButton onConfirm={() => navigate(`/representative/donation-posts/${post.id}/donors`)}/>}
+                    {post.fulfilled && !donation.isDropped &&
+                        <DeleteButton onConfirm={() => navigate(`/representative/posts/${post.id}/donations`)}/>}
 
                 </div>
             </div>
@@ -137,7 +137,7 @@ The Maadi Orphanage Team`
                                 }
                                 {!messageSent && <>
                                     <p className="text-primary">Sending a thank you email
-                                        to {donor.firstName} {donor.lastName}. You can edit the
+                                        to {donation.firstName} {donation.lastName}. You can edit the
                                         message
                                         before sending.</p>
 
@@ -164,19 +164,19 @@ The Maadi Orphanage Team`
     );
 }
 
-function DonorDetails() {
-    const {postId, donorId} = useParams();
+function DonationDetails() {
+    const {postId, donationId} = useParams();
 
     if (!postId) {
         return <div>Missing post Id</div>
     }
-    if (!donorId) {
-        return <div>Missing donor Id</div>
+    if (!donationId) {
+        return <div>Missing donation Id</div>
     }
 
-    const did = parseInt(donorId);
+    const did = parseInt(donationId);
     if (isNaN(did)) {
-        return <div>Invalid Donor Id</div>
+        return <div>Invalid Donation Id</div>
     }
 
     const id = parseInt(postId);
@@ -184,17 +184,17 @@ function DonorDetails() {
         return <div>Invalid Post Id</div>
     }
 
-    const post = allPosts.find(p => p.id === id);
+    const post = AllPosts.find(p => p.id === id);
     if (!post) {
         return <div>Post not found</div>
     }
 
-    const donor = post.donors.find(d => d.donorId === did);
+    const donor = post.donations.find(d => d.id === did);
     if (!donor) {
-        return <div>Donor not found</div>
+        return <div>Donation not found</div>
     }
 
-    return <Details post={post} donor={donor}/>;
+    return <Details post={post} donation={donor}/>;
 }
 
-export default DonorDetails;
+export default DonationDetails;
