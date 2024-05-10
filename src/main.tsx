@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.scss'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
-import AdminHome from './admin/Home.tsx'
+import AdminHome from './admin/Login.tsx'
 import DonorHome from './donor/Home.tsx'
 import AppLayout from "./AppLayout.tsx";
 import 'bootstrap';
