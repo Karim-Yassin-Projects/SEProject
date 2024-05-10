@@ -65,7 +65,7 @@ const OrganizationSubmissions: React.FC = () => {
 
     const navigateToDocuments = (event: React.MouseEvent) => {
         event.preventDefault();
-        navigate('/documents');
+        navigate('/organizationdocuments');
     };
     const links = [
         {to: '/', label: 'Home'},

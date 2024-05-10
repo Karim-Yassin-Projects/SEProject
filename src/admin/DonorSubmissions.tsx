@@ -37,7 +37,7 @@ const DonorsSubmission: React.FC = () => {
 
     const navigateToDocuments = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         event.preventDefault();
-        navigate('/documents');
+        navigate('/donordocuments');
     };
     const links = [
         {to: '/', label: 'Home'},
