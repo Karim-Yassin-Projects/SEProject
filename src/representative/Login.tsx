@@ -2,25 +2,23 @@ import {useNavigate} from "react-router-dom";
 import {Formik, FormikHelpers} from "formik";
 import FormField from "../common/FormField.tsx";
 import {login, LoginRequest, loginSchema} from "./login.ts";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 
 function Login() {
     const navigate = useNavigate();
     const initialValues: LoginRequest = {username: '', password: ''};
     const [badLogin, setBadLogin] = useState(false);
-    const handleSubmit = async (values: LoginRequest, helpers: FormikHelpers<LoginRequest>) => {
+    const handleSubmit = useCallback(async (values: LoginRequest, helpers: FormikHelpers<LoginRequest>) => {
         if (!login(values.username, values.password)) {
             await helpers.setFieldValue('password', '');
             await helpers.setFieldTouched('password', false);
             setBadLogin(true);
             return;
         }
-        navigate('/representativehome')
-    }
+        navigate('/representative')
+    }, [setBadLogin, navigate]);
 
-    function handleRegistration() {
-        navigate('/representativeregister');
-    }
+    const handleRegistration = useCallback(() => navigate('/representative/register'), [navigate]);
 
     return (
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={loginSchema}>

@@ -1,4 +1,34 @@
+$bootstrap-icons-font-dir: "../node_modules/bootstrap-icons/font/fonts";
+
 //@import "node_modules/bootswatch/dist/slate/variables";
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 //@import "node_modules/bootswatch/dist/slate/bootswatch.scss";
-@import "node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+
+.modal-header {
+  .close {
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+  }
+}
+
+button.close {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+
+.border-dashed {
+  border-style: dashed !important;
+}
+
+.success-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  i.bi {
+    font-size: 6em;
+  }
+}

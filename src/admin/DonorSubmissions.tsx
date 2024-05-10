@@ -1,52 +1,70 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const DonorSubmissions: React.FC = () => {
-    // Dummy data for donor requests
-    const [donorRequests, setDonorRequests] = useState([
-        { id: 1, name: "Donor X", type: "Doctor" },
-        { id: 2, name: "Donor Y", type: "Teacher" },
-        { id: 3, name: "Donor Z", type: "Doctor" }
+
+const DonorsSubmission: React.FC = () => {
+    const [donors, setDonors] = useState([
+        {
+            firstName: 'John',
+            lastName: 'Doe',
+            contactNumber: '1234567890',
+            type: 'Donor',
+            documentsLink: 'https://en.wikipedia.org/wiki/PDF' // Link for documents verification
+        },
+        {
+            firstName: 'Jane',
+            lastName: 'Lucas',
+            contactNumber: '0987654321',
+            type: 'Teacher',
+            documentsLink: 'https://en.wikipedia.org/wiki/PDF' // Link for documents verification
+        }
     ]);
 
-    const handleAccept = (id: number) => {
-        // Handle accept action for the donor with the specified ID
-        console.log("Accept request with ID:", id);
-        // Filter out the accepted request from the list
-        setDonorRequests(prevRequests => prevRequests.filter(donor => donor.id !== id));
-        // Display a pop-up message
-        alert("Donor request accepted!");
+    const handleAccept = (index: number) => {
+        // Perform accept action here
+        const donor = donors[index];
+        alert(`Request Accepted For: ${donor.firstName} ${donor.lastName}`);
+        setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index)); // Remove selected donor from the list
     };
 
-    const handleReject = (id: number) => {
-        // Handle reject action for the donor with the specified ID
-        console.log("Reject request with ID:", id);
-        // Filter out the rejected request from the list
-        setDonorRequests(prevRequests => prevRequests.filter(donor => donor.id !== id));
-        // Display a pop-up message
-        alert("Donor request rejected!");
+    const handleReject = (index: number) => {
+        // Perform reject action here
+        const donor = donors[index];
+        alert(`Request Rejected For: ${donor.firstName} ${donor.lastName}`);
+        setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index)); // Remove selected donor from the list
     };
+    const navigate = useNavigate();
+    const navigateToDocuments = () => {
+        navigate('/documents');
+    };
+
 
     return (
         <div className="container">
             <h1 className="text-center">Donor Submissions</h1>
-            <table className="table mt-4">
+
+            <table className="table">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Contact Number</th>
                     <th>Type</th>
-                    <th>Actions</th>
+                    <th>Documents for Verification</th>
+                    <th>Submission / Request Approval</th>
                 </tr>
                 </thead>
                 <tbody>
-                {donorRequests.map(donor => (
-                    <tr key={donor.id}>
-                        <td>{donor.id}</td>
-                        <td>{donor.name}</td>
+                {donors.map((donor, index) => (
+                    <tr key={index}>
+                        <td>{donor.firstName}</td>
+                        <td>{donor.lastName}</td>
+                        <td>{donor.contactNumber}</td>
                         <td>{donor.type}</td>
+                        <td><a href="#" onClick={navigateToDocuments}>View</a></td>
                         <td>
-                            <button className="btn btn-success me-2" onClick={() => handleAccept(donor.id)}>Accept</button>
-                            <button className="btn btn-danger" onClick={() => handleReject(donor.id)}>Reject</button>
+                            <button className="btn btn-success me-2" onClick={() => handleAccept(index)}>Accept</button>
+                            <button className="btn btn-danger" onClick={() => handleReject(index)}>Reject</button>
                         </td>
                     </tr>
                 ))}
@@ -56,4 +74,4 @@ const DonorSubmissions: React.FC = () => {
     );
 };
 
-export default DonorSubmissions;
+export default DonorsSubmission;
