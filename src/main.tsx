@@ -24,6 +24,9 @@ import MedicalDetails from "./donor/MedicalDetails.tsx";
 import MedicalRequests from "./donor/MedicalRequests.tsx";
 import MedicalRequest from "./donor/MedicalRequest.tsx";
 import CreateDonation from "./donor/CreateDonation.tsx";
+import Dashboard2 from "./donor/Dashboard2.tsx";
+import DonorRegistration from "./donor/DonorRegistration.tsx";
+import DonorLogin from "./donor/Home.tsx"
 
 
 const routes = createBrowserRouter([
@@ -47,6 +50,9 @@ const routes = createBrowserRouter([
             {path: '/medical-requests', element: <MedicalRequests/>},
             {path: 'medical-request/:postId', element: <MedicalRequest/>},
             {path: 'create-donation', element: <CreateDonation/>},
+            {path: '/dashboard2', element:<Dashboard2/>},
+            {path:'/donor-registration', element:<DonorRegistration/>},
+            {path:'/donor-login', element:<DonorLogin/>},
             {
                 path: '/representative', element: <RepresentativeLayout/>,
                 children: representativeRoutes

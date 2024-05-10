@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function ClinicLocationForm({ onSubmit }) {
     // State variables to store form data
@@ -37,6 +37,12 @@ function ClinicLocationForm({ onSubmit }) {
     return (
         <div className="container mt-5">
             <h2>Clinic Location Specification</h2>
+            <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item"><Link to="/dashboard">Dashboard</Link></li>
+                    <li className="breadcrumb-item active" aria-current="page">Clinic Location Form</li>
+                </ol>
+            </nav>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="address" className="form-label">Address:</label>
