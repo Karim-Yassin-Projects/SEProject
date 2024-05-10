@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 // Sample data of clothing items
-const clothingItems = [
+const clothingItems  = [
     { id: 1, age: 'Adult', gender: 'Male', season: 'Winter', type: 'Coat', material: 'Wool', quantity: 3 },
     { id: 2, age: 'Child', gender: 'Female', season: 'Spring', type: 'Dress', material: 'Cotton', quantity: 5 },
     { id: 3, age: 'Teen', gender: 'Female', season: 'Summer', type: 'Shorts', material: 'Denim', quantity: 2 },
@@ -14,12 +13,9 @@ const ClothingList = ({ items, onItemClick }) => {
     return (
         <div>
             {items.map(item => (
-                <div key={item.id} className="card mb-3">
-                    <div className="card-body">
-                        <h5 className="card-title">{item.type}</h5>
-                        <p className="card-text">Age: {item.age} - Gender: {item.gender} - Season: {item.season}</p>
-                        <button className="btn btn-primary" onClick={() => onItemClick(item)}>View Details</button>
-                    </div>
+                <div key={item.id} style={{ marginBottom: '10px', padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}>
+                    <span style={{ marginRight: '10px' }}>{item.type}</span> - <span style={{ marginRight: '10px' }}>{item.age}</span> - <span style={{ marginRight: '10px' }}>{item.gender}</span> - <span>{item.season}</span>
+                    <button style={{ marginLeft: '10px' }} onClick={() => onItemClick(item)}>View Details</button>
                 </div>
             ))}
         </div>
@@ -42,22 +38,22 @@ const ClothingDetails = ({ item, onClose, onDonate }) => {
     };
 
     return (
-        <div className="card mt-3">
-            <div className="card-body">
-                <h2 className="card-title">Clothing Details</h2>
-                <p><strong>Type:</strong> {item.type}</p>
-                <p><strong>Age:</strong> {item.age}</p>
-                <p><strong>Gender:</strong> {item.gender}</p>
-                <p><strong>Season:</strong> {item.season}</p>
-                <p><strong>Material:</strong> {item.material}</p>
-                <p><strong>Quantity Requested:</strong> {item.quantity}</p>
-                <div className="mb-3">
-                    <label htmlFor="quantityInput" className="form-label">Quantity to Donate:</label>
-                    <input type="number" className="form-control" id="quantityInput" value={quantity} onChange={handleQuantityChange} min="1" />
-                </div>
-                <button className="btn btn-secondary me-2" onClick={onClose}>Close</button>
-                <button className="btn btn-primary" onClick={handleDonate}>Donate</button>
+        <div style={{ marginTop: '20px', padding: '20px', border: '1px solid #ccc', borderRadius: '5px' }}>
+            <h2>Clothing Details</h2>
+            <p><strong>Type:</strong> {item.type}</p>
+            <p><strong>Age:</strong> {item.age}</p>
+            <p><strong>Gender:</strong> {item.gender}</p>
+            <p><strong>Season:</strong> {item.season}</p>
+            <p><strong>Material:</strong> {item.material}</p>
+            <p><strong>Quantity Requested:</strong> {item.quantity}</p>
+            <div>
+                <label>
+                    Quantity to Donate:
+                    <input type="number" value={quantity} onChange={handleQuantityChange} min="1" />
+                </label>
             </div>
+            <button onClick={onClose} style={{ marginRight: '10px' }}>Close</button>
+            <button onClick={handleDonate}>Donate</button>
         </div>
     );
 };
@@ -85,6 +81,11 @@ const App = () => {
         console.log("Donating", selectedItem.type, "Quantity:", selectedItem.quantity);
         setSelectedItem(null);
     };
+    /*const handleBack=()=>{
+
+        const navigate = useNavigate();
+        navigate('/requested-donations')
+    }*/
 
     // Apply filters to clothing items
     React.useEffect(() => {
@@ -99,33 +100,41 @@ const App = () => {
     }, [filters]);
 
     return (
-        <div className="container py-4">
-            <h1 className="mb-4">Filter Clothes Donation Requests</h1>
-            <div className="mb-3">
-                <label className="me-2">Age:</label>
-                <select className="form-select me-3" value={filters.age} onChange={e => handleFilterChange('age', e.target.value)}>
-                    <option value="">All</option>
-                    <option value="Adult">Adult</option>
-                    <option value="Child">Child</option>
-                </select>
-                <label className="me-2">Gender:</label>
-                <select className="form-select me-3" value={filters.gender} onChange={e => handleFilterChange('gender', e.target.value)}>
-                    <option value="">All</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-                <label className="me-2">Season:</label>
-                <select className="form-select" value={filters.season} onChange={e => handleFilterChange('season', e.target.value)}>
-                    <option value="">All</option>
-                    <option value="Spring">Spring</option>
-                    <option value="Summer">Summer</option>
-                    <option value="Winter">Winter</option>
-                    <option value="Fall">Fall</option>
-                </select>
+        <div style={{maxWidth: '600px', margin: '0 auto', padding: '20px'}}>
+            <h1>Filter Clothes Donation Requests</h1>
+            <div>
+                <label>
+                    Age:
+                    <select value={filters.age} onChange={e => handleFilterChange('age', e.target.value)}>
+                        <option value="">All</option>
+                        <option value="Adult">Adult</option>
+                        <option value="Child">Child</option>
+                    </select>
+                </label>
+                <label>
+                    Gender:
+                    <select value={filters.gender} onChange={e => handleFilterChange('gender', e.target.value)}>
+                        <option value="">All</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </label>
+                <label>
+                    Season:
+                    <select value={filters.season} onChange={e => handleFilterChange('season', e.target.value)}>
+                        <option value="">All</option>
+                        <option value="Spring">Spring</option>
+                        <option value="Summer">Summer</option>
+                        <option value="Winter">Winter</option>
+                        <option value="Fall">Fall</option>
+                    </select>
+                </label>
             </div>
-            <h2 className="mb-3">Filtered Clothing Items</h2>
+            <h2>Filtered Clothing Items</h2>
             <ClothingList items={filteredItems} onItemClick={handleItemClick}/>
-            {selectedItem && <ClothingDetails item={selectedItem} onClose={handleCloseDetails} onDonate={handleDonate}/>}
+            {selectedItem &&
+                <ClothingDetails item={selectedItem} onClose={handleCloseDetails} onDonate={handleDonate}/>}
+            {/*} <button onClick={handleBack} style={{marginBottom: '10px'}}>Back</button>*/}
         </div>
     );
 };
