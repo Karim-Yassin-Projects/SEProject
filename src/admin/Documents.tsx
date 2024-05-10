@@ -1,8 +1,16 @@
 import React from 'react';
+import BreadCrumb from "../common/BreadCrumb.tsx";
 
+const links = [
+    {to: '/', label: 'Home'},
+    {to: '/admin-login', label: 'Login'},
+    {to: '/Dashboard', label: 'Dashboard'},
+    {to: '/Documents', label: 'Documents'},
+];
 const Documents: React.FC = () => {
     return (
         <div className="container">
+            <BreadCrumb links={links}/>
             <h1 className="text-center mb-4">Document Images</h1>
             <div className="row justify-content-center">
                 {/* First Image */}

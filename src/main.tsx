@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.scss'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
-import AdminHome from './admin/Home.tsx'
+import AdminHome from './admin/Login.tsx'
 import DonorHome from './donor/Home.tsx'
 import AppLayout from "./AppLayout.tsx";
 import 'bootstrap';
@@ -18,8 +18,6 @@ import RegisteredOrganizations from './admin/RegisteredOrganizations.tsx';
 import RegisteredDonors from './admin/RegisteredDonors.tsx';
 import OrganizationDetails from './admin/OrganizationDetails.tsx';
 import Documents from './admin/Documents.tsx';
-
-
 import DonorSelection from "./donor/DonorSelection.tsx";
 import {routes as representativeRoutes} from "./representative/routes.tsx";
 import RepresentativeLayout from "./representative/Layout.tsx";

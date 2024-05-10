@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
+import BreadCrumb from "../common/BreadCrumb.tsx";
 
 const OrganizationSubmissions: React.FC = () => {
     const navigate = useNavigate();
@@ -66,9 +67,16 @@ const OrganizationSubmissions: React.FC = () => {
         event.preventDefault();
         navigate('/documents');
     };
+    const links = [
+        {to: '/', label: 'Home'},
+        {to: '/admin-login', label: 'Login'},
+        {to: '/Dashboard', label: 'Dashboard'},
+        {to: '/OrganizationSubmissions ', label: 'Organization Submissions'},
+    ];
 
     return (
         <div className="container my-5">
+            <BreadCrumb links={links}/>
             <h1 className="text-center mb-4">Organization Submissions</h1>
             <div className="table-responsive">
                 <table className="table table-custom">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css';  // Ensure your CSS styles are imported correctly
+import './App.css';
+import BreadCrumb from "../common/BreadCrumb.tsx";  // Ensure your CSS styles are imported correctly
 
 const DonorsSubmission: React.FC = () => {
     const navigate = useNavigate();
@@ -38,9 +39,16 @@ const DonorsSubmission: React.FC = () => {
         event.preventDefault();
         navigate('/documents');
     };
+    const links = [
+        {to: '/', label: 'Home'},
+        {to: '/admin-login', label: 'Login'},
+        {to: '/Dashboard', label: 'Dashboard'},
+        {to: '/DonorSubmissions ', label: 'Donor Submissions'},
+    ];
 
     return (
         <div className="container my-5">
+            <BreadCrumb links={links} />
             <h1 className="text-center">Donor Submissions</h1>
             <div className="table-responsive">
                 <table className="table table-custom">

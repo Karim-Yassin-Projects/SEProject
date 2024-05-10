@@ -1,44 +1,51 @@
 import React, { useState } from 'react';
+import DeleteButton from "../common/DeleteButton";
+import BreadCrumb from "../common/BreadCrumb.tsx";
 
 const RegisteredDonors: React.FC = () => {
     const [donors, setDonors] = useState([
         {
             id: 1,
-            firstName: 'John',
-            lastName: 'Doe',
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
             gender: 'Male',
-            email: 'john@example.com',
+            email: 'yassin@gmail.com',
             contactNumber: '1234567890',
             password: 'password123',
             address: '123 Main St',
-            area: 'Sidi Gaber', // Example area
-            governorate: 'Alexandria', // Example governorate
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
             type: 'Donor'
         },
         {
             id: 2,
-            firstName: 'Jane',
-            lastName: 'Doe',
+            firstName: 'Raghad',
+            lastName: 'Helal',
             gender: 'Female',
-            email: 'jane@example.com',
+            email: 'raghad@egmail.com',
             contactNumber: '0987654321',
             password: 'password456',
             address: '456 Elm St',
-            area: 'Montaza', // Example area
-            governorate: 'Cairo', // Example governorate
+            area: 'Montaza',
+            governorate: 'Cairo',
             type: 'Teacher'
         }
     ]);
 
     const handleDeleteDonor = (id: number) => {
-        const updatedDonors = donors.filter(donor => donor.id !== id);
-        setDonors(updatedDonors);
+        setDonors(prevDonors => prevDonors.filter(donor => donor.id !== id));
     };
+    const links = [
+        {to: '/', label: 'Home'},
+        {to: '/admin-login', label: 'Login'},
+        {to: '/Dashboard', label: 'Dashboard'},
+        {to: '/RegisteredDonors', label: 'Registered Donors'},
+    ];
 
     return (
         <div className="container">
+            <BreadCrumb links={links}/>
             <h1 className="text-center">Registered Donors</h1>
-
             <table className="table">
                 <thead>
                 <tr>
@@ -52,11 +59,11 @@ const RegisteredDonors: React.FC = () => {
                     <th>Area</th>
                     <th>Governorate</th>
                     <th>Type</th>
-                    <th>Account Management</th> {/* Added column for actions */}
+                    <th>Account Management</th>
                 </tr>
                 </thead>
                 <tbody>
-                {donors.map((donor) => (
+                {donors.map(donor => (
                     <tr key={donor.id}>
                         <td>{donor.firstName}</td>
                         <td>{donor.lastName}</td>
@@ -69,7 +76,12 @@ const RegisteredDonors: React.FC = () => {
                         <td>{donor.governorate}</td>
                         <td>{donor.type}</td>
                         <td>
-                            <button className="btn btn-danger" onClick={() => handleDeleteDonor(donor.id)}>Delete Donor</button>
+                            <DeleteButton
+                                onConfirm={() => handleDeleteDonor(donor.id)}
+                                message={`Are you sure you want to delete ${donor.firstName} ${donor.lastName}? This action cannot be undone.`}
+                                deleteText="Delete Donor"
+                                deleteButtonClass="btn btn-danger"
+                            />
                         </td>
                     </tr>
                 ))}
