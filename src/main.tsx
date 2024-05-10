@@ -20,6 +20,10 @@ import TeacherDetails from "./donor/TeacherDetails.tsx";
 import RequestedDonations from "./donor/RequestedDonations.tsx";
 import ClinicDetails from "./donor/ClinicDetails.tsx";
 import FilterClothes from "./donor/FilterClothes.tsx";
+import MedicalDetails from "./donor/MedicalDetails.tsx";
+import MedicalRequests from "./donor/MedicalRequests.tsx";
+import MedicalRequest from "./donor/MedicalRequest.tsx";
+import CreateDonation from "./donor/CreateDonation.tsx";
 
 
 const routes = createBrowserRouter([
@@ -39,6 +43,10 @@ const routes = createBrowserRouter([
             {path: '/teacher-details', element: <TeacherDetails onSubmit={null}/>},
             {path: '/requested-donations', element: <RequestedDonations onSearch={null}/>},
             {path: '/filter-clothes', element:<FilterClothes/>},
+            {path: '/medical-details', element: <MedicalDetails/>},
+            {path: '/medical-requests', element: <MedicalRequests/>},
+            {path: 'medical-request/:postId', element: <MedicalRequest/>},
+            {path: 'create-donation', element: <CreateDonation/>},
             {
                 path: '/representative', element: <RepresentativeLayout/>,
                 children: representativeRoutes
