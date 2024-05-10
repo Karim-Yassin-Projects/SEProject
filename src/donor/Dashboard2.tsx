@@ -7,14 +7,14 @@ const Dashboard2 = () => {
     const handleRequestedDonations = () => navigate('/requested-donations');
     const handleFilterClothes = () => navigate('/filter-clothes');
     const links=[
-        {to: '/donor-login', label: 'Login'},
+        {to: '/donor-login', label: 'Log in'},
     ]
     return (
         <div className="dashboard container d-flex flex-column p-4">
             <h1 className="dashboard-heading display-3 mb-4">Dashboard</h1>
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><Link to="/donor-login">Login</Link></li>
+                    <li className="breadcrumb-item"><Link to="/donor-login">Log in</Link></li>
                     <li className="breadcrumb-item active" aria-current="page">Dashboard</li>
                 </ol>
             </nav>

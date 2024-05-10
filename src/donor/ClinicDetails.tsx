@@ -39,7 +39,7 @@ function ClinicLocationForm({ onSubmit }) {
             <h2>Clinic Location Specification</h2>
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><Link to="/dashboard">Dashboard</Link></li>
+                    <li className="breadcrumb-item"><Link to="/donor-login">Log in</Link></li>
                     <li className="breadcrumb-item active" aria-current="page">Clinic Location Form</li>
                 </ol>
             </nav>
