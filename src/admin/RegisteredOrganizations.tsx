@@ -103,7 +103,7 @@ const RegisteredOrganizations: React.FC = () => {
     return (
         <div className="container">
             <BreadCrumb links={links}/>
-            <h1 className="text-center">Registered Organizations</h1>
+            <h4 className="text-start">Registered Organizations</h4>
 
             <div className="row mb-3">
                 <div className="col">

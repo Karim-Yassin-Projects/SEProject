@@ -29,24 +29,174 @@ const RegisteredDonors: React.FC = () => {
             area: 'Montaza',
             governorate: 'Cairo',
             type: 'Teacher'
-        }
+        },
+        {
+            id: 3,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Teacher'
+        },
+        {
+            id: 4,
+            firstName: 'Ahmed',
+            lastName: 'Hossam',
+            gender: 'Male',
+            email: 'ahmed@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Teacher'
+        },
+        {
+            id: 5,
+            firstName: 'Haneen',
+            lastName: 'Tarek',
+            gender: 'Female',
+            email: 'haneen@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 6,
+            firstName: 'Karim',
+            lastName: 'Sherif',
+            gender: 'Male',
+            email: 'karim@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 7,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Teacher'
+        },
+        {
+            id: 8,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 9,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 10,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+
+}
     ]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filterType, setFilterType] = useState('All');
 
     const handleDeleteDonor = (id: number) => {
         setDonors(prevDonors => prevDonors.filter(donor => donor.id !== id));
     };
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const handleTypeChange = (event) => {
+        setFilterType(event.target.value);
+    };
+
+    const filteredDonors = donors.filter(donor =>
+        (`${donor.firstName} ${donor.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            (filterType === 'All' || donor.type === filterType))
+    );
+
     const links = [
         {to: '/', label: 'Home'},
         {to: '/admin-login', label: 'Login'},
         {to: '/Dashboard', label: 'Dashboard'},
-        {to: '/RegisteredDonors', label: 'Registered Donors'},
+        {to: '/RegisteredDonors', label: 'Donors'},
     ];
 
     return (
         <div className="container">
             <BreadCrumb links={links}/>
-            <h1 className="text-center">Registered Donors</h1>
-            <table className="table">
+            <h4 className="text-start">Donors</h4>
+            <div className="row mb-3">
+                <div className="col-md-6">
+                    <div className="input-group">
+                        <span className="input-group-text">Search Name</span>
+                        <input
+                            type="text"
+                            placeholder="Enter name..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="form-control"
+                        />
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="input-group">
+                        <span className="input-group-text">Filter Type</span>
+                        <select
+                            className="form-control"
+                            value={filterType}
+                            onChange={handleTypeChange}
+                        >
+                            <option value="All">All Types</option>
+                            <option value="Donor">Donor</option>
+                            <option value="Teacher">Teacher</option>
+                            {/* Add other types as needed */}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table className="table table-striped">
                 <thead>
                 <tr>
                     <th>First Name</th>
@@ -63,7 +213,7 @@ const RegisteredDonors: React.FC = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {donors.map(donor => (
+                {filteredDonors.map(donor => (
                     <tr key={donor.id}>
                         <td>{donor.firstName}</td>
                         <td>{donor.lastName}</td>

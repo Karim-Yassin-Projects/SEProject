@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
-import BreadCrumb from "../common/BreadCrumb.tsx";  // Ensure your CSS styles are imported correctly
+import BreadCrumb from "../common/BreadCrumb.tsx";
 
 const DonorsSubmission: React.FC = () => {
     const navigate = useNavigate();
@@ -11,16 +11,34 @@ const DonorsSubmission: React.FC = () => {
             firstName: 'Yassin',
             lastName: 'Ahmed',
             contactNumber: '1234567890',
+            email: 'yassin@gmail.com',
             type: 'Donor',
-            documentsLink: 'https://en.wikipedia.org/wiki/PDF'  // Example link
+            documentsLink: 'https://en.wikipedia.org/wiki/PDF'
         },
         {
             firstName: 'Ahmed',
             lastName: 'Hossam',
             contactNumber: '0987654321',
+            email: 'ahmed@gmail.com',
             type: 'Teacher',
-            documentsLink: 'https://en.wikipedia.org/wiki/PDF'  // Example link
-        }
+            documentsLink: 'https://en.wikipedia.org/wiki/PDF'
+        },
+        {
+            firstName: 'Raghad',
+            lastName: 'Helal',
+            contactNumber: '1234567890',
+            email: 'Raghad@gmail.com',
+            type: 'Donor',
+            documentsLink: 'https://en.wikipedia.org/wiki/PDF'
+        },
+        {
+            firstName: 'Karim',
+            lastName: 'Sherif',
+            contactNumber: '1234567890',
+            email: 'Karim@gmail.com',
+            type: 'Teacher',
+            documentsLink: 'https://en.wikipedia.org/wiki/PDF'
+        },
     ]);
 
     const handleAccept = (index: number) => {
@@ -35,10 +53,11 @@ const DonorsSubmission: React.FC = () => {
         setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index));
     };
 
-    const navigateToDocuments = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const navigateToDocuments = (event: React.MouseEvent) => {
         event.preventDefault();
         navigate('/donordocuments');
     };
+
     const links = [
         {to: '/', label: 'Home'},
         {to: '/admin-login', label: 'Login'},
@@ -48,8 +67,8 @@ const DonorsSubmission: React.FC = () => {
 
     return (
         <div className="container my-5">
-            <BreadCrumb links={links} />
-            <h1 className="text-center">Donor Submissions</h1>
+            <BreadCrumb links={links}/>
+            <h4 className="text-start">Donor Submissions</h4>
             <div className="table-responsive">
                 <table className="table table-custom">
                     <thead>
@@ -57,9 +76,10 @@ const DonorsSubmission: React.FC = () => {
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Contact Number</th>
+                        <th>Email</th>
                         <th>Type</th>
                         <th>Documents for Verification</th>
-                        <th>Submission / Request Approval</th>
+                        <th>Approval</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,9 +88,12 @@ const DonorsSubmission: React.FC = () => {
                             <td>{donor.firstName}</td>
                             <td>{donor.lastName}</td>
                             <td>{donor.contactNumber}</td>
+                            <td>{donor.email}</td>
                             <td>{donor.type}</td>
                             <td>
-                                <a href="#" onClick={navigateToDocuments}>View</a>
+                                <button className="btn btn-outline-primary btn-sm" onClick={navigateToDocuments}>
+                                    View Documents
+                                </button>
                             </td>
                             <td>
                                 <button className="btn btn-custom btn-custom-primary me-2" onClick={() => handleAccept(index)}>Accept</button>
