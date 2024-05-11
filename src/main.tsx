@@ -32,6 +32,7 @@ import PrivacyPolicy from "./info/PrivacyPolicy.tsx";
 import Terms from "./info/Terms.tsx";
 import About from "./info/About.tsx";
 import Contact from "./info/Contact.tsx";
+import SearchPosts from "./donor/SearchPosts.tsx";
 
 const organizations = [
     {
@@ -63,6 +64,7 @@ const routes = createBrowserRouter([
             {path: '/teacher-details', element: <TeacherDetails onSubmit={null}/>},
             {path: '/requested-donations', element: <RequestedDonations onSearch={null}/>},
             {path: '/filter-clothes', element:<FilterClothes/>},
+            {path: '/search-posts', element:<SearchPosts/>},
             { path: '/registeredorganizations', element: <RegisteredOrganizations /> },
             { path: '/registereddonors', element: <RegisteredDonors /> },
             { path: '/organizationdetails', element: <OrganizationDetails organization={organizations} /> },

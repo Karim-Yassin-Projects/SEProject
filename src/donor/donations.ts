@@ -1,5 +1,5 @@
 import {number, object, string} from "yup";
-import {PostCategories} from "../representative/posts.ts";
+import {PostCategories} from "../common/posts.ts";
 
 export type CreateDonationRequest = {
     category: string;
@@ -18,11 +18,3 @@ export const newDonationSchema = object().shape({
     quantity: number().required().min(1).label("Quantity"),
 });
 
-export const DonationCategories = [
-    "Clothes",
-    "Toys",
-    "Food",
-    "Medical Supplies",
-    "School Supplies",
-    "Blood Donations",
-];

@@ -1,8 +1,9 @@
-import {CreateDonationRequest, DonationCategories, newDonationSchema} from "./donations.ts";
+import {CreateDonationRequest, newDonationSchema} from "./donations.ts";
 import {useState} from "react";
 import {Formik} from "formik";
 import FormField from "../common/FormField.tsx";
 import {NavLink} from "react-router-dom";
+import {PostCategories} from "../common/posts.ts";
 
 function CreateDonation() {
     const initialValues: CreateDonationRequest = {category: '', title: '', details: '', quantity: 0};
@@ -21,7 +22,7 @@ function CreateDonation() {
                         {!isSubmitted &&
                             <>
                                 <FormField formik={formik} name="category" schema={newDonationSchema}
-                                           options={DonationCategories}/>
+                                           options={PostCategories}/>
                                 <FormField formik={formik} name="title" schema={newDonationSchema}/>
                                 <FormField formik={formik} name="quantity" schema={newDonationSchema}/>
                                 <FormField formik={formik} name="details" schema={newDonationSchema}/>
