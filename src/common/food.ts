@@ -1,12 +1,16 @@
 import {boolean, InferType, object, string} from "yup";
 import {randomElement, randomInt} from "./random.ts";
 
-export const FoodCategories = ["Fruits", "Vegetables", "Canned foods", "Fresh means", "Baked Goods"];
+export const FoodCategories = ["Fruits", "Vegetables", "Canned foods", "Fresh meals", "Baked Goods"];
 export const WeightCategories = ["Fruits", "Vegetables"];
 
 export const foodSchema = object().shape({
         search: boolean().optional().label("Is Searching"),
-        category: string().required().oneOf(FoodCategories).label("Food Category"),
+        category: string().optional().oneOf(FoodCategories).label("Food Category")
+            .when("search", {
+                is: (search: boolean) => !search,
+                then: (s) => s.required(),
+            }),
         quantity: string().optional().label("Quantity")
             .when("category", {
                 is: (c: string) => !WeightCategories.includes(c),

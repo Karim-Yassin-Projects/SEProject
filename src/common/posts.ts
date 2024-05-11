@@ -4,9 +4,11 @@ import {generateRandomMedicalSuppliesItem, MedicalSuppliesItem} from "./medical-
 import {BloodDonationItem, generateRandomBloodDonationItem} from "./blood-donations.ts";
 import {FoodItem, generateRandomFoodItem} from "./food.ts";
 import {Hospitals, Organization, Organizations} from "./organizations.ts";
-import { generateRandomPerson} from "./names.ts";
+import {generateRandomPerson} from "./names.ts";
 import {randomBoolean, randomElement, randomInt} from "./random.ts";
-import {generateRandomSchoolSuppliesItem, SchoolSuppliesItem} from "./school-supplies-categories.ts";
+import {generateRandomSchoolSuppliesItem, SchoolSuppliesItem} from "./school-supplies.ts";
+import {generateRandomTeachingItem, TeachingItem} from "./teaching.ts";
+import {generateRandomMedicalCaseItem, MedicalCaseItem} from "./medical-cases.ts";
 
 export const PostCategories = [
     'Toys',
@@ -15,7 +17,9 @@ export const PostCategories = [
     'Blood Donations',
     'Food',
     'School Supplies',
-] as const;
+    'Teaching Cases',
+    'Medical Cases',
+];
 export type PostType = typeof PostCategories[number];
 
 export interface Post {
@@ -73,6 +77,16 @@ export interface SchoolSuppliesPost extends Post {
     schoolSupplies: SchoolSuppliesItem;
 }
 
+export interface TeachingPost extends Post {
+    category: 'Teaching Cases';
+    teaching: TeachingItem;
+}
+
+export interface MedicalCasesPost extends Post {
+    category: 'Medical Cases';
+    medicalCase: MedicalCaseItem;
+}
+
 export function isFoodPost(post: Post): post is FoodPost {
     return post.category === 'Food';
 }
@@ -95,6 +109,14 @@ export function isSchoolSuppliesPost(post: Post): post is SchoolSuppliesPost {
 
 export function isToysPost(post: Post): post is ToysPost {
     return post.category === 'Toys';
+}
+
+export function isTeachingPost(post: Post): post is TeachingPost {
+    return post.category === 'Teaching Cases';
+}
+
+export function isMedicalCasesPost(post: Post): post is MedicalCasesPost {
+    return post.category === 'Medical Cases';
 }
 
 function generateToysPost(id: number, organization: Organization, category: "Toys") {
@@ -138,11 +160,11 @@ function generateClothsPost(id: number, organization: Organization, category: "C
 - Age Group: ${item.ageRange}
 - Quantity: ${item.quantity}
 
-            Your generous donations will help us provide essential clothing items to those in need in our community. If you have items that fit the above description and are in good condition, please consider donating.
+Your generous donations will help us provide essential clothing items to those in need in our community. If you have items that fit the above description and are in good condition, please consider donating.
 
-            To donate, please visit ${organization.name} at ${organization.address}, ${organization.area}. Our staff will guide you through the donation process.
+To donate, please visit ${organization.name} at ${organization.address}, ${organization.area}. Our staff will guide you through the donation process.
 
-            We appreciate your support in this critical situation. Your donation can make a significant difference in someone's life. Thank you.`,
+We appreciate your support in this critical situation. Your donation can make a significant difference in someone's life. Thank you.`,
         category,
         fulfilled: false,
         clothes: item,
@@ -232,6 +254,13 @@ Thank you for your support.
 function generateSchoolSuppliesPost(id: number, organization: Organization, category: "School Supplies") {
     const item = generateRandomSchoolSuppliesItem();
 
+    const description = item.type === 'Stationery' ? `- Stationery Type: ${item.stationaryType}` :
+        item.type === "Books" ? `- Book name: ${item.bookName}
+- Book Language: ${item.bookLanguage}
+- Book Author: ${item.bookAuthor}
+- Edition: ${item.edition}
+- Book Summary: ${item.bookSummary}
+` : '';
     const post: SchoolSuppliesPost = {
         id,
         organization,
@@ -241,6 +270,7 @@ function generateSchoolSuppliesPost(id: number, organization: Organization, cate
         details: `Our organization, ${organization.name}, is in need of school supplies for the children under our care. We are looking for donations of the following items:
 - Category: ${item.type}
 - Quantity: ${item.quantity}
+${description}
 
 Your generous donations will help us provide essential school supplies to the children in our care. If you have items that fit the above description and are in good condition, please consider donating.
 
@@ -251,8 +281,55 @@ Thank you for your support.`,
         donations: [],
     }
     return post;
-
 }
+
+function generateTeachingPost(id: number, organization: Organization, category: "Teaching Cases"): TeachingPost {
+    const item = generateRandomTeachingItem(organization);
+    const title = `${item.subject} teacher needed for ${organization.name}`;
+    const description = `Our organization, ${organization.name}, is in need of volunteer teachers to teach ${item.subject} to the ${item.numberOfStudents} students in our community.
+
+The classes will be held in ${organization.area}, ${organization.governorate}. If you have experience in teaching ${item.subject} and are willing to volunteer your time, we would greatly appreciate your help.
+
+If you experienced in teaching ${item.subject} and are interested in volunteering, please visit ${organization.name} at ${organization.address}. Our staff will guide you through the process.
+
+Thank you for your support.`;
+    return {
+        id,
+        organization,
+        title,
+        category,
+        fulfilled: false,
+        details: description,
+        teaching: item,
+        donations: [],
+    };
+}
+
+function generateMedicalCasesPost(id: number, organization: Organization, category: "Medical Cases"): MedicalCasesPost {
+    const item = generateRandomMedicalCaseItem(organization);
+    const title = `${item.specialization} Doctor needed for ${item.patientName}`;
+
+    const description = `Patient ${item.patientName}, has been admitted to ${organization.name} in ${organization.area}, ${organization.governorate}. 
+    
+    ${item.patientGender === 'Male' ? 'He' : 'She'} has been diagnosed with a severe condition that requires immediate medical attention. 
+    The patient is a ${item.patientGender} aged ${item.patientAge} years old, weighing ${item.patientWeight} Kg.
+    
+    ${item.caseDescription}
+    `;
+
+    return {
+        id,
+        organization,
+        title,
+        category,
+        fulfilled: false,
+        details: description,
+        medicalCase: item,
+        donations: [],
+    };
+}
+
+
 
 function generateRandomPost(id: number): Post {
     const category = randomElement(PostCategories as unknown as PostType[]);
@@ -272,10 +349,17 @@ function generateRandomPost(id: number): Post {
     } else if (category === 'Food') {
         organization = randomElement(Organizations);
         return generateFoodPost(id, organization, category);
-    } else {
+    } else if (category == 'School Supplies') {
         organization = randomElement(Organizations);
         return generateSchoolSuppliesPost(id, organization, category);
+    } else if (category == 'Teaching Cases') {
+        organization = randomElement(Organizations);
+        return generateTeachingPost(id, organization, category);
+    } else if (category == 'Medical Cases') {
+        organization = randomElement(Hospitals);
+        return generateMedicalCasesPost(id, organization, category);
     }
+    throw new Error(`Unknown category: ${category}`);
 }
 
 function generatePosts() {
@@ -290,7 +374,7 @@ function generateDonation(id: number, posts: Post[]): Donation {
     const post = randomElement(posts);
     const person = generateRandomPerson();
     const dropped = randomBoolean();
-    const donation: Donation =  {
+    const donation: Donation = {
         id,
         post,
         ...person,
@@ -332,6 +416,7 @@ export function getPostsByOrganization(organization: Organization): Post[] {
 }
 
 let defaultOrgPosts: Post[] | undefined;
+
 export function getPostsForDefaultOrganization(): Post[] {
     if (defaultOrgPosts) {
         return defaultOrgPosts;
@@ -341,6 +426,7 @@ export function getPostsForDefaultOrganization(): Post[] {
 }
 
 let defaultOrgDonations: Donation[] | undefined;
+
 export function getDonationsForDefaultOrganization(): Donation[] {
     if (defaultOrgDonations) {
         return defaultOrgDonations;

@@ -1,6 +1,6 @@
-import {randomElement} from "./random.ts";
+import {randomElement, randomInt} from "./random.ts";
 
-export const FirstNames = ["Ali", "Mohamed", "Ahmed", "Omar", "Fatma", "Nour", "Hassan", "Khaled", "Nada", "Mona"];
+export const FirstNames = ["Ali", "Mohamed", "Ahmed", "Omar", "Hassan", "Khaled", "Nour",  "Farida", "Farah", "Nadine", "Rana", "Heba"];
 export const LastNames = ["Ali", "Mohamed", "Ahmed", "Omar", "Hassan", "Hussein", "Khalil", "Khaled"]
 
 export type Person = {
@@ -11,8 +11,14 @@ export type Person = {
     phone: string;
 }
 
-export function generateRandomName() {
-    const firstName = randomElement(FirstNames);
+export function generateRandomName(gender?: string): string {
+    const index = gender === undefined
+    ? randomInt(0, FirstNames.length)
+        : gender === 'Male' ? randomInt(0, FirstNames.length / 2)
+        : randomInt(FirstNames.length / 2, FirstNames.length);
+
+
+    const firstName = FirstNames[index];
     const lastName = randomElement(LastNames);
     return `${firstName} ${lastName}`;
 }
