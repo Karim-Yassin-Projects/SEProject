@@ -1,4 +1,4 @@
-import {InferType, object, string} from "yup";
+import {boolean, InferType, number, object, string} from "yup";
 import {randomElement, randomInt} from "./random.ts";
 
 export const ToyCategories = [
@@ -25,13 +25,32 @@ export const ToyGenders = [
 export const AllowedExtensions = ["xbm", "tif", "tiff", "ico", "bmp", "pjpeg", "avif", "apng", "svg", "svgz", "webp", "jpg", "jpeg", "png", "jpe", "gif"];
 
 export const toysSchema = object().shape({
-    category: string().optional().oneOf(ToyCategories).label("Toy Category"),
-    ageRange: string().optional().oneOf(ToyAges).label("Age Range"),
-    toyGender: string().optional().oneOf(ToyGenders).label("Suitable for"),
-    quantity: string().optional().matches(/\d+/, "Quantity must be a positive number").optional().label("Quantity"),
-    toyType: string().optional().label("Type"),
-    document: string().optional().label("Toy Picture"),
-    documentSize: string().optional().label("Toy Picture Size").max(4 * 1024*1024, 'Toy Picture size cannot exceed 4MB'),
+    search: boolean().optional().label("Is Searching"),
+    category: string().optional().oneOf(ToyCategories).label("Toy Category").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    ageRange: string().optional().oneOf(ToyAges).label("Age Range").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    toyGender: string().optional().oneOf(ToyGenders).label("Suitable for").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    quantity: string().optional().matches(/^\d+$/, "Quantity must be a positive number").optional().label("Quantity").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    toyType: string().optional().label("Type").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    document: string().optional().label("Toy Picture").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    documentSize: number().optional().label("Toy Picture Size").max(4 * 1024*1024, 'Toy Picture size cannot exceed 4MB'),
     documentType: string().optional().oneOf(AllowedExtensions, 'Toy Picture type must be an image file').label("Toy Picture Type")
 });
 

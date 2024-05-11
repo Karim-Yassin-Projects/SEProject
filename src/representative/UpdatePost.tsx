@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { useParams} from 'react-router-dom';
 import BreadCrumb from "../common/BreadCrumb.tsx";
-import { newPostSchema, PostCategories, UpdatePostRequest, updatePostSchema} from "./posts.ts";
+import { postSchema, PostCategories, UpdatePostRequest, updatePostSchema} from "./posts.ts";
 import FormField from "../common/FormField.tsx";
 import {Formik} from "formik";
 import {getPostsForDefaultOrganization, Post} from "../common/posts.ts";
@@ -34,7 +34,7 @@ function PostForm({post}: PostFormProps) {
     ]
 
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={newPostSchema}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={postSchema}>
             {
                 (formik) => {
                     return <div className="container">

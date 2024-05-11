@@ -1,39 +1,32 @@
-import {Formik} from "formik";
 import FormField from "./FormField.tsx";
 import {
     MedicalDevices,
     MedicalEquipments,
-    MedicalSuppliesCategories,
-    MedicalSuppliesItem,
-    medicalSuppliesSchema,
-    Medications
+    MedicalSuppliesCategories, Medications,
 } from "./medical-supplies.ts";
 import DocumentUpload from "./DocumentUpload.tsx";
+import {SubformProps} from "./subform.ts";
+import {AnyObject} from "yup";
+import {getIn} from "formik";
 
-function MedicalSuppliesForm({initialValues, name, search}: { initialValues: MedicalSuppliesItem; name: string, search?: boolean }) {
+function MedicalSuppliesForm<T extends AnyObject>({name, search, formik, schema}: SubformProps<T>) {
+    const prefix = name ? `${name}.` : '';
+    const category = getIn(formik.values, `${prefix}category`);
     return (
-        <Formik
-            onSubmit={() => {
-            }}
-            initialValues={initialValues}
-            name={name}
-            validationSchema={medicalSuppliesSchema}>{(formik) => (
             <>
-                <FormField formik={formik} name="category" schema={medicalSuppliesSchema} options={MedicalSuppliesCategories}/>
-                {formik.values.category === 'Medications' && <FormField formik={formik} name="medicationType" schema={medicalSuppliesSchema} options={Medications}/>}
-                {formik.values.category === 'Medical Equipment' && <FormField formik={formik} name="equipmentType" schema={medicalSuppliesSchema} options={MedicalEquipments}/>}
-                {formik.values.category === 'Medical Devices' && <FormField formik={formik} name="deviceType" schema={medicalSuppliesSchema} options={MedicalDevices}/>}
+                <FormField formik={formik} name={`${prefix}category`} schema={schema} options={MedicalSuppliesCategories}/>
+                {category === 'Medications' && <FormField formik={formik} name={`${prefix}medicationType`} schema={schema} options={Medications}/> }
+                {category === 'Medical Equipments' && <FormField formik={formik} name={`${prefix}equipmentType`} schema={schema} options={MedicalEquipments}/> }
+                {category === 'Medical Devices' && <FormField formik={formik} name={`${prefix}deviceType`} schema={schema} options={MedicalDevices} /> }
                 {!search && <>
-                    <FormField formik={formik} name="use" schema={medicalSuppliesSchema}/>
-                    <FormField formik={formik} name="quantity" schema={medicalSuppliesSchema}/>
-                    <DocumentUpload formik={formik} schema={medicalSuppliesSchema}
-                                    label="Upload picture for the supply item."/>
+                    <FormField formik={formik} name={`${prefix}use`} schema={schema}/>
+                    <FormField formik={formik} name={`${prefix}quantity`} schema={schema}/>
+                    <DocumentUpload formik={formik} schema={schema}
+                                    label="Upload picture for the supply item." prefix={name}/>
 
                 </>}
             </>
-        )}
-        </Formik>
-    );
+    )
 }
 
 export default MedicalSuppliesForm;

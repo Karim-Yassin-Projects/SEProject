@@ -1,10 +1,10 @@
-import {InferType, object, string} from "yup";
+import {boolean, InferType, number, object, string} from "yup";
 import {AllowedExtensions} from "./toys.ts";
 import {randomElement, randomInt} from "./random.ts";
 
 export const MedicalSuppliesCategories = [
     'Medical Devices',
-    'Medical Equipment',
+    'Medical Equipments',
     'Medications'
 ];
 
@@ -38,14 +38,38 @@ export const Medications = [
 ]
 
 export const medicalSuppliesSchema = object().shape({
-    category: string().optional().oneOf(MedicalSuppliesCategories).label("Medical Supplies Category"),
-    deviceType: string().optional().oneOf(MedicalDevices).label("Medical Device Type"),
-    equipmentType: string().optional().oneOf(MedicalEquipments).label("Medical Equipment Type"),
-    medicationType: string().optional().oneOf(Medications).label("Medication Type"),
-    use: string().optional().label("Use"),
-    quantity: string().optional().matches(/\d+/, "Quantity must be a positive number").label("Quantity"),
-    document: string().optional().label("Picture"),
-    documentSize: string().optional().label("Picture Size").max(4 * 1024*1024, 'Picture size cannot exceed 4MB'),
+    search: boolean().optional().label("Is Searching"),
+    category: string().required().oneOf(MedicalSuppliesCategories).label("Medical Supplies Category"),
+    deviceType: string().optional().oneOf(MedicalDevices).label("Medical Device Type")
+        .when(["category", "search"], {
+            is: (category: string, search: boolean) => category === "Medical Devices" && !search,
+            then: (s) => s.required(),
+        }),
+    equipmentType: string().optional().oneOf(MedicalEquipments).label("Medical Equipment Type")
+        .when(["category", "search"], {
+            is: (category: string, search: boolean) => category === "Medical Equipments" && !search,
+            then: (s) => s.required(),
+        }),
+    medicationType: string().optional().oneOf(Medications).label("Medication Type")
+        .when(["category", "search"], {
+            is: (category: string, search: boolean) => category === "Medications" && !search,
+            then: (s) => s.required(),
+        }),
+    use: string().optional().label("Use")
+        .when("search", {
+            is: (search: boolean) => !search,
+            then: (s) => s.required(),
+        }),
+    quantity: string().optional().matches(/^\d+$/, "Quantity must be a positive number").label("Quantity")
+        .when("search", {
+            is: (search: boolean) => !search,
+            then: (s) => s.required(),
+        }),
+    document: string().optional().label("Picture").when("search", {
+        is: (search: boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    documentSize: number().optional().label("Picture Size").max(4 * 1024 * 1024, 'Picture size cannot exceed 4MB'),
     documentType: string().optional().oneOf(AllowedExtensions, 'Picture type must be an image file').label("Toy Picture Type")
 });
 

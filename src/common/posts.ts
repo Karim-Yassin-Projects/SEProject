@@ -6,8 +6,16 @@ import {FoodItem, generateRandomFoodItem} from "./food.ts";
 import {Hospitals, Organization, Organizations} from "./organizations.ts";
 import { generateRandomPerson} from "./names.ts";
 import {randomBoolean, randomElement, randomInt} from "./random.ts";
+import {generateRandomSchoolSuppliesItem, SchoolSuppliesItem} from "./school-supplies-categories.ts";
 
-export const PostCategories = ['Toys', 'Clothes', 'Medical Supplies', 'Blood Donations', 'Food'] as const;
+export const PostCategories = [
+    'Toys',
+    'Clothes',
+    'Medical Supplies',
+    'Blood Donations',
+    'Food',
+    'School Supplies',
+] as const;
 export type PostType = typeof PostCategories[number];
 
 export interface Post {
@@ -37,7 +45,7 @@ export interface Donation {
 
 export interface ToysPost extends Post {
     category: 'Toys';
-    toy: ToyItem
+    toys: ToyItem
 }
 
 export interface ClothesPost extends Post {
@@ -58,6 +66,11 @@ export interface BloodDonationPost extends Post {
 export interface FoodPost extends Post {
     category: 'Food';
     food: FoodItem;
+}
+
+export interface SchoolSuppliesPost extends Post {
+    category: 'School Supplies';
+    schoolSupplies: SchoolSuppliesItem;
 }
 
 export function isFoodPost(post: Post): post is FoodPost {
@@ -100,7 +113,7 @@ Your generous donations will help us provide essential toys to the children in o
 To donate, please visit ${organization.name} at ${organization.address}, ${organization.area}. Our staff will guide you through the donation process.
 
 We appreciate your support in this critical situation. Your donation can make a significant difference in someone's life. Thank you.`,
-        toy: item,
+        toys: item,
         donations: [],
     }
     return post;
@@ -187,14 +200,14 @@ We appreciate your support in this critical situation. Your donation can give so
     return post;
 }
 
-function generateFoodPost(id: number, organization: Organization) {
+function generateFoodPost(id: number, organization: Organization, category: "Food") {
     const item = generateRandomFoodItem();
     const description = item.weight ? `Weight: ${item.weight} Kg` : `Quantity: ${item.quantity}`;
     const post: FoodPost = {
         id,
         organization,
         title: `Food Needed for ${organization.name}`,
-        category: 'Food',
+        category,
         fulfilled: false,
         details: `Our organization, ${organization.name}, is in urgent need of food donations to support families in need. 
 We are looking for donations of non-perishable food items such as:
@@ -212,6 +225,31 @@ Thank you for your support.
     return post;
 }
 
+function generateSchoolSuppliesPost(id: number, organization: Organization, category: "School Supplies") {
+    const item = generateRandomSchoolSuppliesItem();
+
+    const post: SchoolSuppliesPost = {
+        id,
+        organization,
+        title: `School Supplies Needed for ${organization.name}`,
+        category,
+        fulfilled: false,
+        details: `Our organization, ${organization.name}, is in need of school supplies for the children under our care. We are looking for donations of the following items:
+- Category: ${item.type}
+- Quantity: ${item.quantity}
+
+Your generous donations will help us provide essential school supplies to the children in our care. If you have items that fit the above description and are in good condition, please consider donating.
+
+To donate, please visit ${organization.name} at ${organization.address}, ${organization.area}. Our staff will guide you through the donation process.
+
+Thank you for your support.`,
+        schoolSupplies: item,
+        donations: [],
+    }
+    return post;
+
+}
+
 function generateRandomPost(id: number): Post {
     const category = randomElement(PostCategories as unknown as PostType[]);
     let organization: Organization;
@@ -227,9 +265,12 @@ function generateRandomPost(id: number): Post {
     } else if (category === 'Toys') {
         organization = randomElement(Organizations);
         return generateToysPost(id, organization, category);
+    } else if (category === 'Food') {
+        organization = randomElement(Organizations);
+        return generateFoodPost(id, organization, category);
     } else {
         organization = randomElement(Organizations);
-        return generateFoodPost(id, organization);
+        return generateSchoolSuppliesPost(id, organization, category);
     }
 }
 

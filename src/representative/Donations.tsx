@@ -73,7 +73,7 @@ function Donations() {
         <div className="container">
             <BreadCrumb links={links}></BreadCrumb>
             <h1>{title}</h1>
-            <table className="table table-striped">
+            {currentDonations.length > 0 && <table className="table table-striped">
                 <thead>
                 <tr>
                     <th>Donor Name</th>
@@ -100,8 +100,12 @@ function Donations() {
                     </tr>
                 ))}
                 </tbody>
-            </table>
-            <nav className="text-center" aria-label="Pagination">
+            </table> }
+            {currentDonations.length === 0 && <div className="alert alert-info my-3 text-center">
+                <i className="bi bi-info-circle me-2"></i>
+                No donations found
+            </div>}
+            {numberOfPages > 1 && <nav className="text-center" aria-label="Pagination">
                 <ul className='pagination justify-content-center'>
                     <li className='page-item'>
                         <button className="page-link" onClick={() => paginate(currentPageIndex - 1)}>Previous</button>
@@ -117,7 +121,7 @@ function Donations() {
                         <button className="page-link" onClick={() => paginate(currentPageIndex + 1)}>Next</button>
                     </li>
                 </ul>
-            </nav>
+            </nav>}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import {InferType, object, string} from "yup";
+import {boolean, InferType, object, string} from "yup";
 import {randomElement, randomInt} from "./random.ts";
 
 export const ClothSeasons = ["Winter", "Summer", "Demi-Season"];
@@ -9,12 +9,31 @@ export const ClothMaterials = ['Cotton', 'Polyester', 'Silk', 'Denim', 'Leather'
 
 
 export const clothesSchema = object().shape({
-    season: string().optional().oneOf(ClothSeasons).label("Season"),
-    ageRange: string().optional().oneOf(ClothAges).label("Age Range"),
-    gender: string().optional().oneOf(ClothGenders).label("Gender"),
-    quantity: string().matches(/\d+/, "Quantity must be a positive number").optional().label("Quantity"),
-    type: string().optional().oneOf(ClothTypes).label("Type"),
-    material: string().optional().oneOf(ClothMaterials).label("Material"),
+    search: boolean().optional().label("Is Searching"),
+    season: string().optional().oneOf(ClothSeasons).label("Season").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    ageRange: string().optional().oneOf(ClothAges).label("Age Range").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    gender: string().optional().oneOf(ClothGenders).label("Gender").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    quantity: string().optional().matches(/^\d+$/, "Quantity must be a positive number").label("Quantity").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    type: string().optional().oneOf(ClothTypes).label("Type").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
+    material: string().optional().oneOf(ClothMaterials).label("Material").when("search", {
+        is: (search:boolean) => !search,
+        then: (s) => s.required(),
+    }),
 });
 
 export type ClothItem = InferType<typeof clothesSchema>;

@@ -1,23 +1,17 @@
-import {Formik} from "formik";
 import FormField from "./FormField.tsx";
-import {SchoolSuppliesCategories, SchoolSuppliesItem, schoolSuppliesSchema} from "./school-supplies-categories.ts";
+import {SchoolSuppliesCategories } from "./school-supplies-categories.ts";
+import {AnyObject} from "yup";
+import {SubformProps} from "./subform.ts";
 
-function SchoolSuppliesForm({initialValues, name, search}: { initialValues: SchoolSuppliesItem; name: string, search?: boolean }) {
+function SchoolSuppliesForm<T extends AnyObject>({name, search, formik, schema}: SubformProps<T>) {
+    const prefix = name ? `${name}.` : '';
     return (
-        <Formik
-            onSubmit={() => {
-            }}
-            initialValues={initialValues}
-            name={name}
-            validationSchema={schoolSuppliesSchema}>{(formik) => (
-            <>
-                <FormField formik={formik} name="type" schema={schoolSuppliesSchema} options={SchoolSuppliesCategories}/>
-                {!search && <>
-                    <FormField formik={formik} name="quantity" schema={schoolSuppliesSchema}/>
-                </>}
-            </>
-        )}
-        </Formik>
+        <>
+            <FormField formik={formik} name={`${prefix}type`} schema={schema} options={SchoolSuppliesCategories}/>
+            {!search && <>
+                <FormField formik={formik} name={`${prefix}quantity`} schema={schema}/>
+            </>}
+        </>
     );
 }
 

@@ -63,7 +63,7 @@ function Posts({fulfilled }: {fulfilled?: boolean}) {
                 <NavLink to="/representative/posts/new" className="btn btn-primary ms-2">Add new donation
                     post</NavLink>
             </div>
-            <table className="table table-striped">
+            { currentPosts.length > 0 && <table className="table table-striped">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -94,8 +94,12 @@ function Posts({fulfilled }: {fulfilled?: boolean}) {
                     </tr>
                 ))}
                 </tbody>
-            </table>
-            <nav className="text-center" aria-label="Pagination">
+            </table> }
+            {currentPosts.length === 0 && <div className="alert alert-info my-3 text-center">
+                <i className="bi bi-info-circle me-2"></i>
+                No posts found
+            </div>}
+            {numberOfPages > 1 && <nav className="text-center" aria-label="Pagination">
                 <ul className='pagination justify-content-center'>
                     <li className='page-item'><button className="page-link" onClick={() => paginate(currentPageIndex - 1)}>Previous</button></li>
                     {Array(Math.ceil(posts.length / itemsPerPage)).fill(null).map((_, index) => (
@@ -107,7 +111,7 @@ function Posts({fulfilled }: {fulfilled?: boolean}) {
                     ))}
                     <li className='page-item'><button className="page-link" onClick={() => paginate(currentPageIndex + 1)}>Next</button></li>
                 </ul>
-            </nav>
+            </nav> }
         </div>
     );
 }

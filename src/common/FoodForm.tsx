@@ -1,27 +1,26 @@
-import {Formik} from "formik";
-
 import FormField from "./FormField.tsx";
-import {FoodCategories, FoodItem, foodSchema, WeightCategories} from "./food.ts";
+import {FoodCategories, WeightCategories} from "./food.ts";
+import {SubformProps} from "./subform.ts";
+import {AnyObject} from "yup";
+import {getIn} from "formik";
 
-function FoodForm({initialValues, name, search}: { initialValues: FoodItem; name: string, search?: boolean }) {
+function FoodForm<T extends AnyObject>({name, search, formik, schema}: SubformProps<T>) {
+    const prefix = name ? `${name}.` : '';
+
+    const category = getIn(formik.values, `${prefix}category`);
     return (
-        <Formik
-            onSubmit={() => {
-            }}
-            initialValues={initialValues}
-            name={name}
-            validationSchema={foodSchema}>{(formik) => (
-            <>
-                <FormField formik={formik} name="category" schema={foodSchema} options={FoodCategories}/>
-                {!search && <>
+        <>
+            <FormField formik={formik} name={`${prefix}category`} schema={schema}
+                       options={FoodCategories as unknown as string[]}/>
+            {!search && <>
+                {category && WeightCategories.indexOf(category) >= 0 &&
+                    <FormField formik={formik} name={`${prefix}weight`} schema={schema}/>}
+                {category && WeightCategories.indexOf(category) < 0 &&
+                    <FormField formik={formik} name={`${prefix}quantity`} schema={schema}/>}
 
-                    {formik.values.category && WeightCategories.indexOf(formik.values.category) >= 0 && <FormField formik={formik} name="weight" schema={foodSchema}/> }
-                    {formik.values.category && WeightCategories.indexOf(formik.values.category) < 0 && <FormField formik={formik} name="quantity" schema={foodSchema}/> }
+            </>}
+        </>
 
-                </>}
-            </>
-        )}
-        </Formik>
     );
 }
 

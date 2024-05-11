@@ -1,30 +1,23 @@
-import {Formik} from "formik";
-
 import FormField from "./FormField.tsx";
-import {ToyAges, ToyCategories, ToyGenders, ToyItem, toysSchema} from "./toys.ts";
+import {ToyAges, ToyCategories, ToyGenders} from "./toys.ts";
 import DocumentUpload from "./DocumentUpload.tsx";
+import {AnyObject} from "yup";
+import {SubformProps} from "./subform.ts";
 
-function ToysForm({initialValues, name, search}: { initialValues: ToyItem; name: string, search?: boolean }) {
+function ToysForm<T extends AnyObject>({name, search, formik, schema}: SubformProps<T>) {
+    const prefix = name ? `${name}.` : '';
     return (
-        <Formik
-            onSubmit={() => {
-            }}
-            initialValues={initialValues}
-            name={name}
-            validationSchema={toysSchema}>{(formik) => (
-            <>
-                <FormField formik={formik} name="category" schema={toysSchema} options={ToyCategories}/>
-                <FormField formik={formik} name="ageRange" schema={toysSchema} options={ToyAges}/>
-                <FormField formik={formik} name="toyGender" schema={toysSchema} options={ToyGenders}/>
-                {!search && <>
-                    <FormField formik={formik} name="quantity" schema={toysSchema}/>
-                    <FormField formik={formik} name="toyType" schema={toysSchema} />
-                    <DocumentUpload formik={formik} schema={toysSchema}
-                                    label="Upload picture for the toy."/>
-                </>}
-            </>
-        )}
-        </Formik>
+        <>
+            <FormField formik={formik} name={`${prefix}category`} schema={schema} options={ToyCategories}/>
+            <FormField formik={formik} name={`${prefix}ageRange`} schema={schema} options={ToyAges}/>
+            <FormField formik={formik} name={`${prefix}toyGender`} schema={schema} options={ToyGenders}/>
+            {!search && <>
+                <FormField formik={formik} name={`${prefix}quantity`} schema={schema}/>
+                <FormField formik={formik} name={`${prefix}toyType`} schema={schema}/>
+                <DocumentUpload formik={formik} schema={schema}
+                                label="Upload picture for the toy." prefix={name}/>
+            </>}
+        </>
     );
 }
 

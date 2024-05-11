@@ -1,9 +1,9 @@
-import {FormikProps} from "formik";
+import {FormikProps, getIn} from "formik";
 import {AnyObject, ObjectSchema, reach, Schema} from "yup";
 
 export type FormFieldProps<T extends AnyObject> = {
     formik: FormikProps<T>;
-    name: keyof T;
+    name: string;
     label?: string;
     schema: ObjectSchema<T>;
     options?: string[];
@@ -11,12 +11,12 @@ export type FormFieldProps<T extends AnyObject> = {
 
 function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
     const {formik, name, schema} = props;
-    const {errors, touched} = formik;
     let {label} = props;
-    const id = name as string;
-    const error = errors[name];
-    let isTouched = !!touched[name];
-    const spec = (reach(schema, id) as Schema).spec;
+
+    const touched = getIn(formik.touched, name) || formik.submitCount > 0;
+    const error = getIn(formik.errors, name);
+    const value = getIn(formik.values, name);
+    const spec = (reach(schema, name) as Schema).spec;
     if (!label) {
         label = spec.label as string;
     }
@@ -28,18 +28,19 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
     }
     const textArea = spec.meta && spec.meta.textarea;
     const optional = spec.optional;
-    const value = formik.values[name];
-    if (value === undefined || value === null || value === '' && optional) {
-        isTouched = false;
-    }
+    const empty = value === undefined || value === null || value === '';
+    const showError = touched && error;
+    let cls = `form-control`;
 
-    const showError = isTouched && error;
-    const cls = `form-control ${isTouched && error ? 'is-invalid' :
-        isTouched && !error ? 'is-valid' : ''}`;
-    const type = id.toLowerCase().indexOf('password') >= 0 ? 'password' : 'text';
+    if (touched && error) {
+        cls = cls + ' is-invalid';
+    } else if (!empty && touched && !error) {
+        cls = cls + ' is-valid';
+    }
+    const type = name.toLowerCase().indexOf('password') >= 0 ? 'password' : 'text';
     return (
         <div className="form-group row my-2">
-            <label htmlFor={id} className="col-md-2">{label}
+            <label htmlFor={name} className="col-md-2">{label}
                 {!optional ? <span className="text-danger">*</span> : ""}
             </label>
             <div className="col-md-10">
@@ -48,8 +49,8 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
                         <div key={index} className="form-check form-check-inline">
                             <input
                                 type="radio"
-                                id={id + "_"+  index}
-                                name={id}
+                                id={name + "_" + index}
+                                name={name}
                                 className="form-check-input"
                                 value={option}
                                 checked={formik.values[name] === option}
@@ -61,7 +62,7 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
                     ))}
                 {props.options && props.options.length > 2 &&
                     <select
-                        id={id}
+                        id={name}
                         className={cls}
                         value={formik.values[name]}
                         onChange={formik.handleChange}
@@ -75,24 +76,24 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
                 }
                 {textArea &&
                     <textarea
-                        id={id}
+                        id={name}
                         rows={10}
+                        className={cls}
+                        value={value}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        placeholder={placeholder}
+                    />}
+                {!props.options && !textArea &&
+                    <input
+                        type={type}
+                        id={name}
                         className={cls}
                         value={formik.values[name]}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         placeholder={placeholder}
                     />}
-                {!props.options && !textArea &&
-                <input
-                    type={type}
-                    id={id}
-                    className={cls}
-                    value={formik.values[name]}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    placeholder={placeholder}
-                />}
                 {showError && <div className="text-danger small">{error as string}</div>}
             </div>
         </div>
