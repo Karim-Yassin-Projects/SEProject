@@ -11,10 +11,10 @@ function Details({post, donation}: { post: Post, donation: Donation }) {
     const [message, setMessage] = useState(
         `Dear ${donation.firstName} ${donation.lastName},
         
-Thank you for your generous donation to our cause. Your contribution is greatly appreciated and will bring happiness to the children in our care.
+Thank you for your generous donation to our cause. Your contribution is greatly appreciated and will be a great help for our community.
 
 Sincerely
-The Maadi Orphanage Team`
+The ${post.organization.name} Team`
     );
     const [showModal, setShowModal] = useState(false);
     const [messageSent, setMessageSent] = useState(false);
