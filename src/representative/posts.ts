@@ -3,17 +3,11 @@ import {clothesSchema} from "../common/clothes.ts";
 import {toysSchema} from "../common/toys.ts";
 import {foodSchema} from "../common/food.ts";
 import {medicalSuppliesSchema} from "../common/medical-supplies.ts";
-import {schoolSuppliesSchema} from "../common/school-supplies-categories.ts";
+import {schoolSuppliesSchema} from "../common/school-supplies.ts";
 import {bloodDonationsSchema} from "../common/blood-donations.ts";
-
-export const PostCategories = [
-    "Clothes",
-    "Toys",
-    "Food",
-    "Medical Supplies",
-    "School Supplies",
-    "Blood Donations",
-];
+import {teachingSchema} from "../common/teaching.ts";
+import {PostCategories} from "../common/posts.ts";
+import {medicalCasesSchema} from "../common/medical-cases.ts";
 
 export const postSchema = object().shape({
     title: string().required().min(1).label("Donation Title"),
@@ -48,21 +42,17 @@ export const postSchema = object().shape({
         is: "Blood Donations",
         then: (s) => s.required().nonNullable(),
     }),
+    teaching: teachingSchema.optional().nullable().when("category", {
+        is: "Teaching Cases",
+        then: (s) => s.required().nonNullable(),
+    }),
+    medicalCase: medicalCasesSchema.optional().nullable().when("category", {
+        is: "Medical Cases",
+        then: (s) => s.required().nonNullable(),
+    }),
 });
 
 export type PostRequest = InferType<typeof postSchema>;
-
-export const updatePostSchema = object().shape({
-    title: string().required().min(1).label("Donation Title"),
-    category: string().required().oneOf(PostCategories).label("Donation Category"),
-    fulfilled: boolean(),
-    details: string().required().min(10).label("Donation Details").meta({
-        placeholder: "Enter details about the donation",
-        textarea: true
-    })
-});
-
-export type UpdatePostRequest = InferType<typeof updatePostSchema>;
 
 export const Titles: Record<string, string> = {
     'fulfilled': 'Fulfilled posts',

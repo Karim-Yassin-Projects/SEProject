@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Formik, FormikProps} from "formik";
-import {PostRequest, postSchema, PostCategories} from "./posts.ts";
+import {PostRequest, postSchema } from "./posts.ts";
 import FormField from "../common/FormField.tsx";
 import BreadCrumb from "../common/BreadCrumb.tsx";
 import ClothesForm from "../common/ClothesForm.tsx";
@@ -10,9 +10,11 @@ import SchoolSuppliesForm from "../common/SchoolSuppliesForm.tsx";
 import ToysForm from "../common/ToysForm.tsx";
 import FoodForm from "../common/FoodForm.tsx";
 import {Organizations} from "../common/organizations.ts";
-import {Post} from "../common/posts.ts";
+import {Post, PostCategories} from "../common/posts.ts";
+import TeachingForm from "../common/TeachingForm.tsx";
+import MedicalCasesForm from "../common/MedicalCasesForm.tsx";
 
-const fieldNames = ['clothes', 'bloodDonation', 'medicalSupplies', 'schoolSupplies', 'toys', 'food'];
+const fieldNames = ['clothes', 'bloodDonation', 'medicalSupplies', 'schoolSupplies', 'toys', 'food', 'teaching', 'medicalCase'];
 const categoryFields: Record<string, string> = {
     'Clothes': 'clothes',
     'Blood Donations': 'bloodDonation',
@@ -20,6 +22,8 @@ const categoryFields: Record<string, string> = {
     'School Supplies': 'schoolSupplies',
     'Toys': 'toys',
     'Food': 'food',
+    'Teaching Cases': 'teaching',
+    'Medical Cases': 'medicalCase',
 }
 
 function getDefaultValues(): PostRequest {
@@ -75,6 +79,25 @@ function getDefaultValues(): PostRequest {
             category: '',
             quantity: '',
             weight: '',
+        },
+        teaching: {
+            search: false,
+            subject: '',
+            numberOfStudents: '',
+            governorate: Organizations[0].governorate,
+            area: Organizations[0].area,
+        },
+        medicalCase: {
+            search: false,
+            specialization: '',
+            patientName: '',
+            patientAge: '',
+            patientGender: '',
+            patientWeight: '',
+            caseDescription: '',
+            governorate: Organizations[0].governorate,
+            area: Organizations[0].area,
+            organizationName: Organizations[0].name,
         },
         fulfilled: false
     };
@@ -160,6 +183,8 @@ function InnerForm({formik, isSubmitted, update, post}: {
                         <SchoolSuppliesForm formik={formik} schema={postSchema} name="schoolSupplies"/>}
                     {formik.values.category === 'Toys' && <ToysForm formik={formik} schema={postSchema} name="toys"/>}
                     {formik.values.category === 'Food' && <FoodForm formik={formik} schema={postSchema} name="food"/>}
+                    {formik.values.category === 'Teaching Cases' && <TeachingForm formik={formik} schema={postSchema} name="teaching"/>}
+                    {formik.values.category === 'Medical Cases' && <MedicalCasesForm formik={formik} schema={postSchema} name="medicalCase"/>}
                     <div className="form-group mt-2">
                         <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Create
                             Post

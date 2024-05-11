@@ -7,6 +7,7 @@ export type FormFieldProps<T extends AnyObject> = {
     label?: string;
     schema: ObjectSchema<T>;
     options?: string[];
+    radio?: boolean;
 }
 
 function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
@@ -15,7 +16,7 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
 
     const touched = getIn(formik.touched, name) || formik.submitCount > 0;
     const error = getIn(formik.errors, name);
-    const value = getIn(formik.values, name);
+    const value = getIn(formik.values, name) ?? '';
     const spec = (reach(schema, name) as Schema).spec;
     if (!label) {
         label = spec.label as string;
@@ -44,7 +45,7 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
                 {!optional ? <span className="text-danger">*</span> : ""}
             </label>
             <div className="col-md-10">
-                {props.options && props.options.length < 3 &&
+                {props.options && props.radio &&
                     props.options.map((option, index) => (
                         <div key={index} className="form-check form-check-inline">
                             <input
@@ -60,7 +61,7 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
                             <label htmlFor={option} className="form-check-label">{option}</label>
                         </div>
                     ))}
-                {props.options && props.options.length > 2 &&
+                {props.options && !props.radio &&
                     <select
                         id={name}
                         className={cls}

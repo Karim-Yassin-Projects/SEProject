@@ -229,7 +229,7 @@ function OrganizationRegistration({update}: RegisterProps) {
                                 <div className="col-md-6">
                                     <FormField formik={formik} name="firstName" schema={registerSchema}/>
                                     <FormField formik={formik} name="lastName" schema={registerSchema}/>
-                                    <FormField formik={formik} name="gender" schema={registerSchema} options={Genders}/>
+                                    <FormField formik={formik} name="gender" schema={registerSchema} options={Genders} radio />
                                     <FormField formik={formik} name="email" schema={registerSchema}/>
                                     {!update &&
                                         <>

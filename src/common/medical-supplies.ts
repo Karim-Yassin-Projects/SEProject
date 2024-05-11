@@ -39,7 +39,10 @@ export const Medications = [
 
 export const medicalSuppliesSchema = object().shape({
     search: boolean().optional().label("Is Searching"),
-    category: string().required().oneOf(MedicalSuppliesCategories).label("Medical Supplies Category"),
+    category: string().optional().oneOf(MedicalSuppliesCategories).label("Medical Supplies Category").when("search", {
+        is: (search: boolean) => !search,
+        then: (s) => s.required(),
+    }),
     deviceType: string().optional().oneOf(MedicalDevices).label("Medical Device Type")
         .when(["category", "search"], {
             is: (category: string, search: boolean) => category === "Medical Devices" && !search,

@@ -64,6 +64,9 @@ function Posts({fulfilled }: {fulfilled?: boolean}) {
                 <NavLink to="/representative/posts/new" className="btn btn-primary ms-2">Add new donation
                     post</NavLink>
             </div>
+            {currentPosts.length > 0 && <div className="text-center text-muted small my-1">
+                <p>Showing posts {indexOfFirstPost + 1} to {indexOfLastPost + 1} of {posts.length} posts</p>
+            </div>}
             { currentPosts.length > 0 && <table className="table table-striped">
                 <thead>
                 <tr>

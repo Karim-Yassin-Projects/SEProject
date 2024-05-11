@@ -74,6 +74,9 @@ function Donations() {
         <div className="container">
             <BreadCrumb links={links}></BreadCrumb>
             <h1>{title}</h1>
+            {currentDonations.length > 0 && <div className="text-center text-muted small my-1">
+                <p>Showing donations {indexOfFirstPost + 1} to {indexOfLastPost + 1} of {donations.length} donations</p>
+            </div>}
             {currentDonations.length > 0 && <table className="table table-striped">
                 <thead>
                 <tr>

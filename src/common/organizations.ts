@@ -65,3 +65,5 @@ export const Organizations: Organization[] = [
 ];
 
 export const Hospitals = Organizations.filter(org => org.type === 'Hospital');
+export const HospitalNames = Hospitals.map(h => h.name);
+export const HospitalAreas = Hospitals.reduce((prev, h) => prev.includes(h.area) ? prev : [...prev, h.area], [] as string[]);
