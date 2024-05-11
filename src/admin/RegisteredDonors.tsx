@@ -41,7 +41,7 @@ const RegisteredDonors: React.FC = () => {
             address: '123 Main St',
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
-            type: 'Donor'
+            type: 'Teacher'
         },
         {
             id: 4,
@@ -54,7 +54,7 @@ const RegisteredDonors: React.FC = () => {
             address: '123 Main St',
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
-            type: 'Donor'
+            type: 'Teacher'
         },
         {
             id: 5,
@@ -93,7 +93,7 @@ const RegisteredDonors: React.FC = () => {
             address: '123 Main St',
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
-            type: 'Donor'
+            type: 'Teacher'
         },
         {
             id: 8,
@@ -133,13 +133,29 @@ const RegisteredDonors: React.FC = () => {
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
             type: 'Donor'
-        }
 
+}
     ]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filterType, setFilterType] = useState('All');
 
     const handleDeleteDonor = (id: number) => {
         setDonors(prevDonors => prevDonors.filter(donor => donor.id !== id));
     };
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const handleTypeChange = (event) => {
+        setFilterType(event.target.value);
+    };
+
+    const filteredDonors = donors.filter(donor =>
+        (`${donor.firstName} ${donor.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            (filterType === 'All' || donor.type === filterType))
+    );
+
     const links = [
         {to: '/', label: 'Home'},
         {to: '/admin-login', label: 'Login'},
@@ -150,8 +166,37 @@ const RegisteredDonors: React.FC = () => {
     return (
         <div className="container">
             <BreadCrumb links={links}/>
-            <h1 className="text-center">Donors</h1>
-            <table className="table">
+            <h1 className="text-center mb-4">Donors</h1>
+            <div className="row mb-3">
+                <div className="col-md-6">
+                    <div className="input-group">
+                        <span className="input-group-text">Search Name</span>
+                        <input
+                            type="text"
+                            placeholder="Enter name..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="form-control"
+                        />
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="input-group">
+                        <span className="input-group-text">Filter Type</span>
+                        <select
+                            className="form-control"
+                            value={filterType}
+                            onChange={handleTypeChange}
+                        >
+                            <option value="All">All Types</option>
+                            <option value="Donor">Donor</option>
+                            <option value="Teacher">Teacher</option>
+                            {/* Add other types as needed */}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table className="table table-striped">
                 <thead>
                 <tr>
                     <th>First Name</th>
@@ -168,7 +213,7 @@ const RegisteredDonors: React.FC = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {donors.map(donor => (
+                {filteredDonors.map(donor => (
                     <tr key={donor.id}>
                         <td>{donor.firstName}</td>
                         <td>{donor.lastName}</td>
