@@ -1,4 +1,4 @@
-export const OrganizationTypes = ["School", "Mosque", "Church", "Hospital", "Non-Profit"] as const;
+export const OrganizationTypes = ["School", "Mosque", "Church", "Hospital", "Non-Profit"];
 export const Governorates = ["Cairo",
     "Alexandria",
     "Aswan",
@@ -26,9 +26,9 @@ export const Governorates = ["Cairo",
     "Sohag",
     "South Sinai",
     "Suez"
-] as const;
+];
 
-export const Genders = ["Male", "Female"] as const;
+export const Genders = ["Male", "Female"];
 
 
 export type Organization = {

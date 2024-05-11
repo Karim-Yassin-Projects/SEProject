@@ -1,4 +1,4 @@
-import {InferType, object, ref, string, number} from "yup";
+import {InferType, object, ref, string, number } from "yup";
 import {Genders, Governorates, OrganizationTypes} from "../common/organizations.ts";
 
 
@@ -20,7 +20,8 @@ export const registerSchema = object().shape({
     governorate: string().required().label("Governorate").oneOf(Governorates),
     document: string().required().label("Document"),
     documentSize: number().min(1, 'Document cannot be empty.').max(4 * 1024*1024, 'Document size cannot exceeed 4MB').label("Document Size"),
-    documentType: string().oneOf(AllowedExtensions, 'Document type must be a PDF file or an image file').label("Document Type")
+    documentType: string().oneOf(AllowedExtensions, 'Document type must be a PDF file or an image file').label("Document Type"),
+    acceptTerms: string().required().oneOf(['true'] as string[], 'You must accept the privacy policy and terms and conditions.').label("Accept Terms")
 });
 
 export type RegisterRequest = InferType<typeof registerSchema>;

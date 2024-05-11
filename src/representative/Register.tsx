@@ -6,7 +6,7 @@ import FormField from "../common/FormField.tsx";
 import {GoogleMap, MarkerF, useJsApiLoader} from "@react-google-maps/api";
 import DocumentUpload from "../common/DocumentUpload.tsx";
 import BreadCrumb from "../common/BreadCrumb.tsx";
-import {Genders, Governorates, OrganizationTypes} from "../common/organizations.ts";
+import {Genders, Governorates, Organizations, OrganizationTypes} from "../common/organizations.ts";
 // noinspection SpellCheckingInspection
 const API_KEY = "AIzaSyBzhIL1AJxDc3-0KxRm8fzZEGV2hLUfzXo";
 
@@ -98,16 +98,17 @@ function OrganizationRegistration({update}: RegisterProps) {
         password: '12345678',
         confirmPassword: '12345678',
         email: 'kareem.elmeteny@gmail.com',
-        phoneNumber: '01225550000',
-        area: 'Maadi',
-        organizationName: 'Maadi Orphanage',
-        organizationType: 'Non-Profit',
-        organizationAddress: '45 Rd 9, Maadi',
+        phoneNumber: Organizations[0].phone,
+        area: Organizations[0].area,
+        organizationName: Organizations[0].name,
+        organizationType: Organizations[0].type,
+        organizationAddress: Organizations[0].address,
         gender: 'Male',
-        governorate: 'Cairo',
+        governorate: Organizations[0].governorate,
         documentSize: 1000,
         document: 'x.pdf',
-        documentType: 'pdf'
+        documentType: 'pdf',
+        acceptTerms: 'true'
     } : {
         firstName: '',
         lastName: '',
@@ -123,9 +124,13 @@ function OrganizationRegistration({update}: RegisterProps) {
         governorate: '',
         documentSize: 1,
         document: '',
-        documentType: ''
+        documentType: '',
+        acceptTerms: ''
     };
-    const [position, setPosition] = useState<Position | null>(update ? {lat: 29.953742, lng: 31.263333} : null);
+    const [position, setPosition] = useState<Position | null>(update ? {
+        lat: Organizations[0].latitude,
+        lng: Organizations[0].longitude
+    } : null);
     useEffect(() => {
         if (update) {
             return;
@@ -218,7 +223,8 @@ function OrganizationRegistration({update}: RegisterProps) {
                         <div className="container">
                             {update && <BreadCrumb links={links}/>}
                             <h1>{update ? 'Update Organization' : 'Register'}</h1>
-                            <p className="small">The marker <span className="text-danger">*</span> denotes a required field.</p>
+                            <p className="small">The marker <span className="text-danger">*</span> denotes a required
+                                field.</p>
                             <div className="row">
                                 <div className="col-md-6">
                                     <FormField formik={formik} name="firstName" schema={registerSchema}/>
@@ -239,8 +245,18 @@ function OrganizationRegistration({update}: RegisterProps) {
                                     <FormField formik={formik} name="area" schema={registerSchema}/>
                                     <FormField formik={formik} name="governorate" schema={registerSchema}
                                                options={Governorates}/>
-                                    {!update && <DocumentUpload formik={formik} schema={registerSchema}
-                                                                label="Upload a document to prove you are a representative for this organization."/>
+                                    {!update && <>
+                                        <DocumentUpload formik={formik} schema={registerSchema}
+                                                        label="Upload a document to prove you are a representative for this organization."/>
+                                        <div className="mb-3 form-check">
+                                            <input type="checkbox" className="form-check-input"
+                                                   checked={formik.values.acceptTerms === 'true'}
+                                                   onChange={() => formik.setFieldValue('acceptTerms', formik.values.acceptTerms === 'true' ? 'false' : 'true')}/>
+                                            <label className="form-check-label">I have read and accepted the <NavLink to="/privacy-policy">Privacy Policy </NavLink> and <NavLink to="/terms">Terms and Conditions</NavLink> for the I Love Maadi (NGO). </label>
+                                            {formik.submitCount > 0 && formik.errors.acceptTerms &&
+                                                <div className="invalid-feedback d-block">{formik.errors.acceptTerms}</div>}
+                                        </div>
+                                    </>
                                     }
                                 </div>
                                 <div className="col-md-6">
@@ -258,7 +274,7 @@ function OrganizationRegistration({update}: RegisterProps) {
                             </div>
                             {!update &&
                                 <div className="form-group mt-2">
-                                <button type="submit" className="btn btn-primary"
+                                    <button type="submit" className="btn btn-primary"
                                             onClick={formik.submitForm}>Register
                                     </button>
                                     <button type="button" className="btn btn-secondary mx-2"

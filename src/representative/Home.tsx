@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import BreadCrumb from "../common/BreadCrumb.tsx";
 import DeleteButton from "../common/DeleteButton.tsx";
 import {AllDonations, Donation} from "../common/posts.ts";
+import {Organizations} from "../common/organizations.ts";
 
 const times = [
     'just now',
@@ -107,8 +108,10 @@ function Home() {
                     <div className="card h-100">
                         <div className="card-body">
                             <h5 className="card-title">Organization</h5>
-                            <p className="card-text">Maadi Orphanage </p>
-
+                            <p className="card-text"><strong>{Organizations[0].name}</strong></p>
+                            <p className="card-text">Address: {Organizations[0].address}, {Organizations[0].area}, {Organizations[0].governorate}<br />
+                                Phone: {Organizations[0].phone}
+                            </p>
                         </div>
                         <div className="card-footer text-center">
                             <NavLink to="/representative/update-organization" className="btn btn-primary btn-sm me-2 my-1">Update
