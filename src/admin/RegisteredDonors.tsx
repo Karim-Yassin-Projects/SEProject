@@ -29,7 +29,112 @@ const RegisteredDonors: React.FC = () => {
             area: 'Montaza',
             governorate: 'Cairo',
             type: 'Teacher'
+        },
+        {
+            id: 3,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 4,
+            firstName: 'Ahmed',
+            lastName: 'Hossam',
+            gender: 'Male',
+            email: 'ahmed@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 5,
+            firstName: 'Haneen',
+            lastName: 'Tarek',
+            gender: 'Female',
+            email: 'haneen@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 6,
+            firstName: 'Karim',
+            lastName: 'Sherif',
+            gender: 'Male',
+            email: 'karim@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 7,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 8,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 9,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
+        },
+        {
+            id: 10,
+            firstName: 'Yassin',
+            lastName: 'Ahmed',
+            gender: 'Male',
+            email: 'yassin@gmail.com',
+            contactNumber: '1234567890',
+            password: 'password123',
+            address: '123 Main St',
+            area: 'Sidi Gaber',
+            governorate: 'Alexandria',
+            type: 'Donor'
         }
+
     ]);
 
     const handleDeleteDonor = (id: number) => {
@@ -39,13 +144,13 @@ const RegisteredDonors: React.FC = () => {
         {to: '/', label: 'Home'},
         {to: '/admin-login', label: 'Login'},
         {to: '/Dashboard', label: 'Dashboard'},
-        {to: '/RegisteredDonors', label: 'Registered Donors'},
+        {to: '/RegisteredDonors', label: 'Donors'},
     ];
 
     return (
         <div className="container">
             <BreadCrumb links={links}/>
-            <h1 className="text-center">Registered Donors</h1>
+            <h1 className="text-center">Donors</h1>
             <table className="table">
                 <thead>
                 <tr>

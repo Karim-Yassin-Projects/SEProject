@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
                     <div className="card border-0 shadow-sm mt-4">
                         <div className="card-body">
                             <h5 className="card-title">Manage Donors</h5>
-                            <p className="card-text">Overview and manage all registered donors.</p>
+                            <p className="card-text">Overview and manage all donor accounts.</p>
                             <button className="btn btn-outline-dark" onClick={() => handleClick('/registereddonors')}>
                                 View Donors
                             </button>
