@@ -102,9 +102,13 @@ function Donations() {
                 ))}
                 </tbody>
             </table> }
-            {currentDonations.length === 0 && <div className="alert alert-info my-3 text-center">
-                <i className="bi bi-info-circle me-2"></i>
-                No donations found
+            {currentDonations.length === 0 && <div className="empty-state container">
+                <div className="row">
+                    <div className="col-12 align-items-center justify-content center d-flex flex-column">
+                        <img src="/images/empty.svg" width="300" alt="No data found"/>
+                        <p>No donations found!</p>
+                    </div>
+                </div>
             </div>}
             {numberOfPages > 1 && <nav className="text-center" aria-label="Pagination">
                 <ul className='pagination justify-content-center'>

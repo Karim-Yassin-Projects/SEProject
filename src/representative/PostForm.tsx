@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Formik} from "formik";
+import {Formik, FormikProps} from "formik";
 import {PostRequest, postSchema, PostCategories} from "./posts.ts";
 import FormField from "../common/FormField.tsx";
 import BreadCrumb from "../common/BreadCrumb.tsx";
@@ -10,10 +10,11 @@ import SchoolSuppliesForm from "../common/SchoolSuppliesForm.tsx";
 import ToysForm from "../common/ToysForm.tsx";
 import FoodForm from "../common/FoodForm.tsx";
 import {Organizations} from "../common/organizations.ts";
+import {Post} from "../common/posts.ts";
 
-const fieldNames = ['cloths', 'bloodDonation', 'medicalSupplies', 'schoolSupplies', 'toys', 'food'];
+const fieldNames = ['clothes', 'bloodDonation', 'medicalSupplies', 'schoolSupplies', 'toys', 'food'];
 const categoryFields: Record<string, string> = {
-    'Clothes': 'cloths',
+    'Clothes': 'clothes',
     'Blood Donations': 'bloodDonation',
     'Medical Supplies': 'medicalSupplies',
     'School Supplies': 'schoolSupplies',
@@ -26,7 +27,7 @@ function getDefaultValues(): PostRequest {
         category: '',
         details: '',
         title: '',
-        cloths: {
+        clothes: {
             search: false,
             quantity: '',
             type: '',
@@ -87,83 +88,122 @@ function getDefaultValues(): PostRequest {
 //     return res;
 // }
 
-function PostForm() {
-    const initialValues: PostRequest = getDefaultValues();
+function InnerForm({formik, isSubmitted, update, post}: {
+    formik: FormikProps<PostRequest>,
+    isSubmitted: boolean,
+    update: boolean,
+    post?: undefined | Post
+}) {
+    const category = formik.values.category;
 
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    useEffect(() => {
+        async function updatePost() {
+            const field = categoryFields[category];
+            for (const fieldName of fieldNames) {
+                const values = (formik.values as Record<string, unknown>)[fieldName];
+                if (field === fieldName) {
+                    if (values) continue;
+                    await formik.setFieldValue(fieldName, (getDefaultValues() as Record<string, unknown>)[fieldName]);
+                } else {
+                    if (!values) continue;
+                    await formik.setFieldValue(fieldName, null);
+                }
+            }
+        }
+        updatePost().catch(console.error);
+    }, [category, formik]);
 
-    const handleSubmit = () => {
-        setIsSubmitted(true);
-    }
 
-    const links = [
+    const links = post ? [
+        {to: '/', label: 'Home'},
+        {to: '/representative', label: 'Representative Dashboard'},
+        {to: '/representative/posts', label: 'Donation Posts'},
+        {to: `/representative/posts/${post.id}`, label: `${post.title}` },
+        {to: `/representative/posts/${post.id}/update`, label: 'Update'}
+    ] : [
         {to: '/', label: 'Home'},
         {to: '/representative', label: 'Organization Representative'},
         {to: '/representative/posts', label: 'Donation Posts'},
         {to: '/representative/donation-post', label: 'Create Donation Post'}
     ]
 
+    return (
+        <div className="container">
+            <BreadCrumb links={links}/>
+            <h1>Create Donation Post</h1>
+            {!isSubmitted &&
+                <>
+                    <p className="small">The marker <span className="text-danger">*</span> denotes a required field.</p>
+                    {update ?
+                        <div className="form-group row my-2">
+                            <label className="col-md-2">Category</label>
+                            <div className="col-md-10"><strong>{category}</strong></div>
+                        </div>
+                        :
+                        <FormField formik={formik} name="category" schema={postSchema}
+                                   options={PostCategories}/>}
+                    <FormField formik={formik} name="title" schema={postSchema}/>
+                    <FormField formik={formik} name="details" schema={postSchema}/>
+                    {update && <div className="mb-3 form-check">
+                        <input type="checkbox" className="form-check-input"
+                               checked={formik.values.fulfilled}
+                               onChange={() => formik.setFieldValue('fulfilled', !formik.values.fulfilled)}/>
+                        <label className="form-check-label">Fulfilled</label>
+                    </div>}
+                    {formik.values.category === 'Clothes' &&
+                        <ClothesForm name="clothes" formik={formik} schema={postSchema}/>}
+                    {formik.values.category === 'Blood Donations' &&
+                        <BloodDonationForm formik={formik} schema={postSchema} name="bloodDonation"/>}
+                    {formik.values.category === 'Medical Supplies' &&
+                        <MedicalSuppliesForm formik={formik} schema={postSchema} name="medicalSupplies"/>}
+                    {formik.values.category === 'School Supplies' &&
+                        <SchoolSuppliesForm formik={formik} schema={postSchema} name="schoolSupplies"/>}
+                    {formik.values.category === 'Toys' && <ToysForm formik={formik} schema={postSchema} name="toys"/>}
+                    {formik.values.category === 'Food' && <FoodForm formik={formik} schema={postSchema} name="food"/>}
+                    <div className="form-group mt-2">
+                        <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Create
+                            Post
+                        </button>
+                    </div>
+                </>
+            }
+            {isSubmitted &&
+                <div className="alert alert-success my-3 success-box">
+                    <i className="bi bi-check"></i>
+                    Donation post with category "{formik.values.category}"
+                    has been successfully submitted
+                    for approval.
+                </div>}
+        </div>
+    );
 
+}
 
+function PostForm({post}: { post?: Post }) {
+    if (post) {
+        post = {
+            ...post,
+            donations: [],
+        }
+        const p = post as unknown as Record<string, unknown>;
+        for (const field of fieldNames) {
+            if (!p[field]) {
+                p[field] = null;
+            }
+        }
+    }
+    const initialValues = post ? post : getDefaultValues();
+    const update = !!post;
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const handleSubmit = () => {
+        setIsSubmitted(true);
+    }
     return (
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={postSchema}>
             {
-                (formik) => {
-                    useEffect(() => {
-                        async function updatePost() {
-                            const category = formik.values.category;
-                            const field = categoryFields[category];
-                            for (const fieldName of fieldNames) {
-                                const values = (formik.values as any)[fieldName];
-                                if (field === fieldName) {
-                                    if (values) continue;
-                                    await formik.setFieldValue(fieldName, (getDefaultValues() as any)[fieldName]);
-                                } else {
-                                    if (!values) continue;
-                                    await formik.setFieldValue(fieldName, null);
-                                }
-                            }
-                        }
-
-                        updatePost().catch(console.error);
-                    }, [formik.values.category]);
-                    return <div className="container">
-                        <BreadCrumb links={links}/>
-                        <h1>Create Donation Post</h1>
-                        {!isSubmitted &&
-                            <>
-                                <p className="small">The marker <span className="text-danger">*</span> denotes a required field.</p>
-                                <FormField formik={formik} name="category" schema={postSchema}
-                                           options={PostCategories}/>
-                                <FormField formik={formik} name="title" schema={postSchema}/>
-                                <FormField formik={formik} name="details" schema={postSchema}/>
-                                { formik.values.category === 'Clothes' && <ClothesForm name="cloths" formik={formik} schema={postSchema}/> }
-                                { formik.values.category === 'Blood Donations' && <BloodDonationForm formik={formik} schema={postSchema} name="bloodDonation" /> }
-                                { formik.values.category === 'Medical Supplies' && <MedicalSuppliesForm formik={formik} schema={postSchema} name="medicalSupplies" /> }
-                                { formik.values.category === 'School Supplies' && <SchoolSuppliesForm formik={formik} schema={postSchema} name="schoolSupplies" /> }
-                                { formik.values.category === 'Toys' && <ToysForm formik={formik} schema={postSchema} name="toys" /> }
-                                { formik.values.category === 'Food' && <FoodForm formik={formik} schema={postSchema} name="food" /> }
-                                <div className="form-group mt-2">
-                                    <button type="submit" className="btn btn-primary" onClick={formik.submitForm}>Create
-                                        Post
-                                    </button>
-                                </div>
-                            </>
-                        }
-                        {isSubmitted &&
-                            <div className="alert alert-success my-3 success-box">
-                                <i className="bi bi-check"></i>
-                                Donation post with category "{formik.values.category}"
-                                has been successfully submitted
-                                for approval.
-                            </div>}
-                    </div>
-
-                }
+                (formik) => <InnerForm formik={formik} isSubmitted={isSubmitted} update={update} post={post}/>
             }
         </Formik>
-
-
     );
 }
 

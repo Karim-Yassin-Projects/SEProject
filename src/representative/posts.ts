@@ -23,7 +23,7 @@ export const postSchema = object().shape({
         textarea: true
     }),
     fulfilled: boolean().default(false),
-    cloths: clothesSchema.optional().nullable()
+    clothes: clothesSchema.optional().nullable()
         .when("category", {
             is: "Clothes",
             then: (s) => s.required().nonNullable(),

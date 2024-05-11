@@ -53,7 +53,7 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
                                 name={name}
                                 className="form-check-input"
                                 value={option}
-                                checked={formik.values[name] === option}
+                                checked={value === option}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
@@ -64,7 +64,7 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
                     <select
                         id={name}
                         className={cls}
-                        value={formik.values[name]}
+                        value={value}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                     >
@@ -89,7 +89,7 @@ function FormField<T extends AnyObject>(props: FormFieldProps<T>) {
                         type={type}
                         id={name}
                         className={cls}
-                        value={formik.values[name]}
+                        value={value}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         placeholder={placeholder}

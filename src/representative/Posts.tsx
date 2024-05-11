@@ -96,13 +96,19 @@ function Posts({fulfilled }: {fulfilled?: boolean}) {
                 ))}
                 </tbody>
             </table> }
-            {currentPosts.length === 0 && <div className="alert alert-info my-3 text-center">
-                <i className="bi bi-info-circle me-2"></i>
-                No posts found
+            {currentPosts.length === 0 && <div className="empty-state container">
+                <div className="row">
+                    <div className="col-12 align-items-center justify-content center d-flex flex-column">
+                        <img src="/images/empty.svg" width="300" alt="No data found"/>
+                        <p>No posts found!</p>
+                    </div>
+                </div>
             </div>}
             {numberOfPages > 1 && <nav className="text-center" aria-label="Pagination">
                 <ul className='pagination justify-content-center'>
-                    <li className='page-item'><button className="page-link" onClick={() => paginate(currentPageIndex - 1)}>Previous</button></li>
+                    <li className='page-item'>
+                        <button className="page-link" onClick={() => paginate(currentPageIndex - 1)}>Previous</button>
+                    </li>
                     {Array(Math.ceil(posts.length / itemsPerPage)).fill(null).map((_, index) => (
                         <li key={index} className={`page-item ${index === currentPageIndex ? 'active' : ''}`}>
                             <button onClick={() => paginate(index)} className='page-link'>
