@@ -14,6 +14,7 @@ function Posts({fulfilled }: {fulfilled?: boolean}) {
             all = all.filter((post) => post.fulfilled === fulfilled);
         }
         setPosts(all);
+        setCurrentPageIndex(0);
     }, [fulfilled, setPosts]);
 
     const deletePost = (id: number) => {

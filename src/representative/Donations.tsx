@@ -26,6 +26,7 @@ function Donations() {
                 console.log(all)
             }
             setDonations(all);
+            setCurrentPageIndex(0);
         }, [postIdOrStatus, postId]
     );
 

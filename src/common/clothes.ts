@@ -36,9 +36,9 @@ export const clothesSchema = object().shape({
     }),
 });
 
-export type ClothItem = InferType<typeof clothesSchema>;
+export type ClothesItem = InferType<typeof clothesSchema>;
 
-export function generateRandomClothItem(): ClothItem {
+export function generateRandomClothItem(): ClothesItem {
     return {
         season: randomElement(ClothSeasons),
         ageRange: randomElement(ClothAges),

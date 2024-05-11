@@ -85,7 +85,7 @@ export function generateRandomMedicalSuppliesItem(): MedicalSuppliesItem {
         item.document = "/images/" + item.deviceType.replace(/\s/g, "-").toLowerCase() + ".svg";
         item.use = "Monitoring patients health conditions";
     }
-    if (item.category === "Medical Equipment") {
+    if (item.category === "Medical Equipments") {
         item.equipmentType = randomElement(MedicalEquipments);
         item.document = "/images/" + item.equipmentType.replace(/\s/g, "-").toLowerCase() + ".svg";
         item.use = item.equipmentType === "Wheelchairs" || item.equipmentType === "Walkers" ? "Assisting patients with mobility" :

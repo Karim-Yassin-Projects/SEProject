@@ -1,5 +1,5 @@
-import {generateRandomToyItem, ToyItem} from "./toys.ts";
-import {ClothItem, generateRandomClothItem} from "./clothes.ts";
+import {generateRandomToyItem, ToysItem} from "./toys.ts";
+import {ClothesItem, generateRandomClothItem} from "./clothes.ts";
 import {generateRandomMedicalSuppliesItem, MedicalSuppliesItem} from "./medical-supplies.ts";
 import {BloodDonationItem, generateRandomBloodDonationItem} from "./blood-donations.ts";
 import {FoodItem, generateRandomFoodItem} from "./food.ts";
@@ -45,12 +45,12 @@ export interface Donation {
 
 export interface ToysPost extends Post {
     category: 'Toys';
-    toys: ToyItem
+    toys: ToysItem
 }
 
 export interface ClothesPost extends Post {
     category: 'Clothes';
-    clothes: ClothItem;
+    clothes: ClothesItem;
 }
 
 export interface MedicalSuppliesPost extends Post {
@@ -87,6 +87,10 @@ export function isMedicalSuppliesPost(post: Post): post is MedicalSuppliesPost {
 
 export function isClothesPost(post: Post): post is ClothesPost {
     return post.category === 'Clothes';
+}
+
+export function isSchoolSuppliesPost(post: Post): post is SchoolSuppliesPost {
+    return post.category === 'School Supplies';
 }
 
 export function isToysPost(post: Post): post is ToysPost {

@@ -2,6 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import BreadCrumb from "../common/BreadCrumb.tsx";
 import DeleteButton from "../common/DeleteButton.tsx";
 import {getPostsForDefaultOrganization} from "../common/posts.ts";
+import PostInfo from "../common/PostInfo.tsx";
 
 function PostDetails() {
     const {postId} = useParams();
@@ -39,7 +40,7 @@ function PostDetails() {
                 <div className="card-body">
                     <div className="card-text">
                         <p><strong>Status</strong>: <strong className={post.fulfilled ? 'text-success' : 'text-danger'}>{post.fulfilled ? 'Fulfilled' : 'Not fulfilled'}</strong></p>
-
+                        <PostInfo post={post} />
                         {post.details.split('\n').map((line, index) => (
                             <span key={index}>
                                 {line}
