@@ -252,7 +252,7 @@ function OrganizationRegistration({update}: RegisterProps) {
                                             <input type="checkbox" className="form-check-input"
                                                    checked={formik.values.acceptTerms === 'true'}
                                                    onChange={() => formik.setFieldValue('acceptTerms', formik.values.acceptTerms === 'true' ? 'false' : 'true')}/>
-                                            <label className="form-check-label">I have read and accepted the <NavLink to="/privacy-policy">Privacy Policy </NavLink> and <NavLink to="/terms">Terms and Conditions</NavLink> for the I Love Maadi (NGO). </label>
+                                            <label className="form-check-label">I have read and accepted the <NavLink to="/privacy-policy" target="_blank">Privacy Policy </NavLink> and <NavLink to="/terms" target="_blank">Terms and Conditions</NavLink> for the I Love Maadi (NGO). </label>
                                             {formik.submitCount > 0 && formik.errors.acceptTerms &&
                                                 <div className="invalid-feedback d-block">{formik.errors.acceptTerms}</div>}
                                         </div>
@@ -288,6 +288,7 @@ function OrganizationRegistration({update}: RegisterProps) {
                                     </button>
                                     <NavLink type="button" className="btn btn-secondary mx-2"
                                              to="/representative">Cancel
+
                                     </NavLink>
                                 </div>}
                         </div>

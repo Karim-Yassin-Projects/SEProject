@@ -28,6 +28,10 @@ import TeacherDetails from "./donor/TeacherDetails.tsx";
 import RequestedDonations from "./donor/RequestedDonations.tsx";
 import ClinicDetails from "./donor/ClinicDetails.tsx";
 import FilterClothes from "./donor/FilterClothes.tsx";
+import PrivacyPolicy from "./info/PrivacyPolicy.tsx";
+import Terms from "./info/Terms.tsx";
+import About from "./info/About.tsx";
+import Contact from "./info/Contact.tsx";
 
 const organizations = [
     {
@@ -44,6 +48,10 @@ const routes = createBrowserRouter([
         element: <AppLayout/>,
         children:[
             {path: '/', element: <App/>},
+            {path: '/privacy-policy', element: <PrivacyPolicy/>},
+            {path: '/terms', element: <Terms/>},
+            {path: '/about', element: <About/>},
+            {path: '/contact', element: <Contact/>},
             {path: '/adminlogin', element: <AdminHome/>},
             {path: '/donor', element: <DonorHome/>},
             {path: '/dashboard', element: <Dashboard/>},
