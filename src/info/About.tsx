@@ -26,8 +26,8 @@ function About() {
                 <li>Yassin Amr El-Helly, ID: 55-2011</li>
                 <li>Youssef Tarek Khamis, ID: 55-1237</li>
                 <li>Ahmed Hossam Kamal, ID: 55-3380</li>
-                <li>Kareem Sherif ElMeteny, ID: 55-0260</li>
-                <li>Kareem Sherif ElMeteny, ID: 55-0260</li>
+                <li>Raghad Sherif Helal, ID: 55-3327</li>
+                <li>Haneen Tarek Hammam, ID: 55-2191</li>
             </ul>
         </div>
     );
