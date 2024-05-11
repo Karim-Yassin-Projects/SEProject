@@ -77,7 +77,7 @@ const OrganizationSubmissions: React.FC = () => {
     return (
         <div className="container my-5">
             <BreadCrumb links={links}/>
-            <h1 className="text-center mb-4">Organization Submissions</h1>
+            <h4 className="text-start">Organization Submissions</h4>
             <div className="table-responsive">
                 <table className="table table-custom">
                     <thead>
@@ -92,8 +92,8 @@ const OrganizationSubmissions: React.FC = () => {
                         <th>Organization Address</th>
                         <th>Area</th>
                         <th>Governorate</th>
-                        <th>Documents</th>
-                        <th>Actions</th>
+                        <th>Documents for verification</th>
+                        <th>Approval</th>
                     </tr>
                     </thead>
                     <tbody>

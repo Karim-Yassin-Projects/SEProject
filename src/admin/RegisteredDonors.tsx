@@ -166,7 +166,7 @@ const RegisteredDonors: React.FC = () => {
     return (
         <div className="container">
             <BreadCrumb links={links}/>
-            <h1 className="text-center mb-4">Donors</h1>
+            <h4 className="text-start">Donors</h4>
             <div className="row mb-3">
                 <div className="col-md-6">
                     <div className="input-group">
