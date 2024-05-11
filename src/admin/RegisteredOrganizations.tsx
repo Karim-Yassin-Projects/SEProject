@@ -95,7 +95,7 @@ const RegisteredOrganizations: React.FC = () => {
     };
     const links = [
         {to: '/', label: 'Home'},
-        {to: '/Home', label: 'Login'},
+        {to: '/adminlogin', label: 'Login'},
         {to: '/Dashboard', label: 'Dashboard'},
         {to: '/RegisteredOrganizations', label: 'Registered Organizations'},
     ];
