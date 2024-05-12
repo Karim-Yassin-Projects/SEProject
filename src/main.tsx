@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.scss'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
-import AdminHome from './admin/Home.tsx'
+import AdminHome from './admin/Login.tsx'
 import DonorHome from './donor/Home.tsx'
 import AppLayout from "./AppLayout.tsx";
 import 'bootstrap';
@@ -41,6 +41,12 @@ import About from "./info/About.tsx";
 import Contact from "./info/Contact.tsx";
 import SearchPosts from "./donor/SearchPosts.tsx";
 import PostDetails from "./donor/PostDetails.tsx";
+import SchoolSupplies from "./donor/SchoolSupplies.tsx";
+import FoodDonations from "./donor/FoodDonations.tsx";
+import ToyDonations from "./donor/ToyDonations.tsx";
+import Books from "./donor/Books.tsx";
+import Stationary from "./donor/Stationary.tsx";
+
 
 const organizations = [
     {
@@ -85,6 +91,13 @@ const routes = createBrowserRouter([
             { path: '/organizationdetails', element: <OrganizationDetails organization={organizations} /> },
             {path: '/organizationdocuments', element: <OrganizationDocuments /> },
             {path: '/donordocuments', element: <DonorDocuments /> },
+            {path: '/school-supplies', element:<SchoolSupplies/>},
+            {path: '/food-donations', element:<FoodDonations/>},
+            {path: '/toy-donations', element:<ToyDonations/>},
+            {path: '/books', element:<Books/>},
+            {path: '/stationary', element:<Stationary/>},
+            {path: '/dashboard2', element:<Dashboard2/>},
+
             {path: '/search-posts', element: <SearchPosts/>},
             {path: '/post-details-donor/:postId', element: <PostDetails/>},
             {
