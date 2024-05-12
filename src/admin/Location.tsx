@@ -13,28 +13,26 @@ function Location(){
         width: '400px',
         height: '400px'
     };
-    const [_, setMap] = useState<google.maps.Map|null>(null)
+    const [, setMap] = useState<google.maps.Map|null>(null)
 
 
     useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                setPosition({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                });
-            });
-        } else {
-            console.log("Geolocation is not supported by this browser.");
-        }
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition((position) => {
+        //         setPosition({
+        //             lat: position.coords.latitude,
+        //             lng: position.coords.longitude,
+        //         });
+        //     });
+        // } else {
+        //     console.log("Geolocation is not supported by this browser.");
+        // }
     }, []);
     const onLoad = useCallback((m: google.maps.Map) => {
-
-        const bounds = new window.google.maps.LatLngBounds(position);
-        m.fitBounds(bounds);
-        setMap(m)
-    }, []);
-    const onUnmount = useCallback((_: google.maps.Map) => {
+        setMap(m);
+        m.setZoom(15);
+    }, [setMap]);
+    const onUnmount = useCallback(() => {
         setMap(null)
     }, []);
 

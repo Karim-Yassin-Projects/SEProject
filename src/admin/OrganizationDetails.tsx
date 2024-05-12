@@ -15,9 +15,9 @@ const OrganizationDetails: React.FC<{ organization: Organization }> = ({ organiz
     const dummyOrganization: Organization = {
         email: "organization@example.com",
         phone: "+20123456789",
-        address: "123 Street, Area A, Governorate A",
+        address: "Tahrir Square, Down town, Cairo",
         location: "",
-        type: "Hospital / Non-Profit / School / Mosque / Church"
+        type: "Hospital"
     };
 
     const mergedOrganization: Organization = { ...dummyOrganization, ...organization };
