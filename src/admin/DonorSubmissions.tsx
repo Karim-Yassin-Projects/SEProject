@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import BreadCrumb from "../common/BreadCrumb.tsx";
+import Alert from "./Alert.tsx";
 
 const DonorsSubmission: React.FC = () => {
     const navigate = useNavigate();
+    const [alertMessage, setAlertMessage] = useState<string[]>([]);
 
     const [donors, setDonors] = useState([
         {
@@ -43,13 +45,13 @@ const DonorsSubmission: React.FC = () => {
 
     const handleAccept = (index: number) => {
         const donor = donors[index];
-        alert(`Request Accepted For: ${donor.firstName} ${donor.lastName}`);
+        setAlertMessage(["Donor request accepted!", `Request Accepted For: ${donor.firstName} ${donor.lastName}`]);
         setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index));
     };
 
     const handleReject = (index: number) => {
         const donor = donors[index];
-        alert(`Request Rejected For: ${donor.firstName} ${donor.lastName}`);
+        setAlertMessage(["Donor request rejected!", `Request Rejected For: ${donor.firstName} ${donor.lastName}`]);
         setDonors(prevDonors => prevDonors.filter((_, idx) => idx !== index));
     };
 
@@ -103,6 +105,7 @@ const DonorsSubmission: React.FC = () => {
                     </tbody>
                 </table>
             </div>
+            {alertMessage.length > 0 && <Alert title={alertMessage[0]} message={alertMessage[1]} onCancel={() => setAlertMessage([])}/> }
         </div>
     );
 };

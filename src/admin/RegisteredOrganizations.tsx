@@ -179,7 +179,7 @@ const RegisteredOrganizations: React.FC = () => {
                         <td>
                             <button
                                 className="btn btn-link"
-                                onClick={() => redirectToOrganizationDetails(org.id)}
+                                onClick={() => redirectToOrganizationDetails()}
                             >
                                 View
                             </button>

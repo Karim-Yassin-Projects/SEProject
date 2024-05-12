@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import DeleteButton from "../common/DeleteButton";
 import BreadCrumb from "../common/BreadCrumb.tsx";
 
@@ -144,11 +144,11 @@ const RegisteredDonors: React.FC = () => {
         setDonors(prevDonors => prevDonors.filter(donor => donor.id !== id));
     };
 
-    const handleSearchChange = (event) => {
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
 
-    const handleTypeChange = (event) => {
+    const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFilterType(event.target.value);
     };
 

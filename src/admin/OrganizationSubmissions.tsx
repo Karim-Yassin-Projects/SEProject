@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import BreadCrumb from "../common/BreadCrumb.tsx";
+import Alert from "./Alert.tsx";
 
 const OrganizationSubmissions: React.FC = () => {
     const navigate = useNavigate();
+    const [alertMessage, setAlertMessage] = useState<string[]>([]);
+
 
     const [organizationRequests, setOrganizationRequests] = useState([
         {
@@ -51,7 +54,7 @@ const OrganizationSubmissions: React.FC = () => {
         // Filter out the accepted request from the list
         setOrganizationRequests(prevRequests => prevRequests.filter((_, idx) => idx !== index));
         // Display a pop-up message
-        alert("Organization request accepted!");
+        setAlertMessage(["Organization request accepted!", `Organization request has been accepted successfully.`]);
     };
 
     const handleReject = (index: number) => {
@@ -60,7 +63,8 @@ const OrganizationSubmissions: React.FC = () => {
         // Filter out the rejected request from the list
         setOrganizationRequests(prevRequests => prevRequests.filter((_, idx) => idx !== index));
         // Display a pop-up message
-        alert("Organization request rejected!");
+        setAlertMessage(["Organization request rejected!", "Organization request has been rejected successfully."]);
+
     };
 
     const navigateToDocuments = (event: React.MouseEvent) => {
@@ -127,7 +131,10 @@ const OrganizationSubmissions: React.FC = () => {
                     </tbody>
                 </table>
             </div>
+            {alertMessage.length > 0 && <Alert title={alertMessage[0]} message={alertMessage[1]} onCancel={() => setAlertMessage([])}/> }
         </div>
+
+
     );
 };
 
