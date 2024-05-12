@@ -25,6 +25,8 @@ export const routes = [
     {path: 'register', element: <Register update={false}/>},
     {path: 'register-thanks', element: <RegisterThanks />},
     {path: 'login', element: <Login/>},
+    {path: 'search-posts', element: <SearchPosts />},
+    {path: 'search-posts/:category', element: <SearchPosts />},
 
     {path: 'donor-selection', element: <DonorSelection/>},
     {path: 'clinic-details', element: <ClinicDetails onSubmit={null}/>},
@@ -37,7 +39,6 @@ export const routes = [
     {path: 'create-donation', element: <CreateDonation/>},
     {path: 'dashboard2', element: <Dashboard/>},
     // {path: 'donor-registration', element: <DonorRegistration/>},
-    {path: 'search-posts', element: <SearchPosts/>},
     {path: 'school-supplies', element: <SchoolSupplies/>},
     {path: 'food-donations', element: <FoodDonations/>},
     {path: 'toy-donations', element: <ToyDonations/>},

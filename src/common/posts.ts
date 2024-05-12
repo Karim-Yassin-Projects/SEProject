@@ -329,8 +329,6 @@ function generateMedicalCasesPost(id: number, organization: Organization, catego
     };
 }
 
-
-
 function generateRandomPost(id: number): Post {
     const category = randomElement(PostCategories as unknown as PostType[]);
     let organization: Organization;
@@ -433,4 +431,15 @@ export function getDonationsForDefaultOrganization(): Donation[] {
     }
     defaultOrgDonations = AllDonations.filter((donation) => donation.post.organization === Organizations[0]);
     return defaultOrgDonations;
+}
+
+const unfulfilledPostsCache = new Map<string, Post[]>();
+export function unfulfilledPosts(category?: string): Post[] {
+    const key = category ?? '';
+    if (unfulfilledPostsCache.has(key)) {
+        return unfulfilledPostsCache.get(key)!;
+    }
+    const posts = AllPosts.filter((post) => !post.fulfilled && (!category || post.category === category));
+    unfulfilledPostsCache.set(key, posts);
+    return posts;
 }

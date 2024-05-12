@@ -134,7 +134,6 @@ function OrganizationRegistration({update}: RegisterProps) {
         if (update) {
             return;
         }
-        console.log("Getting location");
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((pos) => {
                 setPosition({

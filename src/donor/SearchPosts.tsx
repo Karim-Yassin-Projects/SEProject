@@ -12,10 +12,10 @@ import FoodForm from "../common/FoodForm.tsx";
 import {Post, PostCategories} from "../common/posts.ts";
 import TeachingForm from "../common/TeachingForm.tsx";
 import MedicalCasesForm from "../common/MedicalCasesForm.tsx";
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 
 
-const initialSearchCriteria: SearchCriteria = {
+const defaultSearchCriteria: SearchCriteria = {
     category: "",
     clothes: {
         search: true,
@@ -70,14 +70,26 @@ const initialSearchCriteria: SearchCriteria = {
 }
 
 function SearchPosts() {
+    const {category} = useParams();
+    console.log(category);
+    const [initialSearchCriteria, setInitialSearchCriteria] = useState(defaultSearchCriteria);
+    useEffect(() => {
+        setInitialSearchCriteria({
+            ...defaultSearchCriteria,
+            category: category || "",
+        });
+    }, [category]);
     const links = [
         {to: '/', label: 'Home'},
         {to: '/donor', label: 'Donor Dashboard'},
-        {to: 'search-posts', label: 'Donation Posts'},
-
+        {to: '/donor/search-posts', label: 'Donation Posts'},
     ];
 
-    const [searchCriteria, setSearchCriteria] = useState({} as SearchCriteria);
+    if (category) {
+        links.push({to: `/donor/search-posts/${encodeURIComponent(category)}`, label: category});
+    }
+
+    const [searchCriteria, setSearchCriteria] = useState<SearchCriteria | null>(null);
     const [searchFormShown, setSearchFormShown] = useState(false);
     const handleSearch = (criteria: SearchCriteria) => {
         setSearchCriteria(criteria);
@@ -85,11 +97,13 @@ function SearchPosts() {
     const [currentPageIndex, setCurrentPageIndex] = useState(0);
     const [itemsPerPage,] = useState(20);
 
-    const [searchResults, setSearchResults] = useState<Post[]>(searchPosts(searchCriteria));
+    const [searchResults, setSearchResults] = useState<Post[]>([]);
     useEffect(() => {
-        setSearchResults(searchPosts(searchCriteria));
+        console.log(searchCriteria);
+        const criteria = searchCriteria || initialSearchCriteria;
+        setSearchResults(searchPosts(criteria));
         setCurrentPageIndex(0);
-    }, [searchCriteria]);
+    }, [searchCriteria, initialSearchCriteria]);
 
     const indexOfFirstPost = currentPageIndex * itemsPerPage;
     const indexOfLastPost = Math.min(indexOfFirstPost + itemsPerPage - 1, searchResults.length - 1);
@@ -115,12 +129,12 @@ function SearchPosts() {
             <BreadCrumb links={links}/>
             <h1>Donation Posts</h1>
 
-            <Formik initialValues={initialSearchCriteria} onSubmit={handleSearch} validationSchema={SearchSchema}>
+            <Formik initialValues={initialSearchCriteria} onSubmit={handleSearch} validationSchema={SearchSchema} enableReinitialize={true}>
                 {
                     (formik) => (
 
                         searchFormShown ? <>
-                                <FormField formik={formik} name="category" schema={SearchSchema} options={PostCategories}/>
+                                {!category && <FormField formik={formik} name="category" schema={SearchSchema} options={PostCategories}/> }
                                 {formik.values.category === 'Clothes' &&
                                     <ClothesForm name="clothes" formik={formik} schema={SearchSchema} search={true}/>}
                                 {formik.values.category === 'Blood Donations' &&
