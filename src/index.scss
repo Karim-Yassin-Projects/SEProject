@@ -1,5 +1,21 @@
 $bootstrap-icons-font-dir: "../node_modules/bootstrap-icons/font/fonts";
 
+$white: #ffffff;
+
+$theme-colors: (
+        "light":      #d0f2e4,
+        "dark":       #040000,
+        "primary":    #214095,
+        "secondary":  #0a7d43,
+        "info":       #3aada6,
+        "accent1":    #d3c3a6,
+        "accent2":    #63bb6e,
+        "accent3":    #7bdd78,
+        "success":    #20b069,
+        "warning":    #e5cf1e,
+        "danger":     #ff705f,
+);
+
 //@import "node_modules/bootswatch/dist/slate/variables";
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 //@import "node_modules/bootswatch/dist/slate/bootswatch.scss";
@@ -58,4 +74,30 @@ button.close {
   @extend .d-flex;
   @extend .justify-content-center;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+a {
+    color: var(--bs-secondary);
+}
+
+
+.page-item {
+  .page-link {
+    color: var(--bs-secondary); // Change this to the color you want for the text
+
+    &:hover {
+      background-color: var(--bs-secondary); // Change this to the color you want for the background on hover
+      border-color: var(--bs-secondary); // Change this to the color you want for the border on hover
+      color: var(--bs-light)
+    }
+
+
+  }
+  &.active {
+    .page-link {
+      background-color: var(--bs-secondary); // Change this to the color you want for the background on hover
+      border-color: var(--bs-secondary); // Change this to the color you want for the border on hover
+      color: var(--bs-light)
+    }
+  }
 }

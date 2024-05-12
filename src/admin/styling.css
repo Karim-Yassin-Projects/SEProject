@@ -55,11 +55,11 @@
     transition: background-color 0.3s ease;
 }
 
-.organization-details .btn-outline-dark {
-    background: transparent;
-    color: #333;
-    border: 2px solid #333;
-}
+/*.organization-details .btn-outline-dark {*/
+/*    background: transparent;*/
+/*    color: #333;*/
+/*    border: 2px solid #333;*/
+/*}*/
 
 .organization-details .btn-outline-dark:hover {
     background: #333;

@@ -36,6 +36,11 @@ const organizations = [
     {
         id: 1,
         name: 'Organization A',
+        email: '',
+        phone: '',
+        address: '',
+        location: '',
+        type: 'School',
         // other organization data...
     },
     // other organizations...
@@ -62,7 +67,7 @@ const routes = createBrowserRouter([
             {path: '/changepassword',element: <ChangePassword/>},
             { path: '/registeredorganizations', element: <RegisteredOrganizations /> },
             { path: '/registereddonors', element: <RegisteredDonors /> },
-            { path: '/organizationdetails', element: <OrganizationDetails organization={organizations} /> },
+            { path: '/organizationdetails', element: <OrganizationDetails organization={organizations[0]} /> },
             {path: '/organizationdocuments', element: <OrganizationDocuments /> },
             {path: '/donordocuments', element: <DonorDocuments /> },
             {

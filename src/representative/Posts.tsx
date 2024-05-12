@@ -91,7 +91,7 @@ function Posts({fulfilled }: {fulfilled?: boolean}) {
                             <NavLink className="btn btn-secondary mr-2 mx-1"
                                      to={`/representative/posts/${post.id}/update`}>Update</NavLink>
                             <NavLink className="btn btn-secondary mx-1"
-                                     to={`/representative/posts/${post.id}/donations`}> View Donors</NavLink>
+                                     to={`/representative/posts/${post.id}/donations`}> View Donations</NavLink>
                             {post.fulfilled && <DeleteButton onConfirm={() => deletePost(post.id)}/>}
 
                         </td>
