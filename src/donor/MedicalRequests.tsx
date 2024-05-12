@@ -1,7 +1,7 @@
-import {allPosts} from "../representative/posts.ts";
 import {NavLink} from "react-router-dom";
+import {AllPosts} from "../common/posts.ts";
 function MedicalRequests(){
-    const medicalRequests = allPosts.find(p => p.category === "Medical Supplies");
+    const medicalRequests = AllPosts.find(p => p.category === "Medical Supplies");
 
     if (!medicalRequests) {
         return <div>Medical Requests not found</div>

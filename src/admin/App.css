@@ -1,51 +1,51 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-/* Custom Table Styles */
-.table-responsive {
-    overflow-x: auto;  /* allows table to scroll horizontally on smaller devices if necessary */
-    width: 100%;
-}
+/*!* Custom Table Styles *!*/
+/*.table-responsive {*/
+/*    overflow-x: auto;  !* allows table to scroll horizontally on smaller devices if necessary *!*/
+/*    width: 100%;*/
+/*}*/
 
-.table {
-    width: 100%; /* Full width */
-    max-width: 100%; /* Limiting the max width */
-    border-collapse: collapse;
-    table-layout: auto; /* Allows table cells to adjust based on content */
-    margin-top: 10px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.85rem; /* Slightly smaller font size */
-    color: #333;
-}
+/*.table {*/
+/*    width: 100%; !* Full width *!*/
+/*    max-width: 100%; !* Limiting the max width *!*/
+/*    border-collapse: collapse;*/
+/*    table-layout: auto; !* Allows table cells to adjust based on content *!*/
+/*    margin-top: 10px;*/
+/*    font-family: 'Roboto', sans-serif;*/
+/*    font-size: 0.85rem; !* Slightly smaller font size *!*/
+/*    color: #333;*/
+/*}*/
 
-.table thead th {
-    background-color: #f8f9fa;
-    color: #333;
-    padding: 8px 10px; /* Reduced padding */
-    border-bottom: 2px solid #e9ecef;
-    text-transform: uppercase;
-    letter-spacing: 0.05em; /* Makes header text look more structured */
-}
+/*.table thead th {*/
+/*    background-color: #f8f9fa;*/
+/*    color: #333;*/
+/*    padding: 8px 10px; !* Reduced padding *!*/
+/*    border-bottom: 2px solid #e9ecef;*/
+/*    text-transform: uppercase;*/
+/*    letter-spacing: 0.05em; !* Makes header text look more structured *!*/
+/*}*/
 
-.table tbody td {
-    background-color: #fff;
-    border: none;
-    border-radius: 5px;
-    vertical-align: middle;
-    padding: 8px 10px; /* Reduced padding */
-    color: #333;  /* Dark text for readability */
-    word-wrap: break-word; /* Ensures text breaks to prevent horizontal scrolling */
-}
+/*.table tbody td {*/
+/*    background-color: #fff;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    vertical-align: middle;*/
+/*    padding: 8px 10px; !* Reduced padding *!*/
+/*    color: #333;  !* Dark text for readability *!*/
+/*    word-wrap: break-word; !* Ensures text breaks to prevent horizontal scrolling *!*/
+/*}*/
 
-.table tbody tr {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);  /* Lighter shadow for subtlety */
-    transition: all 0.3s ease-in-out;
-}
+/*.table tbody tr {*/
+/*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);  !* Lighter shadow for subtlety *!*/
+/*    transition: all 0.3s ease-in-out;*/
+/*}*/
 
-.table tbody tr:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+/*.table tbody tr:hover {*/
+/*    transform: translateY(-2px);*/
+/*    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+/*}*/
 
 .btn-custom {
     border-radius: 20px;

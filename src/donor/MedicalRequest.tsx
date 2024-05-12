@@ -1,7 +1,7 @@
-import {allPosts} from "../representative/posts.ts";
+import {AllPosts} from "../common/posts.ts";
 
 function MedicalRequest(){
-    const medicalPost = allPosts.find(p => p.category === 'Medical Supplies');
+    const medicalPost = AllPosts.find(p => p.category === 'Medical Supplies');
     if (!medicalPost) {
         return <div>Medical Post not found</div>
     }
