@@ -16,11 +16,14 @@ import ToyDonations from "./ToyDonations.tsx";
 import Books from "./Books.tsx";
 import Stationary from "./Stationary.tsx";
 import DonorSelection from "./DonorSelection.tsx";
+import Login from "./Login.tsx";
 
 
 export const routes = [
     {path: '', element: <Dashboard/>},
     {path: 'register', element: <Register update={false}/>},
+    {path: 'login', element: <Login/>},
+
     {path: 'donor-selection', element: <DonorSelection/>},
     {path: 'clinic-details', element: <ClinicDetails onSubmit={null}/>},
     {path: 'teacher-details', element: <TeacherDetails onSubmit={null}/>},
@@ -32,7 +35,6 @@ export const routes = [
     {path: 'create-donation', element: <CreateDonation/>},
     {path: 'dashboard2', element: <Dashboard/>},
     // {path: 'donor-registration', element: <DonorRegistration/>},
-    {path: 'login', element: <DonorLogin/>},
     {path: 'search-posts', element: <SearchPosts/>},
     {path: 'school-supplies', element: <SchoolSupplies/>},
     {path: 'food-donations', element: <FoodDonations/>},
