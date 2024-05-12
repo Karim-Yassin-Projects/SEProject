@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Dashboard2 = () => {
+const Dashboard = () => {
     const navigate = useNavigate();
 
     const handleRequestedDonations = () => navigate('/requested-donations');
@@ -80,4 +79,4 @@ const Dashboard2 = () => {
     );
 };
 
-export default Dashboard2;
+export default Dashboard;
