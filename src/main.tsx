@@ -5,7 +5,6 @@ import './index.scss'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
 import AdminHome from './admin/Login.tsx'
-import DonorHome from './donor/Home.tsx'
 import AppLayout from "./AppLayout.tsx";
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons';
@@ -21,31 +20,16 @@ import DonorDocuments from './admin/DonorDocuments.tsx';
 
 import OrganizationDocuments from './admin/OrganizationDocuments.tsx';
 
-import DonorSelection from "./donor/DonorSelection.tsx";
+
 import {routes as representativeRoutes} from "./representative/routes.tsx";
-import RepresentativeLayout from "./representative/Layout.tsx";
-import TeacherDetails from "./donor/TeacherDetails.tsx";
-import RequestedDonations from "./donor/RequestedDonations.tsx";
-import ClinicDetails from "./donor/ClinicDetails.tsx";
-import FilterClothes from "./donor/FilterClothes.tsx";
-import MedicalDetails from "./donor/MedicalDetails.tsx";
-import MedicalRequests from "./donor/MedicalRequests.tsx";
-import MedicalRequest from "./donor/MedicalRequest.tsx";
-import CreateDonation from "./donor/CreateDonation.tsx";
-import Dashboard2 from "./donor/Dashboard2.tsx";
-import DonorRegistration from "./donor/DonorRegistration.tsx";
-import DonorLogin from "./donor/Home.tsx"
+import {routes as donorRoutes} from "./donor/routes.tsx";
+import Layout from "./common/Layout.tsx";
+
 import PrivacyPolicy from "./info/PrivacyPolicy.tsx";
 import Terms from "./info/Terms.tsx";
 import About from "./info/About.tsx";
 import Contact from "./info/Contact.tsx";
-import SearchPosts from "./donor/SearchPosts.tsx";
-import PostDetails from "./donor/PostDetails.tsx";
-import SchoolSupplies from "./donor/SchoolSupplies.tsx";
-import FoodDonations from "./donor/FoodDonations.tsx";
-import ToyDonations from "./donor/ToyDonations.tsx";
-import Books from "./donor/Books.tsx";
-import Stationary from "./donor/Stationary.tsx";
+
 
 
 const organizations = [
@@ -63,45 +47,30 @@ const routes = createBrowserRouter([
         element: <AppLayout/>,
         children:[
             {path: '/', element: <App/>},
+
+            // Info Routes
             {path: '/privacy-policy', element: <PrivacyPolicy/>},
             {path: '/terms', element: <Terms/>},
             {path: '/about', element: <About/>},
             {path: '/contact', element: <Contact/>},
+
+            // Admin routes
             {path: '/adminlogin', element: <AdminHome/>},
-            {path: '/donor', element: <DonorHome/>},
             {path: '/dashboard', element: <Dashboard/>},
             {path: '/organizationsubmissions', element: <OrganizationSubmissions/>},
             {path: '/donorsubmissions', element: <DonorSubmissions/>},
             {path: '/changepassword',element: <ChangePassword/>},
-            {path:'/donor-selection', element: <DonorSelection/>},
-            {path: '/clinic-details', element: <ClinicDetails onSubmit={null}/>},
-            {path: '/teacher-details', element: <TeacherDetails onSubmit={null}/>},
-            {path: '/requested-donations', element: <RequestedDonations onSearch={null}/>},
-            {path: '/filter-clothes', element:<FilterClothes/>},
-            {path: '/medical-details', element: <MedicalDetails/>},
-            {path: '/medical-requests', element: <MedicalRequests/>},
-            {path: 'medical-request/:postId', element: <MedicalRequest/>},
-            {path: 'create-donation', element: <CreateDonation/>},
-            {path: '/dashboard2', element:<Dashboard2/>},
-            {path:'/donor-registration', element:<DonorRegistration/>},
-            {path:'/donor-login', element:<DonorLogin/>},
-            {path: '/search-posts', element:<SearchPosts/>},
             { path: '/registeredorganizations', element: <RegisteredOrganizations /> },
             { path: '/registereddonors', element: <RegisteredDonors /> },
             { path: '/organizationdetails', element: <OrganizationDetails organization={organizations} /> },
             {path: '/organizationdocuments', element: <OrganizationDocuments /> },
             {path: '/donordocuments', element: <DonorDocuments /> },
-            {path: '/school-supplies', element:<SchoolSupplies/>},
-            {path: '/food-donations', element:<FoodDonations/>},
-            {path: '/toy-donations', element:<ToyDonations/>},
-            {path: '/books', element:<Books/>},
-            {path: '/stationary', element:<Stationary/>},
-            {path: '/dashboard2', element:<Dashboard2/>},
-
-            {path: '/search-posts', element: <SearchPosts/>},
-            {path: '/post-details-donor/:postId', element: <PostDetails/>},
             {
-                path: '/representative', element: <RepresentativeLayout/>,
+                path: '/donor', element: <Layout/>,
+                children: donorRoutes,
+            },
+            {
+                path: '/representative', element: <Layout/>,
                 children: representativeRoutes
             },
         ]
