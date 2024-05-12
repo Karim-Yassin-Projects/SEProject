@@ -201,7 +201,7 @@ function SearchPosts() {
                     <td>{post.organization.name}</td>
                     <td>{post.organization.governorate}</td>
                     <td>
-                        <NavLink to={`/post-details-donor/${post.id}`} className="btn btn-secondary">Show Details</NavLink>
+                        <NavLink to={`/donor/post-details/${post.id}`} className="btn btn-secondary">Show Details</NavLink>
                     </td>
                 </tr>)}
 

@@ -28,6 +28,7 @@ button.close {
   align-items: center;
   justify-content: center;
   text-align: center;
+
   i.bi {
     font-size: 6em;
   }
@@ -38,4 +39,23 @@ button.close {
     font-size: 1.3rem;
     font-weight: bold;
   }
+}
+
+@each $breakpoint, $size in $grid-breakpoints {
+  @media (min-width: $size) {
+    // Your custom CSS goes here
+    // You can use the $breakpoint variable to target specific breakpoints
+    // For example:
+    .modal-dialog {
+      min-width: 0.9 * $size;
+      margin-bottom: auto;
+      margin-top: auto;
+    }
+  }
+}
+
+.modal {
+  @extend .d-flex;
+  @extend .justify-content-center;
+  background-color: rgba(0, 0, 0, 0.5);
 }

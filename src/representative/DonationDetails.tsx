@@ -66,7 +66,7 @@ The ${post.organization.name} Team`
                         </div>}
                     {!isDropped && dropOffDate &&
                         <div className="text-success-emphasis">This donation has scheduled drop-off
-                            at {dropOffDate.toLocaleDateString(['en-GB'])}
+                            on {dropOffDate.toLocaleDateString(['en-GB'])}
                             &nbsp;at {dropOffDate.toLocaleTimeString(['en-GB'], {hour: '2-digit', minute: '2-digit'})}
                             <br />
                             <button className="btn btn-primary ms-2" onClick={() => setIsDropped(true)}>Mark as Dropped</button>
