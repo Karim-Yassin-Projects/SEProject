@@ -14,14 +14,20 @@ function NavBar() {
               </button>
               <div className="collapse navbar-collapse" id="navbarNav">
                   <ul className="navbar-nav">
-                      <li className="nav-item">
-                          <NavLink className="nav-link" to="/adminlogin">Admin</NavLink>
-                      </li>
+                      {/*<li className="nav-item">*/}
+                      {/*    <NavLink className="nav-link" to="/adminlogin">Admin</NavLink>*/}
+                      {/*</li>*/}
                       <li className="nav-item">
                           <NavLink className="nav-link" to="/donor/login">Donor</NavLink>
                       </li>
                       <li className="nav-item">
                           <NavLink className="nav-link" to="/representative/login">Representative</NavLink>
+                      </li>
+                      <li className="nav-item">
+                          <NavLink className="nav-link" to="/about">About us</NavLink>
+                      </li>
+                      <li className="nav-item">
+                          <NavLink className="nav-link" to="/contact">Contact us</NavLink>
                       </li>
                   </ul>
               </div>

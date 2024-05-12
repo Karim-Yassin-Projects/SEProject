@@ -18,12 +18,12 @@ function Footer() {
                   <li className="ms-3"><NavLink className="text-muted" to="/terms">
                       Terms and Conditions
                   </NavLink></li>
-                  <li className="ms-3"><NavLink className="text-muted" to="/about">
-                      About Us
-                  </NavLink></li>
-                  <li className="ms-3"><NavLink className="text-muted" to="/contact">
-                      Contact Us
-                  </NavLink></li>
+                  {/*<li className="ms-3"><NavLink className="text-muted" to="/about">*/}
+                  {/*    About Us*/}
+                  {/*</NavLink></li>*/}
+                  {/*<li className="ms-3"><NavLink className="text-muted" to="/contact">*/}
+                  {/*    Contact Us*/}
+                  {/*</NavLink></li>*/}
               </ul>
               <ul className="nav col-md-3 justify-content-end list-unstyled d-flex">
                   <li className="ms-3"><Link className="text-muted" to="https://www.x.com">
