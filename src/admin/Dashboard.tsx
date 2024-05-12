@@ -10,8 +10,7 @@ const Dashboard: React.FC = () => {
 
     const links = [
         {to: '/', label: 'Home'},
-        {to: '/adminlogin', label: 'Login'},
-        {to: '/Dashboard', label: 'Dashboard'}
+        {to: '/Dashboard', label: 'Admin Dashboard'}
     ];
 
     // Example data for submission counts

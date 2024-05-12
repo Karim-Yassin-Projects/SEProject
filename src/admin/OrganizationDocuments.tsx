@@ -3,8 +3,7 @@ import BreadCrumb from "../common/BreadCrumb.tsx";
 
 const links = [
     {to: '/', label: 'Home'},
-    {to: '/adminlogin', label: 'Login'},
-    {to: '/Dashboard', label: 'Dashboard'},
+    {to: '/Dashboard', label: 'Admin Dashboard'},
     {to: '/organizationsubmissions', label: 'Organization Submissions'},
     {to: '/organizationdocuments',label: 'Organization Documents'},
 ];
