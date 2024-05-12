@@ -27,7 +27,8 @@ const Documents: React.FC = () => {
                         </div>
                     </div>
                     <div className="text-center mt-2">
-                        <a href="https://www.researchgate.net/profile/Rohit-Rahul-2/publication/333650058/figure/fig4/AS:766997583364098@1559877882442/Sample-document-images.ppm" download className="btn btn-primary">Download Document 1</a>
+                        <a href="/docs/va_10-5345_sampleFill.png" download className="btn btn-primary">Download Document
+                            1</a>
                     </div>
                 </div>
                 {/* Second Image */}
@@ -44,7 +45,7 @@ const Documents: React.FC = () => {
                         </div>
                     </div>
                     <div className="text-center mt-2">
-                        <a href="https://radiology.wisc.edu/wp-content/uploads/2017/10/va_10-5345_sampleFill.png" download className="btn btn-primary">Download Document 2</a>
+                        <a href="/docs/va_10-5345_sampleFill.png" download className="btn btn-primary">Download Document 2</a>
                     </div>
                 </div>
             </div>

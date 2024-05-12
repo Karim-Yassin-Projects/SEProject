@@ -40,7 +40,7 @@ function ChangePassword() {
                                         Password
                                     </button>
                                     <NavLink type="button" className="btn btn-secondary mx-2"
-                                             to="/representative">Cancel
+                                             to="/Dashboard">Cancel
                                     </NavLink>
                                 </div>
                             </div> }
