@@ -60,7 +60,7 @@ const DonorsSubmission: React.FC = () => {
 
     const links = [
         {to: '/', label: 'Home'},
-        {to: '/admin-login', label: 'Login'},
+        {to: '/adminlogin', label: 'Login'},
         {to: '/Dashboard', label: 'Dashboard'},
         {to: '/DonorSubmissions ', label: 'Donor Submissions'},
     ];

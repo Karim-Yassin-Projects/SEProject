@@ -16,7 +16,7 @@ const RegisteredDonors: React.FC = () => {
             address: '123 Main St',
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
-            type: 'Donor'
+            type: 'Doctor'
         },
         {
             id: 2,
@@ -68,7 +68,7 @@ const RegisteredDonors: React.FC = () => {
             address: '123 Main St',
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
-            type: 'Donor'
+            type: 'Doctor'
         },
         {
             id: 6,
@@ -81,7 +81,7 @@ const RegisteredDonors: React.FC = () => {
             address: '123 Main St',
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
-            type: 'Donor'
+            type: 'Doctor'
         },
         {
             id: 7,
@@ -107,7 +107,7 @@ const RegisteredDonors: React.FC = () => {
             address: '123 Main St',
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
-            type: 'Donor'
+            type: 'Doctor'
         },
         {
             id: 9,
@@ -120,7 +120,7 @@ const RegisteredDonors: React.FC = () => {
             address: '123 Main St',
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
-            type: 'Donor'
+            type: 'Doctor'
         },
         {
             id: 10,
@@ -133,7 +133,7 @@ const RegisteredDonors: React.FC = () => {
             address: '123 Main St',
             area: 'Sidi Gaber',
             governorate: 'Alexandria',
-            type: 'Donor'
+            type: 'Doctor'
 
 }
     ]);
@@ -159,7 +159,7 @@ const RegisteredDonors: React.FC = () => {
 
     const links = [
         {to: '/', label: 'Home'},
-        {to: '/admin-login', label: 'Login'},
+        {to: '/adminlogin', label: 'Login'},
         {to: '/Dashboard', label: 'Dashboard'},
         {to: '/RegisteredDonors', label: 'Donors'},
     ];
@@ -183,14 +183,14 @@ const RegisteredDonors: React.FC = () => {
                 </div>
                 <div className="col-md-6">
                     <div className="input-group">
-                        <span className="input-group-text">Filter Type</span>
+                        <span className="input-group-text">Type of Donor</span>
                         <select
                             className="form-control"
                             value={filterType}
                             onChange={handleTypeChange}
                         >
-                            <option value="All">All Types</option>
-                            <option value="Donor">Donor</option>
+                            <option value="All">Any</option>
+                            <option value="Doctor">Doctor</option>
                             <option value="Teacher">Teacher</option>
                             {/* Add other types as needed */}
                         </select>

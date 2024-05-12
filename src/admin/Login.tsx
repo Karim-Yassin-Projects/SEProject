@@ -13,7 +13,7 @@ function Login() {
     // Define the breadcrumb links
     const links = [
         {to: '/', label: 'Home'},
-        {to: '/admin-login', label: 'Admin Login'}
+        {to: '/adminlogin', label: 'Admin Login'}
     ];
 
     const handleSubmit = useCallback(async (values: LoginRequest, helpers: FormikHelpers<LoginRequest>) => {
