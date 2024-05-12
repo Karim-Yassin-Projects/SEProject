@@ -12,6 +12,8 @@ import FoodForm from "../common/FoodForm.tsx";
 import {Post, PostCategories} from "../common/posts.ts";
 import TeachingForm from "../common/TeachingForm.tsx";
 import MedicalCasesForm from "../common/MedicalCasesForm.tsx";
+import {NavLink} from "react-router-dom";
+
 
 const initialSearchCriteria: SearchCriteria = {
     category: "",
@@ -72,6 +74,7 @@ function SearchPosts() {
         {to: '/', label: 'Home'},
         {to: '/donor', label: 'Donor Dashboard'},
         {to: 'search-posts', label: 'Donation Posts'},
+
     ];
 
     const [searchCriteria, setSearchCriteria] = useState({} as SearchCriteria);
@@ -105,6 +108,7 @@ function SearchPosts() {
         }
         setCurrentPageIndex(pageNumber);
     };
+
     return (
         <div className="container">
 
@@ -183,7 +187,7 @@ function SearchPosts() {
                     <td>{post.organization.name}</td>
                     <td>{post.organization.governorate}</td>
                     <td>
-                        <button className="btn btn-secondary">Show Details</button>
+                        <NavLink to={`/post-details-donor/${post.id}`} className="btn btn-secondary">Show Details</NavLink>
                     </td>
                 </tr>)}
 

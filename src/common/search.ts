@@ -130,10 +130,8 @@ function matchMedicalItem(medicalCase: MedicalCaseItem, criteria:MedicalCaseItem
             return false;
         }
 
-        if (criteria.organizationName && criteria.organizationName !== medicalCase.organizationName) {
-            return false;
-        }
-        return true;
+        return !(criteria.organizationName && criteria.organizationName !== medicalCase.organizationName);
+
     }
     return true;
 }

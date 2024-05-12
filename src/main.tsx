@@ -33,6 +33,7 @@ import Terms from "./info/Terms.tsx";
 import About from "./info/About.tsx";
 import Contact from "./info/Contact.tsx";
 import SearchPosts from "./donor/SearchPosts.tsx";
+import PostDetails from "./donor/PostDetails.tsx";
 
 const organizations = [
     {
@@ -70,6 +71,8 @@ const routes = createBrowserRouter([
             { path: '/organizationdetails', element: <OrganizationDetails organization={organizations} /> },
             {path: '/organizationdocuments', element: <OrganizationDocuments /> },
             {path: '/donordocuments', element: <DonorDocuments /> },
+            {path: '/search-posts', element: <SearchPosts/>},
+            {path: '/post-details-donor/:postId', element: <PostDetails/>},
             {
                 path: '/representative', element: <RepresentativeLayout/>,
                 children: representativeRoutes
