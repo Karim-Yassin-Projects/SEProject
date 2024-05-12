@@ -18,7 +18,7 @@ function NavBar() {
                           <NavLink className="nav-link" to="/adminlogin">Admin</NavLink>
                       </li>
                       <li className="nav-item">
-                          <NavLink className="nav-link" to="/donor">Donor</NavLink>
+                          <NavLink className="nav-link" to="/donor/login">Donor</NavLink>
                       </li>
                       <li className="nav-item">
                           <NavLink className="nav-link" to="/representative/login">Representative</NavLink>

@@ -219,7 +219,7 @@ function RegistrationForm({update}: { update: boolean }) {
 
 
     const handleSubmit = async (values: RegisterRequest) => {
-        if (values.role === 'Doctor' || values.role === 'Teacher') {
+        if (!update && (values.role === 'Doctor' || values.role === 'Teacher')) {
             navigate('/donor/register-thanks');
         } else {
             navigate('/donor');

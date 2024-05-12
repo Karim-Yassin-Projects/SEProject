@@ -4,6 +4,7 @@ import SearchPosts from "./SearchPosts.tsx";
 import PostDetails from "./PostDetails.tsx";
 import Login from "./Login.tsx";
 import RegisterThanks from "./RegisterThanks.tsx";
+import ChangePassword from "./ChangePassword.tsx";
 
 
 export const routes = [
@@ -14,4 +15,6 @@ export const routes = [
     {path: 'search-posts', element: <SearchPosts />},
     {path: 'search-posts/:category', element: <SearchPosts />},
     {path: 'post-details/:postId', element: <PostDetails/>},
+    {path: 'update-profile', element: <Register update={true}/>},
+    {path: 'change-password', element: <ChangePassword />},
 ]
