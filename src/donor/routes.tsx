@@ -17,11 +17,13 @@ import Books from "./Books.tsx";
 import Stationary from "./Stationary.tsx";
 import DonorSelection from "./DonorSelection.tsx";
 import Login from "./Login.tsx";
+import RegisterThanks from "./RegisterThanks.tsx";
 
 
 export const routes = [
     {path: '', element: <Dashboard/>},
     {path: 'register', element: <Register update={false}/>},
+    {path: 'register-thanks', element: <RegisterThanks />},
     {path: 'login', element: <Login/>},
 
     {path: 'donor-selection', element: <DonorSelection/>},

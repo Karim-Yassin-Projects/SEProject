@@ -27,7 +27,6 @@ type AddressDetails = {
 }
 
 async function getGeocoderInfo(lat: number, lng: number): Promise<google.maps.GeocoderResponse> {
-    console.log(`getting address info ${lat}, ${lng}`);
     const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`);
     return await response.json();
 }

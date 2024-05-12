@@ -1,4 +1,4 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {Genders, Governorates, Organizations} from "../common/organizations.ts";
 import {RegisterRequest, registerSchema, Roles} from "./register.ts";
 import {Formik, FormikProps} from "formik";
@@ -7,6 +7,8 @@ import FormField from "../common/FormField.tsx";
 import DocumentUpload from "../common/DocumentUpload.tsx";
 import {GoogleMap, MarkerF, useJsApiLoader} from "@react-google-maps/api";
 import {RefObject, useCallback, useEffect, useRef, useState} from "react";
+import {Specializations} from "../common/medical-cases.ts";
+import {Subjects} from "../common/teaching.ts";
 
 // noinspection SpellCheckingInspection
 const API_KEY = "AIzaSyBzhIL1AJxDc3-0KxRm8fzZEGV2hLUfzXo";
@@ -97,6 +99,11 @@ function RegistrationForm({update}: { update: boolean }) {
         phoneNumber: '01000055555',
         area: 'Maadi',
         role: 'Doctor',
+        doctorSpeciality: 'Cardiology',
+        numberOfProBonoCases: '10',
+        numberOfProBonoClasses: '',
+        numberOfProBonoStudents: '',
+        teacherSpeciality: '',
         address: 'Street 9',
         gender: 'Female',
         governorate: 'Cairo',
@@ -113,6 +120,11 @@ function RegistrationForm({update}: { update: boolean }) {
         phoneNumber: '',
         area: '',
         role: '',
+        doctorSpeciality: '',
+        numberOfProBonoCases: '',
+        numberOfProBonoClasses: '',
+        numberOfProBonoStudents: '',
+        teacherSpeciality: '',
         address: '',
         gender: '',
         governorate: '',
@@ -122,7 +134,7 @@ function RegistrationForm({update}: { update: boolean }) {
         acceptTerms: ''
     };
 
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [position, setPosition] = useState<Position | null>(update ? {
         lat: Organizations[0].latitude,
@@ -132,7 +144,6 @@ function RegistrationForm({update}: { update: boolean }) {
         if (update) {
             return;
         }
-        console.log("Getting location");
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((pos) => {
                 setPosition({
@@ -206,12 +217,18 @@ function RegistrationForm({update}: { update: boolean }) {
             {to: '/donor/register', label: 'Donor Registration'}
         ];
 
+
     const handleSubmit = async (values: RegisterRequest) => {
-        console.log(values);
+        if (values.role === 'Doctor' || values.role === 'Teacher') {
+            navigate('/donor/register-thanks');
+        } else {
+            navigate('/donor');
+        }
     };
 
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema} innerRef={formikRef}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema}
+                innerRef={formikRef}>
             {
 
                 (formik) => {
@@ -238,68 +255,109 @@ function RegistrationForm({update}: { update: boolean }) {
                                         </>}
 
                                     <FormField formik={formik} name="phoneNumber" schema={registerSchema}/>
-                                    <FormField formik={formik} name="role" schema={registerSchema}
-                                               options={Roles}/>
-                                    <FormField formik={formik} name="address" schema={registerSchema}/>
-                                    <FormField formik={formik} name="area" schema={registerSchema}/>
-                                    <FormField formik={formik} name="governorate" schema={registerSchema}
-                                               options={Governorates}/>
-                                    {!update && showDocument && <>
-                                        <DocumentUpload formik={formik} schema={registerSchema}
-                                                        label={`Upload a document to prove your credentials as a ${role}.`}/>
-                                    </>
-                                    }
-                                    {!update && <div className="mb-3 form-check">
-                                        <input type="checkbox" className="form-check-input"
-                                               checked={formik.values.acceptTerms === 'true'}
-                                               onChange={() => formik.setFieldValue('acceptTerms', formik.values.acceptTerms === 'true' ? 'false' : 'true')}/>
-                                        <label className="form-check-label">I have read and accepted the <NavLink
-                                            to="/privacy-policy" target="_blank">Privacy Policy </NavLink> and <NavLink
-                                            to="/terms" target="_blank">Terms and Conditions</NavLink> for the I Love
-                                            Maadi (NGO). </label>
-                                        {formik.submitCount > 0 && formik.errors.acceptTerms &&
-                                            <div className="invalid-feedback d-block">{formik.errors.acceptTerms}</div>}
+                                    {!update && <FormField formik={formik} name="role" schema={registerSchema}
+                                                           options={Roles}/>}
+
+                                    {update && <div className="form-group">
+                                        <label className="col-md-2 form-label">Role</label>
+                                        <div className="col-md-8">{formik.values.role}</div>
                                     </div>}
 
-                                </div>
-                                <div className="col-md-6">
+                                    {role === 'Doctor' && <div className="card">
+                                        <div className="card-header">
+                                            <h5>Clinic Details</h5>
+                                        </div>
+                                        <div className="card-body">
+                                            <FormField formik={formik} name="doctorSpeciality" schema={registerSchema}
+                                                       options={Specializations}/>
+                                            <FormField formik={formik} name="numberOfProBonoCases"
+                                                       schema={registerSchema}/>
+                                        </div>
+                                    </div>}
+
+                                    {role === 'Teacher' && <div className="card">
+                                        <div className="card-header">
+                                            <h5>Clinic Details</h5>
+                                        </div>
+                                        <div className="card-body">
+                                            <FormField formik={formik} name="teacherSpeciality" schema={registerSchema}
+                                                       options={Subjects}/>
+                                            <FormField formik={formik} name="numberOfProBonoClasses"
+                                                       schema={registerSchema}/>
+                                            <FormField formik={formik} name="numberOfProBonoStudents"
+                                                       schema={registerSchema}/>
+                                        </div>
+                                        </div>
+                                    }
+                                        <FormField formik={formik} name="address" schema={registerSchema}/>
+                                        <FormField formik={formik} name="area" schema={registerSchema}/>
+                                        <FormField formik={formik} name="governorate" schema={registerSchema}
+                                                   options={Governorates}/>
+                                        {!update && showDocument && <>
+                                            <DocumentUpload formik={formik} schema={registerSchema}
+                                                            label={`Upload a document to prove your credentials as a ${role}.`}/>
+                                        </>
+                                        }
+                                        {!update && <div className="mb-3 form-check">
+                                            <input type="checkbox" className="form-check-input"
+                                                   checked={formik.values.acceptTerms === 'true'}
+                                                   onChange={() => formik.setFieldValue('acceptTerms', formik.values.acceptTerms === 'true' ? 'false' : 'true')}/>
+                                            <label className="form-check-label">I have read and accepted the <NavLink
+                                                to="/privacy-policy" target="_blank">Privacy
+                                                Policy </NavLink> and <NavLink
+                                                to="/terms" target="_blank">Terms and Conditions</NavLink> for the I
+                                                Love
+                                                Maadi (NGO). </label>
+                                            {formik.submitCount > 0 && formik.errors.acceptTerms &&
+                                                <div
+                                                    className="invalid-feedback d-block">{formik.errors.acceptTerms}</div>}
+                                        </div>}
+
+                                    </div>
+                                        <div className="col-md-6">
                                     {(isLoaded ?
                                         <GoogleMap
-                                            mapContainerStyle={containerStyle}
-                                            onLoad={onLoad}
-                                            onUnmount={onUnmount}
-                                            onClick={handleMapClick}
-                                        >
-                                            {position && <MarkerF position={position}/>}
-                                        </GoogleMap>
-                                        : <></>)}
-                                </div>
+                                        mapContainerStyle={containerStyle}
+                                     onLoad={onLoad}
+                                     onUnmount={onUnmount}
+                                     onClick={handleMapClick}
+                                >
+                                    {position && <MarkerF position={position}/>}
+                                </GoogleMap>
+                                : <></>
+                                )}
                             </div>
-                            {!update &&
-                                <div className="form-group mt-2">
-                                    <button type="submit" className="btn btn-primary"
-                                            onClick={formik.submitForm}>Register
-                                    </button>
-                                    <NavLink className="btn btn-secondary mx-2"
-                                             to="/donor/login">Already have an account? Login
-                                    </NavLink>
-                                </div>}
-                            {update &&
-                                <div className="form-group mt-2">
-                                <button type="submit" className="btn btn-primary"
-                                            onClick={formik.submitForm}>Update
-                                    </button>
-                                    <NavLink type="button" className="btn btn-secondary mx-2"
-                                             to="/donor">Cancel
-
-                                    </NavLink>
-                                </div>}
                         </div>
-                    )
+                {
+                    !update &&
+                    <div className="form-group mt-2">
+                        <button type="submit" className="btn btn-primary"
+                                onClick={formik.submitForm}>Register
+                        </button>
+                        <NavLink className="btn btn-secondary mx-2"
+                                 to="/donor/login">Already have an account? Login
+                        </NavLink>
+                    </div>
                 }
-            }
-        </Formik>
-    );
-}
+                {
+                    update &&
+                    <div className="form-group mt-2">
+                        <button type="submit" className="btn btn-primary"
+                                onClick={formik.submitForm}>Update
+                        </button>
+                        <NavLink type="button" className="btn btn-secondary mx-2"
+                                 to="/donor">Cancel
 
-export default RegistrationForm;
+                        </NavLink>
+                    </div>
+                }
+                </div>
+                )
+                }
+                }
+                </Formik>
+                )
+                    ;
+                }
+
+                export default RegistrationForm;
